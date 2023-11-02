@@ -46,7 +46,7 @@ interface BulletComProps {
 }
 
 const Bullet = memo(function Bullet({ bulletProps }: BulletComProps) {
-  console.log("bulletProps: ", bulletProps);
+  // console.log("bulletProps: ", bulletProps);
 
   const bulletRef = useRef(null);
   useEffect(function () {

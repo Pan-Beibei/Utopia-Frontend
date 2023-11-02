@@ -50,7 +50,6 @@ function TextProvider({ children }: TextProviderProps) {
       try {
         const res = await fetch("./data/data.json");
         const mdata = await res.json();
-        // console.log(mdata);
 
         dispatch({ type: "init", payload: mdata["data"] });
       } catch (error) {
@@ -64,7 +63,6 @@ function TextProvider({ children }: TextProviderProps) {
   }, []);
 
   function getTextByIndex(index: number) {
-    // console.log("data: ", index, data);
 
     return data[index];
   }

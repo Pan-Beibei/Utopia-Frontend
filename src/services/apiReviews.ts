@@ -14,8 +14,8 @@ export async function sendReview(sendData: string) {
       }),
     });
     const data = await res.json();
-    // console.log(data.data);
-    return { createAt: data.data.data.createAt, review: data.data.data.review };
+    console.log(data);
+    return { createAt: data.createAt, review: data.review };
     //
   } catch (err) {
     console.log(err);
@@ -28,7 +28,7 @@ export async function getAllReviews() {
     const data = await res.json();
     console.log(data);
 
-    return data.data.data;
+    return data;
   } catch (err) {
     console.log(err);
   }

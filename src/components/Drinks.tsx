@@ -41,7 +41,6 @@ function Drinks() {
 
   const info: InfoProps = getTextByIndex(1);
   if (!info) return null;
-  // console.log(info);
   const des = info.description as string;
   const desArr = des.split("|");
 

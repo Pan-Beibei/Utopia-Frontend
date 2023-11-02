@@ -2,7 +2,19 @@ import { createGlobalStyle } from "styled-components";
 
 const GlobalStyles = createGlobalStyle`
 :root {
-  /* text */
+  --warm-background-color: #FFFAF0;
+  --warm-primary-text-color: #8B4513;
+  --warm-secondary-text-color: #D2691E;
+  --warm-primary-button-color: #CD853F;
+  --warm-secondary-button-color: #F4A460;
+  --warm-hover-color: #FFD700;
+
+  --cool-background-color: #F0F8FF;
+  --cool-primary-text-color: #4682B4;
+  --cool-secondary-text-color: #5F9EA0;
+  --cool-primary-button-color: #7B68EE;
+  --cool-secondary-button-color: #6A5ACD;
+  --cool-hover-color: #1E90FF;
 
 
   --card-height: 700px;

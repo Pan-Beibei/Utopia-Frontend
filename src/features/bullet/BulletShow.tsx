@@ -17,6 +17,8 @@ function BulletShow() {
   const bullets = useSelector(getBullets);
   const containerRef = useRef(null);
 
+  console.log("bullets: ", bullets);
+
   return (
     <StyledBulletContainer ref={containerRef}>
       {bullets.map((el, index) => {

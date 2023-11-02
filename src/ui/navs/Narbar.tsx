@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Logo from "../Logo";
 import NavLinks from "./NavLinks";
+import SwitchThemeButton from "../../themes/ThemeContext";
 
 const StyledNarbar = styled.nav`
   display: flex;
@@ -29,22 +30,32 @@ const StyledNavTable = styled.div`
   }
 `;
 
+const StyledRow = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+`;
+
 function Narbar() {
   return (
     <StyledNarbar>
       <Logo />
-      <StyledNavMobile>
-        <NavLinks>
-          <NavLinks.Toggle>
-            <NavLinks.NavBg>
-              <NavLinks.Links />
-            </NavLinks.NavBg>
-          </NavLinks.Toggle>
-        </NavLinks>
-      </StyledNavMobile>
-      <StyledNavTable>
-        <NavLinks.Links direction="row" />
-      </StyledNavTable>
+      <StyledRow>
+        <SwitchThemeButton />
+        <StyledNavMobile>
+          <NavLinks>
+            <NavLinks.Toggle>
+              <NavLinks.NavBg>
+                <NavLinks.Links />
+              </NavLinks.NavBg>
+            </NavLinks.Toggle>
+          </NavLinks>
+        </StyledNavMobile>
+        <StyledNavTable>
+          <NavLinks.Links direction="row" />
+        </StyledNavTable>
+      </StyledRow>
     </StyledNarbar>
   );
 }

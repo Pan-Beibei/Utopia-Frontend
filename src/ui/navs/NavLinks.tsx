@@ -2,6 +2,7 @@ import styled, { css } from "styled-components";
 import { useState, createContext, useContext } from "react";
 import { NavLink } from "react-router-dom";
 
+
 const StyledNavLinks = styled.ul<{ $direction?: string }>`
   ${(props) => css`
     flex-direction: ${props.$direction ? props.$direction : "column"};
@@ -136,6 +137,7 @@ function Links({ direction }: LinksProps) {
       <StyledNavLink to="/activity-info">
         <StyledImportantSpan> 活动</StyledImportantSpan>
       </StyledNavLink>
+
       {/* <StyledNavLink to="/member-login">会员登录</StyledNavLink> */}
     </StyledNavLinks>
   );

@@ -71,7 +71,6 @@ const bulletSlice = createSlice({
     },
     deleteBullet(state, action) {
       state.bullets = state.bullets.filter((el) => el.id !== action.payload);
-      console.log("state.bullets: ", state.bullets);
     },
   },
 });

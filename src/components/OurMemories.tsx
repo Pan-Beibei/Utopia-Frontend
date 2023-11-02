@@ -131,21 +131,6 @@ const StyledFigcaption = styled.figcaption`
   z-index: 1;
 `;
 
-// const imgs = [
-//   "pic-1",
-//   "pic-2",
-//   "pic-3",
-//   "pic-4",
-//   "pic-5",
-//   "pic-6",
-//   "pic-7",
-//   "pic-8",
-//   "pic-9",
-//   "pic-10",
-//   "pic-11",
-//   "pic-12",
-// ];
-
 const tits = [
   "8 PM, Summer",
   "3 PM, Winter",
@@ -200,7 +185,6 @@ function OurMemories() {
     if (gallery.classList.contains("active")) {
       return;
     }
-    // console.log("start animotion");
     gallery.classList.add("active");
     setTimeout(() => {
       animEnd();
