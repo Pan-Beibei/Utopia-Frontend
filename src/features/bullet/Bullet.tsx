@@ -1,13 +1,9 @@
-import { useEffect, useRef, memo } from "react";
+import { useEffect, useRef, memo, useCallback } from "react";
 import styled, { css } from "styled-components";
-// import { animated } from "@react-spring/web";
 import { BulletProps } from "./bulletSlice";
 
-// import { deleteBullet } from "./BulletSlice";
-// import store from "../../store";
-
 interface BulletStyleProps {
-  $fontSize: string;
+  $fontSize: number;
   $fontColor: string;
   $speed: number;
   $from: string;
@@ -15,83 +11,75 @@ interface BulletStyleProps {
   $posY: number;
 }
 
-// animation: ${(rightToLeft.rules = `${props.$from} ${props.$to}`)};
-const StyledBullet = styled.div<BulletStyleProps>`
-  ${(props) => css`
-    font-size: ${props.$fontSize};
-    color: ${props.$fontColor};
-    top: ${props.$posY}px;
-
-    animation: rightToLeft ${props.$speed}s linear;
-    // animation-direction: reverse;
-    animation-fill-mode: forwards;
-
-    @keyframes rightToLeft {
-      ${props.$from} ${props.$to}
-    }
-  `}
-
+const constantStyles = css`
   background-color: #fff;
+  white-space: nowrap;
   opacity: 0.8;
   border-radius: 0.3rem;
   padding: 0.2rem 0.5rem;
   position: absolute;
   left: 0;
-
   will-change: transform;
+`;
+
+// animation: ${(rightToLeft.rules = `${props.$from} ${props.$to}`)};
+const StyledBullet = styled.div<BulletStyleProps>`
+  ${constantStyles}
+
+  ${(props) => css`
+    font-size: ${props.$fontSize}rem;
+    color: ${props.$fontColor};
+    top: ${props.$posY}px;
+
+    animation: rightToLeft ${props.$speed}s linear;
+    animation-fill-mode: forwards;
+
+    @keyframes rightToLeft {
+      ${props.$from}
+      ${props.$to}
+    }
+  `}
 `;
 
 interface BulletComProps {
   bulletProps: BulletProps;
+  animationend: (id: string, track: number) => void;
 }
 
-const Bullet = memo(function Bullet({ bulletProps }: BulletComProps) {
-  // console.log("bulletProps: ", bulletProps);
-
+const Bullet = memo(function Bullet({
+  bulletProps,
+  animationend,
+}: BulletComProps) {
   const bulletRef = useRef(null);
-  useEffect(function () {
-    if (bulletRef.current) {
-      const element = bulletRef.current as Element;
+  const { id, fontSize, fontColor, speed, track, text } = bulletProps;
 
-      // element.animate(
-      //   [
-      //     {
-      //       transform: `translate3d(-100%, 0, 0)`,
-      //     },
-      //     {
-      //       transform: `translate3d(${window.innerWidth}px, 0, 0)`,
-      //     },
-      //   ],
-      //   {
-      //     duration: 10000,
-      //     fill: "forwards",
-      //     direction: "reverse",
-      //   }
-      // );
+  const handleAnimationEnd = useCallback(() => {
+    console.log("animation end: ", id);
+    animationend(id, track);
+  }, [id, track, animationend]);
 
-      element.addEventListener("animationend", function (e: Event) {
-        const node = e.target as HTMLDivElement;
-        node.style.visibility = "hidden"; // 隐藏元素
-      });
+  useEffect(() => {
+    if (!bulletRef.current) return;
+    const element = bulletRef.current as Element;
+    if (element) {
+      element.addEventListener("animationend", handleAnimationEnd);
+      return () => {
+        element.removeEventListener("animationend", handleAnimationEnd);
+      };
     }
-  }, []);
+  }, [handleAnimationEnd]);
 
   return (
     <StyledBullet
-      $fontSize={bulletProps.fontSize}
-      $fontColor={bulletProps.fontColor}
-      $speed={bulletProps.speed > 15 ? bulletProps.speed : 15}
-      $from={`from {
-        transform: translateX(${window.innerWidth}px);
-      }`}
-      $to={`to {
-
-        transform: translateX(-100%);
-      }`}
-      $posY={bulletProps.posY}
+      $fontSize={fontSize}
+      $fontColor={fontColor}
+      $speed={speed}
+      $from={`from { transform: translateX(${window.innerWidth}px); }`}
+      $to={`to { transform: translateX(-100%); }`}
+      $posY={track * 20}
       ref={bulletRef}
     >
-      {bulletProps.text}
+      {text}
     </StyledBullet>
   );
 });

@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import ReviewDetail from "./ReviewtDetail";
 import ReviewInput from "./ReviewInput";
 // import { HTTPS } from "../../utils/APIRoutes";
-import store from "../../store";
+import store from "../../store/store";
 import { init, getReviews } from "./reviewSlice";
 import { useSelector } from "react-redux";
 import { getAllReviews } from "../../services/apiReviews";

@@ -38,14 +38,6 @@ function BulletInputText({ socket }: BulletInputTextProps) {
   const [inputText, setInputText] = useState("");
   const userId = useSelector(getUserId);
 
-  // useEffect(() => {
-  //   if (socket.current) {
-  //     socket.current.on("msg-recieve", (msg) => {
-  //       setArrivalMessage({ fromSelf: false, message: msg });
-  //     });
-  //   }
-  // }, []);
-
   function handleSendClick() {
     if (inputText.length > 3) {
       if (socket.current) {

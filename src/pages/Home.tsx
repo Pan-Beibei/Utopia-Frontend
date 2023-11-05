@@ -10,7 +10,7 @@ import BulletInputText from "../features/bullet/BulletInputText";
 import { SERVER_ADDRESS, MsgType } from "./../utils/APIRoutes";
 import { addBullet } from "../features/bullet/bulletSlice";
 import { setUserId } from "../features/user/userSlice";
-import store from "../store";
+import store from "../store/store";
 
 const StyledHome = styled.div`
   // padding: 5rem;

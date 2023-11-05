@@ -9,7 +9,7 @@ import {
 
 import { sendReview } from "../../services/apiReviews";
 import { addReview } from "./reviewSlice";
-import store from "../../store";
+import store from "../../store/store";
 
 function ReviewInput() {
   const [inputText, setInputText] = useState("");
