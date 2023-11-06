@@ -13,24 +13,11 @@ const StyledHero = styled.section`
   overflow: hidden;
 `;
 
-// const StyledTextDiv = styled.p`
-//   position: absolute;
-//   top: 50%;
-//   left: 50%;
-//   font-size: 2rem;
-//   color: white;
-//   text-align: center;
-//   transform: translate(-50%, 5%);
-// `;
-
 function Hero() {
   return (
     <StyledHero>
       <BulletShow />
       <Video isAutoPlay={true} isControls={false} isLoop={true} />
-      {/* <StyledTextDiv>
-        一个几乎24小时营业的灵魂寄居所 --- 六元咖啡馆
-      </StyledTextDiv> */}
     </StyledHero>
   );
 }

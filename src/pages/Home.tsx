@@ -13,12 +13,10 @@ import { setUserId } from "../features/user/userSlice";
 import store from "../store/store";
 
 const StyledHome = styled.div`
-  // padding: 5rem;
   display: flex;
+  justify-content: center;
   flex-direction: column;
   gap: 5rem;
-  // width: 100%;
-  // height: 100%;
   background-color: var(--primary-color);
 `;
 
@@ -59,9 +57,9 @@ function Home() {
   return (
     <StyledHome>
       <Hero />
+      <BulletInputText socket={socketRef} />
       <Drinks />
       <OurMemories />
-      <BulletInputText socket={socketRef} />
     </StyledHome>
   );
 }

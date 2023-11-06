@@ -31,7 +31,7 @@ function BulletShow() {
 
       setData(newBullets); // 取出前10条弹幕数据
       setInitialized(true); // 设置已经初始化过
-      console.log("InitBullets: ", newBullets);
+      // console.log("InitBullets: ", newBullets);
     }
   }, [bullets, initialized]);
 
@@ -56,8 +56,8 @@ function BulletShow() {
         { ...newBullet, track },
       ]);
 
-      console.log("获取新弹幕: ", newBullet);
-      console.log("idSet: ", bulletIdsRef.current, newBullet.id);
+      // console.log("获取新弹幕: ", newBullet);
+      // console.log("idSet: ", bulletIdsRef.current, newBullet.id);
     } else {
       setData((prevData) => prevData.filter((bullet) => bullet.id !== id));
     }

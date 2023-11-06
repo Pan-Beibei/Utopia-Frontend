@@ -1,33 +1,44 @@
 import React, { useState } from "react";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { Socket } from "socket.io-client";
+import { useSelector } from "react-redux";
+import data from "@emoji-mart/data";
+import Picker from "@emoji-mart/react";
 import { MsgType } from "../../utils/APIRoutes";
 import { getUserId } from "../user/userSlice";
-import { useSelector } from "react-redux";
+
 //
-const StyledBulletInputContainer = styled.div<{ $height: number }>`
-  ${(props) => css`
-    top: ${props.$height - 50}px;
-  `}
-  padding: 0 1rem;
-  position: fixed;
-  left: 0;
+const StyledBulletInputContainer = styled.div`
+  border: 1px solid #ccc;
+  position: sticky;
+  top: 10rem;
+  padding: 0 0.5rem;
+  z-index: 100;
+`;
+
+const FlexRow = styled.div`
   display: flex;
-  width: 100%;
   align-items: center;
-  // justify-content: center;
-  gap: 1rem;
+  gap: 0.5rem;
 `;
 
 const StyledInputText = styled.input`
-  padding: 0.5rem 1rem;
-  min-width: 25rem;
+  flex-grow: 1;
+  flex-shrink: 1;
+  max-width: 70%;
 `;
 const StyledButton = styled.button`
-  padding: 0.5rem 2rem;
-  background-color: var(--primary-color);
-  color: var(--primary-text);
-  border: none;
+  padding: 2px;
+`;
+
+const EmojiButton = styled.button`
+  padding: 2px;
+`;
+
+const EmojiContainer = styled.div`
+  position: absolute;
+  bottom: 3rem;
+  left: 0;
 `;
 
 interface BulletInputTextProps {
@@ -36,6 +47,7 @@ interface BulletInputTextProps {
 
 function BulletInputText({ socket }: BulletInputTextProps) {
   const [inputText, setInputText] = useState("");
+  const [showPicker, setShowPicker] = useState(false);
   const userId = useSelector(getUserId);
 
   function handleSendClick() {
@@ -51,19 +63,36 @@ function BulletInputText({ socket }: BulletInputTextProps) {
     }
   }
   function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
-    // const inputText = e.target as Element;
-    // console.log(e.target.value);
     setInputText(e.target.value);
   }
 
   return (
-    <StyledBulletInputContainer $height={window.innerHeight}>
-      <StyledInputText
-        type="text"
-        value={inputText}
-        onChange={handleInputChange}
-      ></StyledInputText>
-      <StyledButton onClick={handleSendClick}>发送</StyledButton>
+    <StyledBulletInputContainer>
+      {showPicker && (
+        <EmojiContainer>
+          <Picker
+            data={data}
+            onEmojiSelect={console.log}
+            emojiSize={20}
+            emojiButtonSize={30}
+            previewPosition="none"
+            navPosition="none"
+            perLine={8}
+          />
+        </EmojiContainer>
+      )}
+
+      <FlexRow>
+        <StyledInputText
+          type="text"
+          value={inputText}
+          onChange={handleInputChange}
+        ></StyledInputText>
+        <EmojiButton onClick={() => setShowPicker(!showPicker)}>
+          表情
+        </EmojiButton>
+        <StyledButton onClick={handleSendClick}>发送</StyledButton>
+      </FlexRow>
     </StyledBulletInputContainer>
   );
 }
