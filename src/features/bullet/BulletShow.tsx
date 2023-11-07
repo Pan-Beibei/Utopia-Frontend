@@ -17,7 +17,6 @@ const StyledBulletContainer = forwardRef<
       width: "100%",
       backgroundColor: "transparent",
       position: "absolute",
-      top: "10rem",
       overflow: "hidden",
     }}
   >

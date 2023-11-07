@@ -1,6 +1,6 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import styled, { css, keyframes } from "styled-components";
-// import { animated, useTransition } from "@react-spring/web";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 const StyledMemories = styled.section`
   position: relative;
@@ -8,9 +8,8 @@ const StyledMemories = styled.section`
   justify-content: center;
   align-items: center;
   max-width: 100vw;
-  // min-height: 100vh;
   overflow-x: hidden;
-  background-image: url("https://images.unsplash.com/photo-1531685250784-7569952593d2?crop=entropy&cs=srgb&fm=jpg&ixid=M3wzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2OTMyOTE2OTh8&ixlib=rb-4.0.3&q=100&w=3000");
+  background-image: url("./block3/back.webp");
   background-size: cover;
 `;
 
@@ -86,7 +85,7 @@ const StyledFigure = styled.figure<{
   height: auto;
   text-align: center;
   background-color: ghostwhite;
-  background-image: url("https://images.unsplash.com/photo-1629968417850-3505f5180761?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2OTMzMjQ3ODJ8&ixlib=rb-4.0.3&q=80&w=500");
+  background-image: url("./block3/pic-back.webp");
   background-size: cover;
   background-position: center;
   background-blend-mode: multiply;
@@ -115,7 +114,7 @@ const StyledFigure = styled.figure<{
   }
 `;
 
-const StyledImg = styled.img`
+const StyledLazyLoadImage = styled(LazyLoadImage)`
   aspect-ratio: 1 /1;
   width: 100%;
   object-fit: cover;
@@ -131,20 +130,6 @@ const StyledFigcaption = styled.figcaption`
   z-index: 1;
 `;
 
-const tits = [
-  "8 PM, Summer",
-  "3 PM, Winter",
-  "10 AM, Summer Storm",
-  "5 PM, Autumn",
-  "7 PM, Spring",
-  "6:30 AM, Summer",
-  "6 PM, Autumn",
-  "5 PM, Summer",
-  "11 AM, Summer",
-  "2 PM, Spring Rainbow",
-  "4 PM, Autumn",
-];
-
 const colors = [
   "crimson",
   "hotpink",
@@ -157,27 +142,10 @@ const colors = [
 ];
 
 function OurMemories() {
-  useEffect(function () {
-    window.addEventListener("scroll", handScroll);
-
-    return () => window.removeEventListener("scroll", handScroll);
-  });
-
   const galleryRef = useRef(null);
-  const imgs = [];
-  for (let i = 1; i < 19; i++) {
-    imgs.push("pic-" + i);
-  }
+  const [imgs, setImgs] = useState<string[]>([]);
 
-  function animEnd() {
-    if (!galleryRef.current) {
-      return;
-    }
-    const gallery = galleryRef.current as Element;
-    gallery.classList.remove("active");
-  }
-
-  function animStart() {
+  const animStart = useCallback(() => {
     if (!galleryRef.current) {
       return;
     }
@@ -186,17 +154,41 @@ function OurMemories() {
       return;
     }
     gallery.classList.add("active");
+
+    function animEnd() {
+      if (!galleryRef.current) {
+        return;
+      }
+      const gallery = galleryRef.current as Element;
+      gallery.classList.remove("active");
+    }
+
     setTimeout(() => {
       animEnd();
     }, 7000);
-  }
+  }, []);
 
-  function handScroll() {
+  const handScroll = useCallback(() => {
     if (!galleryRef.current) {
       return;
     }
     animStart();
-  }
+  }, [animStart]);
+
+  useEffect(
+    function () {
+      window.addEventListener("scroll", handScroll);
+
+      const images = [];
+      for (let i = 1; i < 19; i++) {
+        images.push("pic-" + i);
+      }
+      setImgs(images);
+
+      return () => window.removeEventListener("scroll", handScroll);
+    },
+    [setImgs, handScroll]
+  );
 
   return (
     <StyledMemories>
@@ -209,8 +201,11 @@ function OurMemories() {
               $direction={index % 2 ? "alternate" : "alternate-reverse"}
               key={el}
             >
-              <StyledImg src={"./block3/" + el + ".jpg"} />
-              <StyledFigcaption>{tits[index]}</StyledFigcaption>
+              <StyledLazyLoadImage
+                src={"./block3/" + el + ".jpg"}
+                placeholder={<div>Loading...</div>}
+              />
+              <StyledFigcaption>{"title" + index}</StyledFigcaption>
             </StyledFigure>
           );
         })}

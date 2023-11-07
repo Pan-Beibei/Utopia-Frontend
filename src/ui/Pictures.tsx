@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 interface PicturesProps {
   imgs: Array<string>;
@@ -17,7 +18,11 @@ function Pictures({ imgs, altstr }: PicturesProps) {
     <StyledPicture>
       <source media="(max-width: 768px)" srcSet={imgs[0]} />
       <source media="(min-width: 768px)" srcSet={imgs[1]} />
-      <img src={imgs[0]} alt={altstr} />
+      <LazyLoadImage
+        src={imgs[0]}
+        alt={altstr}
+        placeholder={<div>Loading...</div>}
+      />
     </StyledPicture>
   );
 }

@@ -22,7 +22,6 @@ const constantStyles = css`
   will-change: transform;
 `;
 
-// animation: ${(rightToLeft.rules = `${props.$from} ${props.$to}`)};
 const StyledBullet = styled.div<BulletStyleProps>`
   ${constantStyles}
 
@@ -76,7 +75,7 @@ const Bullet = memo(function Bullet({
       $speed={speed}
       $from={`from { transform: translateX(${window.innerWidth}px); }`}
       $to={`to { transform: translateX(-100%); }`}
-      $posY={track * 20}
+      $posY={track * 30}
       ref={bulletRef}
     >
       {text}
