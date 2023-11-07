@@ -1,50 +1,78 @@
-import styled, { css } from "styled-components";
-import { useState, createContext, useContext } from "react";
-import { NavLink } from "react-router-dom";
+import styled from "styled-components";
+import { useState, createContext, useContext, ReactNode } from "react";
+import { LinkProps, NavLink } from "react-router-dom";
+import { Box } from "@mui/system";
+import { Link } from "@mui/material";
 
+type FlexDirectionType = "row" | "row-reverse" | "column" | "column-reverse";
 
-const StyledNavLinks = styled.ul<{ $direction?: string }>`
-  ${(props) => css`
-    flex-direction: ${props.$direction ? props.$direction : "column"};
-  `}
-  display: flex;
-  // flex-direction: column;
-  align-items: center;
-  gap: 2.5rem;
-`;
+type StyledNavLinksProps = {
+  direction?: FlexDirectionType;
+  children?: React.ReactNode;
+};
 
-const StyledNavLink = styled(NavLink)`
-  text-transform: uppercase;
-  font-size: 1.2rem;
-  font-weight: bold;
-  letter-spacing: 0.2rem;
-  // font-weight: 400;
-`;
+const StyledNavLinks = ({
+  direction = "column",
+  children,
+}: StyledNavLinksProps) => (
+  <Box
+    component="ul"
+    display="flex"
+    flexDirection={direction}
+    alignItems="center"
+    gap={2.5}
+  >
+    {children}
+  </Box>
+);
 
-const StyledNavBg = styled.div`
-  background-color: var(--primary-color);
-  color: #000;
-  width: 25rem;
-  height: 20rem;
-  position: absolute;
-  top: 4rem;
-  right: 0;
+const StyledNavLink = (props: LinkProps) => (
+  <Link
+    {...props}
+    component={NavLink}
+    underline="none"
+    sx={{
+      textTransform: "uppercase",
+      fontSize: "1.2rem",
+      fontWeight: "bold",
+      letterSpacing: "0.2rem",
+    }}
+  />
+);
 
-  // display: flex;
-  // flex-direction: column;
-  // align-items: center;
-  // justify-content: center;
-`;
+const StyledNavBg = ({ children }: { children?: ReactNode }) => (
+  <Box
+    sx={{
+      backgroundColor: "background.default",
+      color: "primary.main",
+      width: "25rem",
+      height: "20rem",
+      position: "absolute",
+      top: "4rem",
+      right: 0,
+    }}
+  >
+    {children}
+  </Box>
+);
 
 const StyledToggle = styled.div`
   position: relative;
 `;
 
-const StyledImportantSpan = styled.span`
-  background-color: var(--second-color);
-  padding: 0.5rem;
-  border-radius: 0.5rem;
-`;
+const StyledImportantSpan = ({ children }: { children?: ReactNode }) => (
+  <Box
+    component="span"
+    sx={{
+      color: "#000",
+      backgroundColor: "primary.main",
+      padding: "0.5rem",
+      borderRadius: "0.5rem",
+    }}
+  >
+    {children}
+  </Box>
+);
 
 type ContextType = {
   isOpen: boolean;
@@ -81,26 +109,20 @@ function Toggle({ children }: ToggleProps) {
     return null;
   }
   const { isOpen, open, close } = context;
-
-  //e: React.MouseEvent<HTMLDivElement, MouseEvent>
   function handleClick() {
-    // console.log(e);
-
     if (isOpen) {
       close();
-      // console.log("close");
     } else {
       open();
-      // console.log("open");
     }
   }
 
   return (
     <StyledToggle onClick={handleClick}>
       {isOpen ? (
-        <img src="./icons/close.svg" alt="menu" />
+        <img src="./icons/close.svg" width={25} alt="menu" />
       ) : (
-        <img src="./icons/hamburger.svg" alt="menu" />
+        <img src="./icons/hamburger.svg" width={25} alt="menu" />
       )}
 
       {children}
@@ -124,20 +146,19 @@ function NavBg({ children }: NavBgProps) {
 }
 
 interface LinksProps {
-  direction?: string;
+  direction?: FlexDirectionType;
 }
 
 function Links({ direction }: LinksProps) {
   return (
-    <StyledNavLinks $direction={direction}>
+    <StyledNavLinks direction={direction}>
       <StyledNavLink to="/">Home</StyledNavLink>
-      {/* <StyledNavLink to="/peripheral-products">咖啡馆周边</StyledNavLink> */}
-      {/* <StyledNavLink to="/tourist-attractions">小众景点</StyledNavLink> */}
       <StyledNavLink to="/hotel-info">咖啡馆房间</StyledNavLink>
       <StyledNavLink to="/activity-info">
         <StyledImportantSpan> 活动</StyledImportantSpan>
       </StyledNavLink>
-
+      {/* <StyledNavLink to="/peripheral-products">咖啡馆周边</StyledNavLink> */}
+      {/* <StyledNavLink to="/tourist-attractions">小众景点</StyledNavLink> */}
       {/* <StyledNavLink to="/member-login">会员登录</StyledNavLink> */}
     </StyledNavLinks>
   );

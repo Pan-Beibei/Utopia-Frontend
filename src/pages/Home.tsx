@@ -1,6 +1,6 @@
-import { useEffect, useRef } from "react";
+import { ReactNode, useEffect, useRef } from "react";
 import { io, Socket } from "socket.io-client";
-import styled from "styled-components";
+import { Box } from "@mui/system";
 import FingerprintJS from "@fingerprintjs/fingerprintjs";
 import Hero from "../components/Hero";
 import Drinks from "../components/Drinks";
@@ -12,13 +12,30 @@ import { addBullet } from "../features/bullet/bulletSlice";
 import { setUserId } from "../features/user/userSlice";
 import store from "../store/store";
 
-const StyledHome = styled.div`
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  gap: 5rem;
-  background-color: var(--primary-color);
-`;
+const StyledHome = ({ children }: { children?: ReactNode }) => (
+  <Box
+    sx={{
+      display: "flex",
+      justifyContent: "center",
+      flexDirection: "column",
+      gap: "5rem",
+      backgroundColor: "background.default",
+    }}
+  >
+    {children}
+  </Box>
+);
+
+const FlexColumn = ({ children }: { children?: ReactNode }) => (
+  <Box
+    sx={{
+      gap: "2rem",
+      width: "100%",
+    }}
+  >
+    {children}
+  </Box>
+);
 
 function Home() {
   const socketRef = useRef<Socket | null>(null);
@@ -56,8 +73,11 @@ function Home() {
 
   return (
     <StyledHome>
-      <Hero />
-      <BulletInputText socket={socketRef} />
+      <FlexColumn>
+        <Hero />
+        <BulletInputText socket={socketRef} />
+      </FlexColumn>
+
       <Drinks />
       <OurMemories />
     </StyledHome>

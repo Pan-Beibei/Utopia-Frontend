@@ -1,40 +1,62 @@
-import styled, { css } from "styled-components";
-
+import { ReactNode } from "react";
+import { Box, Typography } from "@mui/material";
 import { useText, InfoProps } from "../contexts/TextContext";
 import Pictures from "../ui/Pictures";
 
-const StyledDrinks = styled.section`
-  padding: 0 2rem;
-  display: flex;
-  flex-direction: column;
-  gap: 3rem;
+const StyledDrinks = ({ children }: { children?: ReactNode }) => (
+  <Box
+    component="section"
+    sx={{
+      padding: "0 2rem",
+      display: "flex",
+      flexDirection: "column",
+      gap: "3rem",
+      justifyContent: "center",
+      alignItems: "center",
+      "@media (min-width: 768px)": {
+        flexDirection: "row",
+      },
+    }}
+  >
+    {children}
+  </Box>
+);
 
-  justify-content: center;
-  align-items: center;
-  @media (min-width: 768px) {
-    flex-direction: row;
-  }
-`;
+const StyledText = ({
+  children,
+  $isMain,
+}: {
+  children?: ReactNode;
+  $isMain: boolean;
+}) => (
+  <Typography
+    sx={{
+      fontSize: $isMain ? "1.8rem" : "1.5rem",
+      color: "text.primary",
+      "@media (min-width: 600px)": {
+        fontSize: $isMain ? "2.8rem" : "2.5rem",
+      },
+    }}
+  >
+    {children}
+  </Typography>
+);
 
-const StyledText = styled.div<{ $isMain: boolean }>`
-  ${(props) => css`
-    font-size: ${props.$isMain ? "1.8rem" : "1.5rem"};
-    @media (min-width: 600px) {
-      font-size: ${props.$isMain ? "2.8rem" : "2.5rem"};
-    }
-  `}
-  color: var(--second-color);
-`;
-
-const StyledFlexRow = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  @media (min-width: 768px) {
-    gap: 3rem;
-  }
-`;
+const StyledFlexRow = ({ children }: { children?: ReactNode }) => (
+  <Box
+    sx={{
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
+      alignItems: "center",
+      "@media (min-width: 768px)": {
+        gap: "3rem",
+      },
+    }}
+  >
+    {children}
+  </Box>
+);
 
 function Drinks() {
   const { getTextByIndex } = useText();

@@ -1,18 +1,29 @@
-import { useEffect, useRef, useState } from "react";
-import styled from "styled-components";
+import { ReactNode, useEffect, useRef, useState, forwardRef } from "react";
+import { Box } from "@mui/system";
 import { useSelector } from "react-redux";
 import Bullet from "./Bullet";
 import { BulletProps, getBullets, removeBullet } from "./bulletSlice";
 import store from "../../store/store";
 
-const StyledBulletContainer = styled.div`
-  height: 100%;
-  width: 100%;
-  background-color: transparent;
-  position: absolute;
-  top: 10rem;
-  overflow: hidden;
-`;
+const StyledBulletContainer = forwardRef<
+  HTMLDivElement,
+  { children?: ReactNode }
+>((props, ref) => (
+  <Box
+    {...props}
+    ref={ref}
+    sx={{
+      height: "100%",
+      width: "100%",
+      backgroundColor: "transparent",
+      position: "absolute",
+      top: "10rem",
+      overflow: "hidden",
+    }}
+  >
+    {props.children}
+  </Box>
+));
 
 function BulletShow() {
   const bullets = useSelector(getBullets);

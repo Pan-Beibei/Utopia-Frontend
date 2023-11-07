@@ -1,45 +1,105 @@
-import React, { useState } from "react";
-import styled from "styled-components";
+import React, { ReactNode, useState } from "react";
 import { Socket } from "socket.io-client";
 import { useSelector } from "react-redux";
+import { Box } from "@mui/system";
+import { Input, Button } from "@mui/material";
 import data from "@emoji-mart/data";
 import Picker from "@emoji-mart/react";
 import { MsgType } from "../../utils/APIRoutes";
 import { getUserId } from "../user/userSlice";
 
-//
-const StyledBulletInputContainer = styled.div`
-  border: 1px solid #ccc;
-  position: sticky;
-  top: 10rem;
-  padding: 0 0.5rem;
-  z-index: 100;
-`;
+const StyledBulletInputContainer = ({ children }: { children?: ReactNode }) => (
+  <Box
+    sx={(theme) => ({
+      border: `1px solid ${theme.palette.divider}`,
+      position: "relative",
+      padding: "0 0.5rem",
+      borderRadius: theme.shape.borderRadius,
+      boxShadow: "0px 2px 1px -1px rgba(0,0,0,0.2)",
+      zIndex: 100,
+    })}
+  >
+    {children}
+  </Box>
+);
 
-const FlexRow = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-`;
+const FlexRow = ({ children }: { children?: ReactNode }) => (
+  <Box
+    sx={{
+      display: "flex",
+      alignItems: "center",
+      gap: "0.5rem",
+    }}
+  >
+    {children}
+  </Box>
+);
 
-const StyledInputText = styled.input`
-  flex-grow: 1;
-  flex-shrink: 1;
-  max-width: 70%;
-`;
-const StyledButton = styled.button`
-  padding: 2px;
-`;
+const StyledInputText = ({ ...props }) => (
+  <Input
+    {...props}
+    sx={{
+      flexGrow: 1,
+      flexShrink: 1,
+      maxWidth: "70%",
+      padding: "0.5rem",
+    }}
+  />
+);
 
-const EmojiButton = styled.button`
-  padding: 2px;
-`;
+const StyledButton = ({
+  children,
+  onClick,
+  ...props
+}: {
+  children?: ReactNode;
+  onClick: () => void;
+}) => (
+  <Button
+    {...props}
+    onClick={onClick}
+    sx={{
+      fontSize: "1.2rem",
+      padding: "2px",
+      marginLeft: "8px",
+    }}
+  >
+    {children}
+  </Button>
+);
 
-const EmojiContainer = styled.div`
-  position: absolute;
-  bottom: 3rem;
-  left: 0;
-`;
+const EmojiButton = ({
+  children,
+  onClick,
+  ...props
+}: {
+  children?: ReactNode;
+  onClick: () => void;
+}) => (
+  <Button
+    {...props}
+    onClick={onClick}
+    sx={{
+      fontSize: "1.2rem",
+      padding: "2px",
+      marginLeft: "8px",
+    }}
+  >
+    {children}
+  </Button>
+);
+
+const EmojiContainer = ({ children }: { children?: ReactNode }) => (
+  <Box
+    sx={{
+      position: "absolute",
+      bottom: "3rem",
+      left: 0,
+    }}
+  >
+    {children}
+  </Box>
+);
 
 interface BulletInputTextProps {
   socket: React.RefObject<Socket | null>;
@@ -57,6 +117,7 @@ function BulletInputText({ socket }: BulletInputTextProps) {
           id: userId,
           msg: inputText,
         });
+        setInputText("");
       } else {
         console.log("send-bullet: ", inputText, "socket: ", socket.current);
       }

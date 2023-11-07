@@ -7,6 +7,10 @@ const warmColors = {
   primaryButtonColor: "#CD853F",
   secondaryButtonColor: "#F4A460",
   hoverColor: "#FFD700",
+  divider: "#E5E5E5", // a light gray color
+  shape: {
+    borderRadius: 4, // add this line
+  },
 };
 
 const coolColors = {
@@ -16,8 +20,11 @@ const coolColors = {
   primaryButtonColor: "#7B68EE",
   secondaryButtonColor: "#6A5ACD",
   hoverColor: "#1E90FF",
+  divider: "#D3D3D3", // a light gray color
+  shape: {
+    borderRadius: 4, // add this line
+  },
 };
-
 const warmTheme = createTheme({
   palette: {
     background: {
@@ -36,6 +43,10 @@ const warmTheme = createTheme({
     secondary: {
       main: warmColors.secondaryButtonColor,
     },
+    divider: warmColors.divider,
+  },
+  shape: {
+    borderRadius: warmColors.shape.borderRadius, // add this line
   },
 });
 
@@ -57,6 +68,10 @@ const coolTheme = createTheme({
     secondary: {
       main: coolColors.secondaryButtonColor,
     },
+    divider: coolColors.divider,
+  },
+  shape: {
+    borderRadius: coolColors.shape.borderRadius, // add this line
   },
 });
 

@@ -1,40 +1,65 @@
-import styled from "styled-components";
+import { Box, Typography } from "@mui/material";
+import { ReactNode } from "react";
 import { BsWechat, BsBookFill } from "react-icons/bs";
 import { FaBilibili } from "react-icons/fa6";
 
-const StyledFooter = styled.div`
-  padding: 5rem 2rem;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  flex-direction: column;
-  gap: 2rem;
+const StyledFooter = ({ children }: { children?: ReactNode }) => (
+  <Box
+    sx={{
+      padding: "5rem 2rem",
+      display: "flex",
+      justifyContent: "space-around",
+      alignItems: "center",
+      flexDirection: "column",
+      gap: "2rem",
+      backgroundColor: "background.default",
+      "@media (min-width: 800px)": {
+        flexDirection: "row",
+      },
+    }}
+  >
+    {children}
+  </Box>
+);
 
-  background-color: #ffe8cc;
-  @media (min-width: 800px) {
-    flex-direction: row;
-  }
-`;
+const StyledLink = ({ children }: { children?: ReactNode }) => (
+  <Box
+    sx={{
+      display: "flex",
+      gap: "3rem",
+    }}
+  >
+    {children}
+  </Box>
+);
+const StyledSpan = ({ children }: { children?: ReactNode }) => (
+  <Box
+    sx={{
+      display: "flex",
+      alignItems: "center",
+      fontWeight: "bold",
+      gap: "1rem",
+      color: "text.secondary",
+    }}
+  >
+    {children}
+  </Box>
+);
 
-const StyledLink = styled.div`
-  display: flex;
-  gap: 3rem;
-`;
-
-const StyledSpan = styled.div`
-  display: flex;
-  align-items: center;
-  font-weight: bold;
-  gap: 1rem;
-`;
-
-const StyledP = styled.p`
-  font-size: 1.2rem;
-  font-weight: bold;
-  @media (min-width: 800px) {
-    font-size: 1.5rem;
-  }
-`;
+const StyledP = ({ children }: { children?: ReactNode }) => (
+  <Typography
+    sx={{
+      fontSize: "1.2rem",
+      fontWeight: "bold",
+      color: "text.primary",
+      "@media (min-width: 800px)": {
+        fontSize: "1.5rem",
+      },
+    }}
+  >
+    {children}
+  </Typography>
+);
 
 function Footer() {
   return (
