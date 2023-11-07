@@ -1,12 +1,19 @@
-import styled from "styled-components";
+import { Box } from "@mui/material";
+import { ReactNode } from "react";
 
 import SlideShow from "../features/slide/SlideShow";
 
-const StyledHotel = styled.section`
-  padding-top: 10rem;
-  // height: 10rem;
-  // display: flex;
-`;
+const StyledHotel = ({ children }: { children?: ReactNode }) => (
+  <Box
+    component="section"
+    sx={{
+      paddingTop: "10rem",
+      backgroundColor: "background.default", // replace with your desired color
+    }}
+  >
+    {children}
+  </Box>
+);
 
 function HotelPage() {
   return (

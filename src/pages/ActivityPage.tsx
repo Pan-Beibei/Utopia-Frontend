@@ -1,51 +1,79 @@
-import styled from "styled-components";
+import { Box } from "@mui/material";
+import { ReactNode } from "react";
 
 import CommentLayout from "../features/review/ReviewLayout";
 
-// import Video from "../ui/Video";
+const ActivityContainer = ({ children }: { children?: ReactNode }) => (
+  <Box
+    sx={{
+      padding: "1rem",
+      paddingTop: "10rem",
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "center",
+      backgroundColor: "background.default",
+    }}
+  >
+    {children}
+  </Box>
+);
 
-const ActivityContainer = styled.div`
-  padding: 1rem;
-  padding-top: 10rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  // overflow: hidden;
-  background-color: var(--primary-color);
-`;
+const WaterfallContainer = ({ children }: { children?: ReactNode }) => (
+  <Box
+    sx={{
+      columnCount: 2, // 列数
+      columnGap: "10px", // 列间距
+      "@media (min-width: 768px)": {
+        columnCount: 3,
+      },
+      "@media (min-width: 1024px)": {
+        columnCount: 4,
+      },
+    }}
+  >
+    {children}
+  </Box>
+);
 
-const WaterfallContainer = styled.div`
-  column-count: 2; /* 列数 */
-  column-gap: 10px; /* 列间距 */
-  @media (min-width: 768px) {
-    column-count: 3;
-  }
-  @media (min-width: 1024px) {
-    column-count: 4;
-  }
-`;
+const WaterfallItem = ({ children }: { children?: ReactNode }) => (
+  <Box
+    sx={{
+      display: "inline-block",
+      width: "100%",
+      backgroundColor: "#f0f0f0",
+      padding: "5px",
+      boxSizing: "border-box",
+    }}
+  >
+    {children}
+  </Box>
+);
 
-const WaterfallItem = styled.div`
-  display: inline-block;
-  width: 100%;
-  background-color: #f0f0f0;
-  padding: 5px;
-  box-sizing: border-box;
-`;
+const VideoDiv = ({ children }: { children?: ReactNode }) => (
+  <Box
+    sx={{
+      position: "relative",
+      width: "100%",
+      paddingTop: `calc(100% * ${window.innerHeight} / ${window.innerWidth})`,
+    }}
+  >
+    {children}
+  </Box>
+);
 
-const VideoDiv = styled.div`
-  position: relative;
-  width: 100%;
-  padding-top: calc(100% * ${window.innerHeight} / ${window.innerWidth});
-`;
-
-const StyledIframe = styled.iframe`
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-`;
+const StyledIframe = (props: React.ComponentPropsWithRef<"iframe">) => (
+  <Box
+    component="iframe"
+    sx={{
+      position: "absolute",
+      width: "100%",
+      height: "100%",
+      top: 0,
+    }}
+    {...props}
+  />
+);
 
 function ActivityPage() {
   const imgs = [];
