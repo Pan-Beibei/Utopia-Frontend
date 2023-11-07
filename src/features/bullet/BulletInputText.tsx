@@ -8,6 +8,13 @@ import Picker from "@emoji-mart/react";
 import { MsgType } from "../../utils/APIRoutes";
 import { getUserId } from "../user/userSlice";
 
+interface EmojiData {
+  id: string;
+  name: string;
+  native: string;
+  // 其他可能的属性...
+}
+
 const StyledBulletInputContainer = ({ children }: { children?: ReactNode }) => (
   <Box
     sx={(theme) => ({
@@ -106,25 +113,25 @@ interface BulletInputTextProps {
 }
 
 function BulletInputText({ socket }: BulletInputTextProps) {
-  const [inputText, setInputText] = useState("");
+  const [inputContent, setInputContent] = useState("");
   const [showPicker, setShowPicker] = useState(false);
   const userId = useSelector(getUserId);
 
   function handleSendClick() {
-    if (inputText.length > 3) {
+    if (inputContent.length > 3) {
       if (socket.current) {
         socket.current.emit(MsgType.SEND_BULLET, {
           id: userId,
-          msg: inputText,
+          msg: inputContent,
         });
-        setInputText("");
+        setInputContent("");
       } else {
-        console.log("send-bullet: ", inputText, "socket: ", socket.current);
+        console.log("send-bullet: ", inputContent, "socket: ", socket.current);
       }
     }
   }
   function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
-    setInputText(e.target.value);
+    setInputContent(e.target.value);
   }
 
   return (
@@ -133,7 +140,9 @@ function BulletInputText({ socket }: BulletInputTextProps) {
         <EmojiContainer>
           <Picker
             data={data}
-            onEmojiSelect={console.log}
+            onEmojiSelect={(emoji: EmojiData) => {
+              setInputContent((prevContent) => prevContent + emoji.native);
+            }}
             emojiSize={20}
             emojiButtonSize={30}
             previewPosition="none"
@@ -146,7 +155,7 @@ function BulletInputText({ socket }: BulletInputTextProps) {
       <FlexRow>
         <StyledInputText
           type="text"
-          value={inputText}
+          value={inputContent}
           onChange={handleInputChange}
         ></StyledInputText>
         <EmojiButton onClick={() => setShowPicker(!showPicker)}>
