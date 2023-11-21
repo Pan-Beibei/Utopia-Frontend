@@ -1,6 +1,5 @@
-// import styled from "styled-components";
-
 import { useState } from "react";
+import { useMutation } from "react-query";
 import {
   ReviewPublishBtnStyle,
   ReviewReplyInputBox,
@@ -12,18 +11,26 @@ import { addReview } from "./reviewSlice";
 import store from "../../store/store";
 
 function ReviewInput() {
+  const mutation = useMutation(sendReview);
   const [inputText, setInputText] = useState("");
 
   function handleChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
     setInputText(e.target.value);
   }
 
+  const send = () => {
+    mutation.mutate(
+      { review: inputText, id: "6542064894b138e561acf4a0" },
+      {
+        onSuccess: (data) => {
+          console.log(data);
+          store.dispatch(addReview(data));
+        },
+      }
+    );
+  };
+
   function handleClick() {
-    async function send() {
-      const data = await sendReview(inputText);
-      console.log(data);
-      store.dispatch(addReview(data));
-    }
     send();
   }
 

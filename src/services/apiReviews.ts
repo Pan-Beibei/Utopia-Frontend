@@ -1,8 +1,12 @@
-import { HTTPS } from "../utils/APIRoutes";
+import { SERVER_ADDRESS } from "../utils/APIRoutes";
 
-const Url = HTTPS.ACTIVITY + "/6539592b12c13592dc74746f/reviews";
+const Url = SERVER_ADDRESS.host + "/api/v1/reviews";
 
-export async function sendReview(sendData: string) {
+interface ReviewData {
+  review: string;
+  id: string;
+}
+export async function sendReview(sendData: ReviewData) {
   try {
     const res = await fetch(Url, {
       method: "POST",
@@ -10,25 +14,14 @@ export async function sendReview(sendData: string) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        review: sendData,
+        review: sendData.review,
+        activityId: sendData.id,
       }),
     });
     const data = await res.json();
     console.log(data);
-    return { createAt: data.createAt, review: data.review };
+    return { createdAt: data.createdAt, review: data.review };
     //
-  } catch (err) {
-    console.log(err);
-  }
-}
-
-export async function getAllReviews() {
-  try {
-    const res = await fetch(Url);
-    const data = await res.json();
-    console.log(data);
-
-    return data;
   } catch (err) {
     console.log(err);
   }

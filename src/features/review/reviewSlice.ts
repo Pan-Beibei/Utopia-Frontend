@@ -3,7 +3,7 @@ import { RootState } from "../../store/store";
 
 interface RecviewProps {
   review: string;
-  createAt: string;
+  createdAt: string;
 }
 
 interface StateProps {

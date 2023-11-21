@@ -1,16 +1,15 @@
 import { useState, useMemo } from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-
-import { routes } from "./routes";
+import { QueryClient, QueryClientProvider } from "react-query";
 import { ThemeProvider } from "@mui/material/styles";
-
 import { TextProvider } from "./contexts/TextContext";
 import { warmTheme, coolTheme } from "./themes/themes";
 import { ThemeContext } from "./themes/ThemeContext";
-
 import GlobalStyles from "./styles/GlobalStyles";
+import { routes } from "./routes";
 
 function App() {
+  const queryClient = new QueryClient();
   const [theme, setTheme] = useState(warmTheme);
 
   const router = useMemo(() => createBrowserRouter(routes), []);
@@ -26,14 +25,16 @@ function App() {
 
   return (
     <>
-      <GlobalStyles />
-      <ThemeProvider theme={theme}>
-        <ThemeContext.Provider value={contextValue}>
-          <TextProvider>
-            <RouterProvider router={router} />
-          </TextProvider>
-        </ThemeContext.Provider>
-      </ThemeProvider>
+      <QueryClientProvider client={queryClient}>
+        <GlobalStyles />
+        <ThemeProvider theme={theme}>
+          <ThemeContext.Provider value={contextValue}>
+            <TextProvider>
+              <RouterProvider router={router} />
+            </TextProvider>
+          </ThemeContext.Provider>
+        </ThemeProvider>
+      </QueryClientProvider>
     </>
   );
 }
