@@ -5,6 +5,8 @@ import HotelPage from "./pages/HotelPage";
 import MemberLoginPage from "./pages/MemberLoginPage";
 import ActivityPage from "./pages/ActivityPage";
 import Home from "./pages/Home";
+import DailyPage from "./pages/DailyPage";
+import MessagePage from "./pages/MessagePage";
 
 export const routes = [
   {
@@ -34,6 +36,14 @@ export const routes = [
       {
         path: "activity-info",
         element: <ActivityPage />,
+      },
+      {
+        path: "daily-page",
+        element: <DailyPage />,
+      },
+      {
+        path: "message-page",
+        element: <MessagePage />,
       },
     ],
   },

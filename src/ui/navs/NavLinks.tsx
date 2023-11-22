@@ -155,11 +155,14 @@ function Links({ direction }: LinksProps) {
       <StyledNavLink to="/">Home</StyledNavLink>
       <StyledNavLink to="/hotel-info">咖啡馆房间</StyledNavLink>
       <StyledNavLink to="/activity-info">
-        <StyledImportantSpan> 晚宴</StyledImportantSpan>
+        <StyledImportantSpan>晚宴</StyledImportantSpan>
       </StyledNavLink>
-      {/* <StyledNavLink to="/peripheral-products">咖啡馆周边</StyledNavLink> */}
-      {/* <StyledNavLink to="/tourist-attractions">小众景点</StyledNavLink> */}
-      {/* <StyledNavLink to="/member-login">会员登录</StyledNavLink> */}
+      <StyledNavLink to="/daily-page">
+        <StyledImportantSpan>68克情报处</StyledImportantSpan>
+      </StyledNavLink>
+      <StyledNavLink to="/message-page">
+        <StyledImportantSpan>病友日记</StyledImportantSpan>
+      </StyledNavLink>
     </StyledNavLinks>
   );
 }
