@@ -22,6 +22,7 @@ function ReviewLayout() {
   const reviews = useSelector(getReviews);
   const { isLoading, error } = useFetchData(
     HTTPS.ACTIVITY + "/6542064894b138e561acf4a0/reviews",
+    null,
     (data) => store.dispatch(init(data))
   );
   if (isLoading) return "Loading...";

@@ -4,7 +4,7 @@ import TouristAttractionsPage from "./pages/TouristAttractionsPage";
 import HotelPage from "./pages/HotelPage";
 import MemberLoginPage from "./pages/MemberLoginPage";
 import ActivityPage from "./pages/ActivityPage";
-import Home from "./pages/Home";
+import Home from "./pages/HomePage";
 import DailyPage from "./pages/DailyPage";
 import MessagePage from "./pages/MessagePage";
 

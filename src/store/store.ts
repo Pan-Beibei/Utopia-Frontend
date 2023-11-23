@@ -3,6 +3,7 @@ import slideSlice from "../features/slide/slideSlice";
 import BulletSlice from "../features/bullet/bulletSlice";
 import userSlice from "../features/user/userSlice";
 import reviewSlice from "../features/review/reviewSlice";
+import homePageSlice from "../pageSlices/homePageSlice";
 
 const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ const store = configureStore({
     bullet: BulletSlice,
     user: userSlice,
     review: reviewSlice,
+    homePage: homePageSlice,
   },
 });
 

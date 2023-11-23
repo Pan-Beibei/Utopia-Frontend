@@ -14,7 +14,6 @@
     "@emoji-mart/react": "^1.1.1",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
-    "@fingerprintjs/fingerprintjs": "^4.1.0",
     "@mui/icons-material": "^5.14.16",
     "@mui/material": "^5.14.16",
     "@react-spring/web": "^9.7.3",

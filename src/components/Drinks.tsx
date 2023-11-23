@@ -1,7 +1,9 @@
 import { ReactNode } from "react";
 import { Box, Typography } from "@mui/material";
-import { useText, InfoProps } from "../contexts/TextContext";
+// import { useText, InfoProps } from "../contexts/TextContext";
 import Pictures from "../ui/Pictures";
+import { getPictures, getTextContents } from "../pageSlices/homePageSlice";
+import { useSelector } from "react-redux";
 
 const StyledDrinks = ({ children }: { children?: ReactNode }) => (
   <Box
@@ -59,19 +61,22 @@ const StyledFlexRow = ({ children }: { children?: ReactNode }) => (
 );
 
 function Drinks() {
-  const { getTextByIndex } = useText();
+  const pictures = useSelector(getPictures);
+  const textContents = useSelector(getTextContents);
 
-  const info: InfoProps = getTextByIndex(1);
-  if (!info) return null;
-  const des = info.description as string;
+  // const { getTextByIndex } = useText();
+
+  // const info: InfoProps = getTextByIndex(1);
+  if (textContents.length === 0) return null;
+  const des = textContents[0] as string;
+
+  console.log(des);
+
   const desArr = des.split("|");
 
   return (
     <StyledDrinks>
-      <Pictures
-        imgs={["./block2/drinks.jpg", "./block2/drinks.webp"]}
-        altstr="Drinks Info"
-      />
+      <Pictures imgs={[pictures[18], pictures[18]]} altstr="Drinks Info" />
       <StyledFlexRow>
         <StyledText $isMain={true}>{desArr[0]}</StyledText>
         <StyledText $isMain={false}>{"-----" + desArr[1]}</StyledText>

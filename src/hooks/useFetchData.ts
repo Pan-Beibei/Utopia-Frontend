@@ -1,9 +1,28 @@
 import { useEffect } from "react";
 import { useQuery } from "react-query";
 
-function useFetchData(url: string, action: (data: []) => void) {
+type ParamsPros = {
+  [key: string]: string;
+};
+
+function useFetchData<T>(
+  url: string,
+  params: ParamsPros | undefined | null,
+  action: (data: T) => void
+) {
+  if (params) {
+    const reqParams = JSON.stringify(params);
+    url = `${url}?filter=${reqParams}`;
+    console.log(url);
+  }
+
   const { isLoading, error, data } = useQuery(url, async () => {
-    const res = await fetch(url);
+    const res = await fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
     if (!res.ok) {
       throw new Error(`Error! status: ${res.status}`);
     }

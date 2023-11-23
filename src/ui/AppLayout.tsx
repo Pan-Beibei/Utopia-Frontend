@@ -7,7 +7,7 @@ import { HTTPS } from "../utils/APIRoutes";
 import useFetchData from "../hooks/useFetchData";
 
 function AppLayout() {
-  const { isLoading, error } = useFetchData(HTTPS.BULLETS, (data) =>
+  const { isLoading, error } = useFetchData(HTTPS.BULLETS, null, (data) =>
     store.dispatch(initBullet(data))
   );
   if (isLoading) return "Loading...";

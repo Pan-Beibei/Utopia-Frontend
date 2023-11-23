@@ -13,4 +13,5 @@ const route = "/api/v1/";
 export const HTTPS = {
   BULLETS: SERVER_ADDRESS.host + route + "bullets",
   ACTIVITY: SERVER_ADDRESS.host + route + "activities",
+  HOME_PAGE: SERVER_ADDRESS.host + route + "pages",
 };

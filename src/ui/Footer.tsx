@@ -2,6 +2,8 @@ import { Box, Typography } from "@mui/material";
 import { ReactNode } from "react";
 import { BsWechat, BsBookFill } from "react-icons/bs";
 import { FaBilibili } from "react-icons/fa6";
+import { useSelector } from "react-redux";
+import { getTextContents } from "../pageSlices/homePageSlice";
 
 const StyledFooter = ({ children }: { children?: ReactNode }) => (
   <Box
@@ -62,9 +64,11 @@ const StyledP = ({ children }: { children?: ReactNode }) => (
 );
 
 function Footer() {
+  const textContents = useSelector(getTextContents);
+
   return (
     <StyledFooter>
-      <StyledP> 一个几乎24小时营业的灵魂寄居所 六元咖啡馆</StyledP>
+      <StyledP> {textContents[1]}</StyledP>
       <StyledLink>
         <StyledSpan>
           村长微信
