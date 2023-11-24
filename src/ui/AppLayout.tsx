@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
 import Navbar from "./navs/Narbar";
-import Footer from "./Footer";
+import Footer from "./footer/Footer";
 import { initBullet } from "./../features/bullet/bulletSlice";
 import store from "../store/store";
 import { HTTPS } from "../utils/APIRoutes";

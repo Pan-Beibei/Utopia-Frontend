@@ -70,7 +70,7 @@ function Drinks() {
   if (textContents.length === 0) return null;
   const des = textContents[0] as string;
 
-  console.log(des);
+  // console.log(des);
 
   const desArr = des.split("|");
 

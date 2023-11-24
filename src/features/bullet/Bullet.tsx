@@ -53,7 +53,7 @@ const Bullet = memo(function Bullet({
   const { id, fontSize, fontColor, speed, track, text } = bulletProps;
 
   const handleAnimationEnd = useCallback(() => {
-    console.log("animation end: ", id);
+    // console.log("animation end: ", id);
     animationend(id, track);
   }, [id, track, animationend]);
 

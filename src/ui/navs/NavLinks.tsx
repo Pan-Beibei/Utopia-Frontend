@@ -155,7 +155,7 @@ function Links({ direction }: LinksProps) {
       <StyledNavLink to="/">Home</StyledNavLink>
       <StyledNavLink to="/hotel-info">咖啡馆房间</StyledNavLink>
       <StyledNavLink to="/activity-info">
-        <StyledImportantSpan>晚宴</StyledImportantSpan>
+        <StyledImportantSpan>活动</StyledImportantSpan>
       </StyledNavLink>
       <StyledNavLink to="/daily-page">
         <StyledImportantSpan>68克情报处</StyledImportantSpan>

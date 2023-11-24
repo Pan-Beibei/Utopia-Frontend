@@ -13,7 +13,7 @@ function useFetchData<T>(
   if (params) {
     const reqParams = JSON.stringify(params);
     url = `${url}?filter=${reqParams}`;
-    console.log(url);
+    // console.log(url);
   }
 
   const { isLoading, error, data } = useQuery(url, async () => {
