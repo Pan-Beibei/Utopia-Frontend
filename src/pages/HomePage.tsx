@@ -7,10 +7,10 @@ import Drinks from "../components/home/Drinks";
 import OurMemories from "../components/home/OurMemories";
 import BulletInputText from "../features/bullet/BulletInputText";
 import { useSocket } from "../hooks/useSocket";
-import useFetchData from "../hooks/useFetchData";
 import { init } from "../pageSlices/homePageSlice";
-import store from "../store/store";
 import { HTTPS } from "../utils/APIRoutes";
+import { initBullet } from "../features/bullet/bulletSlice";
+import { useFetchAndInitData } from "../hooks/customHooks";
 // import Guests from "../components/Guests";
 
 const StyledHome = ({ children }: { children?: ReactNode }) => (
@@ -37,16 +37,10 @@ const FlexColumn = ({ children }: { children?: ReactNode }) => (
     {children}
   </Box>
 );
-//filter={"age":{"$gt":20}}
 function HomePage() {
   const socketRef = useSocket();
-  const { isLoading } = useFetchData(
-    HTTPS.HOME_PAGE,
-    { title: "Home" },
-    (data) => store.dispatch(init(data))
-  );
-
-  if (isLoading) return "Loading...";
+  useFetchAndInitData(HTTPS.BULLETS, initBullet);
+  useFetchAndInitData(HTTPS.HOME_PAGE, init);
 
   return (
     <StyledHome>

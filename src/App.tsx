@@ -2,7 +2,6 @@ import { useState, useMemo } from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ThemeProvider } from "@mui/material/styles";
-import { TextProvider } from "./contexts/TextContext";
 import { warmTheme, coolTheme } from "./themes/themes";
 import { ThemeContext } from "./themes/ThemeContext";
 import GlobalStyles from "./styles/GlobalStyles";
@@ -29,9 +28,7 @@ function App() {
         <GlobalStyles />
         <ThemeProvider theme={theme}>
           <ThemeContext.Provider value={contextValue}>
-            <TextProvider>
-              <RouterProvider router={router} />
-            </TextProvider>
+            <RouterProvider router={router} />
           </ThemeContext.Provider>
         </ThemeProvider>
       </QueryClientProvider>

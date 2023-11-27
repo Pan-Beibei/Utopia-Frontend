@@ -7,24 +7,36 @@ import {
 } from "./ReviewStyle";
 
 import { sendReview } from "../../services/apiReviews";
-import { addReview } from "./reviewSlice";
-import store from "../../store/store";
+import GlobalSnackbar from "../../ui/GlobalSnackbar";
+import { HTTPS } from "../../utils/APIRoutes";
+import { useQueryClient } from "react-query";
 
-function ReviewInput() {
+interface ReviewInputProps {
+  activityId: string;
+}
+
+function ReviewInput({ activityId }: ReviewInputProps) {
   const mutation = useMutation(sendReview);
   const [inputText, setInputText] = useState("");
+  const [open, setOpen] = useState(false);
+  const queryClient = useQueryClient();
 
   function handleChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
     setInputText(e.target.value);
   }
 
+  function updateReviews() {
+    queryClient.invalidateQueries(HTTPS.ACTIVITY + `/${activityId}/reviews`);
+  }
+
   const send = () => {
     mutation.mutate(
-      { review: inputText, id: "6542064894b138e561acf4a0" },
+      { review: inputText, id: activityId },
       {
         onSuccess: (data) => {
           console.log(data);
-          store.dispatch(addReview(data));
+          setOpen(true);
+          updateReviews();
         },
       }
     );
@@ -38,6 +50,11 @@ function ReviewInput() {
     <ReviewRowStyle>
       <ReviewReplyInputBox value={inputText} onChange={handleChange} />
       <ReviewPublishBtnStyle onClick={handleClick}>发布</ReviewPublishBtnStyle>
+      <GlobalSnackbar
+        open={open}
+        message="发送成功"
+        close={() => setOpen(false)}
+      />
     </ReviewRowStyle>
   );
 }

@@ -1,7 +1,6 @@
-import styled from "styled-components";
-// import { useEffect } from "react";
+import { Box } from "@mui/system";
 
-import ReviewDetail from "./ReviewtDetail";
+import ReviewDetail from "./ReviewDetail";
 import ReviewInput from "./ReviewInput";
 import store from "../../store/store";
 import { init, getReviews } from "./reviewSlice";
@@ -9,28 +8,40 @@ import { useSelector } from "react-redux";
 import { HTTPS } from "../../utils/APIRoutes";
 import useFetchData from "../../hooks/useFetchData";
 
-const ReviewLayoutContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  padding: 1rem;
-  height: 500px; // 设置固定高度
-  overflow-y: auto; // 在内容超出时显示垂直滚动条
-`;
+const ReviewLayoutContainer = ({
+  children,
+}: {
+  children?: React.ReactNode;
+}) => (
+  <Box
+    sx={{
+      display: "flex",
+      flexDirection: "column",
+      gap: "1rem",
+      padding: "1rem",
+      maxHeight: "500px",
+      overflowY: "auto",
+    }}
+  >
+    {children}
+  </Box>
+);
 
-function ReviewLayout() {
+interface ReviewLayoutProps {
+  activityId: string;
+}
+
+function ReviewLayout({ activityId }: ReviewLayoutProps) {
   const reviews = useSelector(getReviews);
-  const { isLoading, error } = useFetchData(
-    HTTPS.ACTIVITY + "/6542064894b138e561acf4a0/reviews",
-    null,
-    (data) => store.dispatch(init(data))
+  useFetchData(HTTPS.ACTIVITY + `/${activityId}/reviews`, null, (data) =>
+    store.dispatch(init(data))
   );
-  if (isLoading) return "Loading...";
-  if (error instanceof Error) return `An error has occurred: ${error.message}`;
+  console.log("reviews: ", reviews);
+  if (reviews.length === 0) return null;
 
   return (
     <ReviewLayoutContainer>
-      <ReviewInput />
+      <ReviewInput activityId={activityId} />
       {reviews.map((review, index) => (
         <ReviewDetail
           createAt={review.createdAt}

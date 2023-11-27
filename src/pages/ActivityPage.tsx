@@ -1,11 +1,10 @@
 import { Box } from "@mui/material";
 import { ReactNode } from "react";
-import useFetchData from "../hooks/useFetchData";
 import { HTTPS } from "../utils/APIRoutes";
 import { init } from "../pageSlices/activityPageSlice";
-import store from "../store/store";
 import ActivityList from "../components/activity/ActivityList";
 import ActivityDetail from "../components/activity/ActivityDetail";
+import { useFetchAndInitData } from "../hooks/customHooks";
 
 const ActivityContainer = ({ children }: { children?: ReactNode }) => (
   <Box
@@ -24,11 +23,7 @@ const ActivityContainer = ({ children }: { children?: ReactNode }) => (
 );
 
 function ActivityPage() {
-  const { isLoading } = useFetchData(HTTPS.ACTIVITY, null, (data) =>
-    store.dispatch(init(data))
-  );
-
-  if (isLoading) return "Loading...";
+  useFetchAndInitData(HTTPS.ACTIVITY, init);
 
   return (
     <ActivityContainer>

@@ -13,5 +13,10 @@ const route = "/api/v1/";
 export const HTTPS = {
   BULLETS: SERVER_ADDRESS.host + route + "bullets",
   ACTIVITY: SERVER_ADDRESS.host + route + "activities",
-  HOME_PAGE: SERVER_ADDRESS.host + route + "pages",
+  HOME_PAGE:
+    SERVER_ADDRESS.host +
+    route +
+    "pages" +
+    `?filter=${JSON.stringify({ title: "Home" })}`,
 };
+//`${HTTPS.HOME_PAGE}?filter=${JSON.stringify({ title: "Home" })}`

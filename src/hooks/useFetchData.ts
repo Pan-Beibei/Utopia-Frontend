@@ -15,16 +15,10 @@ function useFetchData<T>(
   if (params) {
     const reqParams = JSON.stringify(params);
     url = `${url}?filter=${reqParams}`;
-    // console.log(url);
   }
 
   const { isLoading, error, data } = useQuery(url, async () => {
-    const res = await fetch(url, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const res = await fetch(url);
     if (!res.ok) {
       throw new Error(`Error! status: ${res.status}`);
     }

@@ -16,6 +16,7 @@ export const routes = [
       {
         index: true,
         element: <Home />,
+        // loader: homeLoader,
       },
       {
         path: "peripheral-products",

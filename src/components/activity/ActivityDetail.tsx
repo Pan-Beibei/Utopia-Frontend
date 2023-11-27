@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
 import { Box } from "@mui/system";
-import CommentLayout from "../../features/review/ReviewLayout";
+import ReviewLayout from "../../features/review/ReviewLayout";
 import { useSelector } from "react-redux";
 import { getShowActivity } from "../../pageSlices/activityPageSlice";
 import PhotoWall from "../../ui/PhotoWall";
@@ -35,7 +35,7 @@ const ActivityDetailComponent = (
 function ActivityDetail() {
   const activity = useSelector(getShowActivity);
   console.log(activity);
-
+  if (activity.id.length === 0) return <div>...load</div>;
   return (
     <div>
       <PhotoWall photos={activity?.pictures} />
@@ -46,7 +46,7 @@ function ActivityDetail() {
           src={activity?.promotionalVideo}
         ></ActivityDetailComponent>
       </AspectRatioBox>
-      <CommentLayout />
+      <ReviewLayout activityId={activity.id} />
     </div>
   );
 }
