@@ -89,7 +89,7 @@ function Footer() {
   );
 
   const handleClose = useCallback(
-    (event: React.SyntheticEvent | Event, reason?: SnackbarCloseReason) => {
+    (_: React.SyntheticEvent | Event, reason?: SnackbarCloseReason) => {
       if (reason === "clickaway") {
         return;
       }

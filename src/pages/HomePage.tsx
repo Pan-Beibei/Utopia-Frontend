@@ -2,15 +2,16 @@ import { ReactNode } from "react";
 
 import { Box } from "@mui/system";
 
-import Hero from "../components/Hero";
-import Drinks from "../components/Drinks";
-import OurMemories from "../components/OurMemories";
+import Hero from "../components/home/Hero";
+import Drinks from "../components/home/Drinks";
+import OurMemories from "../components/home/OurMemories";
 import BulletInputText from "../features/bullet/BulletInputText";
 import { useSocket } from "../hooks/useSocket";
 import useFetchData from "../hooks/useFetchData";
 import { init } from "../pageSlices/homePageSlice";
 import store from "../store/store";
 import { HTTPS } from "../utils/APIRoutes";
+// import Guests from "../components/Guests";
 
 const StyledHome = ({ children }: { children?: ReactNode }) => (
   <Box
@@ -56,6 +57,7 @@ function HomePage() {
 
       <Drinks />
       <OurMemories />
+      {/* <Guests /> */}
     </StyledHome>
   );
 }

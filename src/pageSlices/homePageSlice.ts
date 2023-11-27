@@ -33,8 +33,3 @@ export const getPictures = (state: RootState) => state.homePage.pictures;
 
 export const getTextContents = (state: RootState) =>
   state.homePage.textContents;
-
-// export const getSlideIndexByName = createSelector(
-//   [getSlideIndex, (_, ikey) => ikey],
-//   (slideIndex, ikey: string) => slideIndex[ikey as SlideIndexType]
-// );

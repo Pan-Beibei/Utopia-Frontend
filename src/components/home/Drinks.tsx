@@ -1,8 +1,8 @@
 import { ReactNode } from "react";
 import { Box, Typography } from "@mui/material";
 // import { useText, InfoProps } from "../contexts/TextContext";
-import Pictures from "../ui/Pictures";
-import { getPictures, getTextContents } from "../pageSlices/homePageSlice";
+import Pictures from "../../ui/Pictures";
+import { getPictures, getTextContents } from "../../pageSlices/homePageSlice";
 import { useSelector } from "react-redux";
 
 const StyledDrinks = ({ children }: { children?: ReactNode }) => (

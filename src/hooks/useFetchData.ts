@@ -10,6 +10,8 @@ function useFetchData<T>(
   params: ParamsPros | undefined | null,
   action: (data: T) => void
 ) {
+  console.log("useFetchData: ", url);
+
   if (params) {
     const reqParams = JSON.stringify(params);
     url = `${url}?filter=${reqParams}`;

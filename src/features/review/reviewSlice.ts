@@ -15,7 +15,7 @@ const initialState: StateProps = {
 };
 
 const userSlice = createSlice({
-  name: "user",
+  name: "review",
   initialState,
   reducers: {
     init(state, action) {

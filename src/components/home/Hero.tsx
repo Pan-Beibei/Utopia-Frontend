@@ -1,8 +1,8 @@
 import { Box } from "@mui/system";
 import styled from "styled-components";
 
-import Video from "../ui/Video";
-import BulletShow from "../features/bullet/BulletShow";
+import Video from "../../ui/Video";
+import BulletShow from "../../features/bullet/BulletShow";
 import { ReactNode } from "react";
 
 const StyledHero = ({ children }: { children?: ReactNode }) => (
