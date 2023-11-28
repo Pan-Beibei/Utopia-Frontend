@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Box } from "@mui/system";
 import { Grid } from "@mui/material";
 import { ReactNode } from "react";
-import Logo from "../Logo";
+import Logo from "../../ui/Logo";
 import NavLinks from "./NavLinks";
 import SwitchThemeButton from "../../themes/ThemeContext";
 

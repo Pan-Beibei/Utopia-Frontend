@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { Action } from "@reduxjs/toolkit";
 import store from "../store/store";
 
@@ -9,7 +9,7 @@ export function useAsyncEffect(asyncFunc: () => Promise<void | (() => void)>) {
 }
 
 export function useFetchAndInitData(url: string, action: (data: []) => Action) {
-  useAsyncEffect(async () => {
+  const callback = useCallback(async () => {
     console.log("useFetchAndInitData: ", url);
 
     const res = await fetch(url);
@@ -18,5 +18,7 @@ export function useFetchAndInitData(url: string, action: (data: []) => Action) {
     }
     const data = await res.json();
     store.dispatch(action(data));
-  });
+  }, [url, action]);
+
+  useAsyncEffect(callback);
 }

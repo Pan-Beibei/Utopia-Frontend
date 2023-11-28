@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 // import MuiAlert, { AlertProps } from "@mui/material/Alert";
 import SocialMediaTooltip from "./SocialMediaTooltip";
 import { getTextContents } from "../../pageSlices/homePageSlice";
-import GlobalSnackbar from "../GlobalSnackbar";
+import GlobalSnackbar from "../../ui/GlobalSnackbar";
 
 const footerContainerStyles = {
   padding: "5rem 2rem",

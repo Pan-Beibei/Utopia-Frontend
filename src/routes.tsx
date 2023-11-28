@@ -1,4 +1,4 @@
-import AppLayout from "./ui/AppLayout";
+import AppLayout from "./components/AppLayout";
 import PeripheralProductsPage from "./pages/PeripheralProductsPage";
 import TouristAttractionsPage from "./pages/TouristAttractionsPage";
 import HotelPage from "./pages/HotelPage";

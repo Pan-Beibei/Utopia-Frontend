@@ -11,6 +11,7 @@ import { init } from "../pageSlices/homePageSlice";
 import { HTTPS } from "../utils/APIRoutes";
 import { initBullet } from "../features/bullet/bulletSlice";
 import { useFetchAndInitData } from "../hooks/customHooks";
+
 // import Guests from "../components/Guests";
 
 const StyledHome = ({ children }: { children?: ReactNode }) => (
