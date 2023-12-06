@@ -6,6 +6,7 @@ const warmColors = {
   secondaryTextColor: "#D2691E",
   primaryButtonColor: "#CD853F",
   secondaryButtonColor: "#F4A460",
+
   hoverColor: "#FFD700",
   divider: "#E5E5E5", // a light gray color
   shape: {

@@ -60,12 +60,18 @@ const StyledToggle = styled.div`
   position: relative;
 `;
 
-const StyledImportantSpan = ({ children }: { children?: ReactNode }) => (
+const StyledImportantSpan = ({
+  children,
+  bgColor,
+}: {
+  children?: ReactNode;
+  bgColor?: string;
+}) => (
   <Box
     component="span"
     sx={{
       color: "#000",
-      backgroundColor: "primary.main",
+      backgroundColor: `${bgColor ? bgColor : "primary.main"}`,
       padding: "0.5rem",
       borderRadius: "0.5rem",
     }}
@@ -160,8 +166,11 @@ function Links({ direction }: LinksProps) {
       <StyledNavLink to="/daily-page">
         <StyledImportantSpan>68克情报处</StyledImportantSpan>
       </StyledNavLink>
-      <StyledNavLink to="/message-page">
+      {/* <StyledNavLink to="/message-page">
         <StyledImportantSpan>病友日记</StyledImportantSpan>
+      </StyledNavLink> */}
+      <StyledNavLink to="/login-page">
+        <StyledImportantSpan bgColor="secondary.main">登录</StyledImportantSpan>
       </StyledNavLink>
     </StyledNavLinks>
   );

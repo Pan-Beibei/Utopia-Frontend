@@ -7,6 +7,7 @@ import ActivityPage from "./pages/ActivityPage";
 import Home from "./pages/HomePage";
 import DailyPage from "./pages/DailyPage";
 import MessagePage from "./pages/MessagePage";
+import LoginPage from "./pages/LoginPage";
 
 export const routes = [
   {
@@ -45,6 +46,10 @@ export const routes = [
       {
         path: "message-page",
         element: <MessagePage />,
+      },
+      {
+        path: "login-page",
+        element: <LoginPage />,
       },
     ],
   },

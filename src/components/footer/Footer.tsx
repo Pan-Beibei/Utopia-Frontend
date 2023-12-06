@@ -3,9 +3,6 @@ import { Box, Typography } from "@mui/material";
 import { BsWechat, BsBookFill } from "react-icons/bs";
 import { FaBilibili } from "react-icons/fa6";
 import { useSelector } from "react-redux";
-// import Snackbar from "@mui/material/Snackbar";
-// import { SnackbarCloseReason } from "@mui/material/Snackbar";
-// import MuiAlert, { AlertProps } from "@mui/material/Alert";
 import SocialMediaTooltip from "./SocialMediaTooltip";
 import { getTextContents } from "../../pageSlices/homePageSlice";
 import GlobalSnackbar from "../../ui/GlobalSnackbar";
@@ -60,12 +57,6 @@ const EmphasizedTypography = ({ children }: { children?: ReactNode }) => (
   </Typography>
 );
 
-// const Alert = memo(
-//   forwardRef<HTMLDivElement, AlertProps>((props, ref) => (
-//     <MuiAlert elevation={6} variant="filled" ref={ref} {...props} />
-//   ))
-// );
-
 function Footer() {
   const textContents = useSelector(getTextContents);
   const [open, setOpen] = useState(false);
@@ -88,17 +79,6 @@ function Footer() {
     },
     []
   );
-
-  // const handleClose = useCallback(
-  //   (_: React.SyntheticEvent | Event, reason?: SnackbarCloseReason) => {
-  //     if (reason === "clickaway") {
-  //       return;
-  //     }
-
-  //     setOpen(false);
-  //   },
-  //   []
-  // );
 
   return (
     <FooterContainer>
@@ -136,16 +116,6 @@ function Footer() {
         close={() => setOpen(false)}
         message="已复制到剪贴板"
       />
-      {/* <Snackbar
-        anchorOrigin={{ vertical: "top", horizontal: "center" }}
-        open={open}
-        autoHideDuration={3000}
-        onClose={handleClose}
-      >
-        <Alert onClose={handleClose} severity="success">
-          已复制到剪贴板
-        </Alert>
-      </Snackbar> */}
     </FooterContainer>
   );
 }
