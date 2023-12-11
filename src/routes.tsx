@@ -4,10 +4,15 @@ import TouristAttractionsPage from "./pages/TouristAttractionsPage";
 import HotelPage from "./pages/HotelPage";
 import MemberLoginPage from "./pages/MemberLoginPage";
 import ActivityPage from "./pages/ActivityPage";
-import Home from "./pages/HomePage";
-import DailyPage from "./pages/DailyPage";
+import HomePage from "./pages/HomePage";
 import MessagePage from "./pages/MessagePage";
 import LoginPage from "./pages/LoginPage";
+import ForumPage from "./pages/ForumPage";
+import {
+  hoemLoader,
+  activityLoader,
+  forumLoader,
+} from "./services/dataLoaders";
 
 export const routes = [
   {
@@ -16,8 +21,8 @@ export const routes = [
     children: [
       {
         index: true,
-        element: <Home />,
-        // loader: homeLoader,
+        element: <HomePage />,
+        loader: hoemLoader,
       },
       {
         path: "peripheral-products",
@@ -38,14 +43,16 @@ export const routes = [
       {
         path: "activity-info",
         element: <ActivityPage />,
-      },
-      {
-        path: "daily-page",
-        element: <DailyPage />,
+        loader: activityLoader,
       },
       {
         path: "message-page",
         element: <MessagePage />,
+      },
+      {
+        path: "forum-page",
+        element: <ForumPage />,
+        loader: forumLoader,
       },
       {
         path: "login-page",

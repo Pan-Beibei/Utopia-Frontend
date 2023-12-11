@@ -163,7 +163,7 @@ function Links({ direction }: LinksProps) {
       <StyledNavLink to="/activity-info">
         <StyledImportantSpan>活动</StyledImportantSpan>
       </StyledNavLink>
-      <StyledNavLink to="/daily-page">
+      <StyledNavLink to="/forum-page">
         <StyledImportantSpan>68克情报处</StyledImportantSpan>
       </StyledNavLink>
       {/* <StyledNavLink to="/message-page">

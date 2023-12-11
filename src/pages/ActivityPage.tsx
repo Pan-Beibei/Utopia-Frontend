@@ -1,10 +1,7 @@
 import { Box } from "@mui/material";
 import { ReactNode } from "react";
-import { HTTPS } from "../utils/APIRoutes";
-import { init } from "../pageSlices/activityPageSlice";
 import ActivityList from "../components/activity/ActivityList";
 import ActivityDetail from "../components/activity/ActivityDetail";
-import { useFetchAndInitData } from "../hooks/customHooks";
 
 const ActivityContainer = ({ children }: { children?: ReactNode }) => (
   <Box
@@ -23,8 +20,6 @@ const ActivityContainer = ({ children }: { children?: ReactNode }) => (
 );
 
 function ActivityPage() {
-  useFetchAndInitData(HTTPS.ACTIVITY, init);
-
   return (
     <ActivityContainer>
       <ActivityList />

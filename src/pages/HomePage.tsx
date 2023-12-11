@@ -7,12 +7,6 @@ import Drinks from "../components/home/Drinks";
 import OurMemories from "../components/home/OurMemories";
 import BulletInputText from "../features/bullet/BulletInputText";
 import { useSocket } from "../hooks/useSocket";
-import { init } from "../pageSlices/homePageSlice";
-import { HTTPS } from "../utils/APIRoutes";
-import { initBullet } from "../features/bullet/bulletSlice";
-import { useFetchAndInitData } from "../hooks/customHooks";
-
-// import Guests from "../components/Guests";
 
 const StyledHome = ({ children }: { children?: ReactNode }) => (
   <Box
@@ -40,8 +34,6 @@ const FlexColumn = ({ children }: { children?: ReactNode }) => (
 );
 function HomePage() {
   const socketRef = useSocket();
-  useFetchAndInitData(HTTPS.BULLETS, initBullet);
-  useFetchAndInitData(HTTPS.HOME_PAGE, init);
 
   return (
     <StyledHome>

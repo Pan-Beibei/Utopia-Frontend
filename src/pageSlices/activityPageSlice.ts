@@ -33,7 +33,7 @@ const activityPageSlice = createSlice({
   name: "activityPage",
   initialState,
   reducers: {
-    init(state, action) {
+    initActivities(state, action) {
       console.log(action.payload);
       state.activities = action.payload;
       state.activity = state.activities[0];
@@ -44,7 +44,7 @@ const activityPageSlice = createSlice({
   },
 });
 
-export const { init, setActivity } = activityPageSlice.actions;
+export const { initActivities, setActivity } = activityPageSlice.actions;
 
 export default activityPageSlice.reducer;
 

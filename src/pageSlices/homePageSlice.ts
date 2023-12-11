@@ -15,7 +15,7 @@ const homePageSlice = createSlice({
   name: "homePage",
   initialState,
   reducers: {
-    init(state, action) {
+    initHome(state, action) {
       state.pictures = action.payload[0].pictures;
       const textContents = JSON.parse(action.payload[0].textContents);
       state.textContents = textContents.map(
@@ -25,7 +25,7 @@ const homePageSlice = createSlice({
   },
 });
 
-export const { init } = homePageSlice.actions;
+export const { initHome } = homePageSlice.actions;
 
 export default homePageSlice.reducer;
 
