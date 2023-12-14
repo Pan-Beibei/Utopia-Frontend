@@ -12,7 +12,7 @@ interface BulletStyleProps {
 }
 
 const constantStyles = css`
-  background-color: #fff;
+  background-color: ${(props) => props.theme.colors.gray};
   white-space: nowrap;
   opacity: 0.8;
   border-radius: 0.3rem;
@@ -26,8 +26,8 @@ const StyledBullet = styled.div<BulletStyleProps>`
   ${constantStyles}
 
   ${(props) => css`
-    font-size: ${props.$fontSize}rem;
-    color: ${props.$fontColor};
+    font-size: 1.4rem;
+    color: ${(props) => props.theme.colors.white};
     top: ${props.$posY}px;
 
     animation: rightToLeft ${props.$speed}s linear;

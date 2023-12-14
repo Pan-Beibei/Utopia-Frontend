@@ -1,30 +1,26 @@
 import styled from "styled-components";
-import { Box } from "@mui/system";
-import { Grid } from "@mui/material";
-import { ReactNode } from "react";
 import Logo from "../../ui/Logo";
 import NavLinks from "./NavLinks";
-import SwitchThemeButton from "../../themes/ThemeContext";
+// import SwitchThemeButton from "../../themes/ThemeContext";
 
-// import { ComponentPropsWithoutRef } from "react";
+const StyledNarbar = styled.nav`
+  display: flex;
+  background-color: ${(props) => props.theme.colors.white};
+  height: 5.6rem;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2rem 2rem;
+  position: fixed;
+  z-index: 10;
+  width: 100%;
+`;
 
-const StyledNarbar = ({ children }: { children?: ReactNode }) => (
-  <Box
-    component="nav"
-    display="flex"
-    bgcolor="background.default"
-    height="10rem"
-    alignItems="center"
-    justifyContent="space-between"
-    padding="0 5rem"
-    position="fixed"
-    zIndex="10"
-    width="100%"
-    sx={{ opacity: 0.7 }}
-  >
-    {children}
-  </Box>
-);
+const StyledContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: cneter;
+  gap: 2rem;
+`;
 
 const StyledNavMobile = styled.div`
   @media (min-width: 1024px) {
@@ -43,8 +39,7 @@ function Narbar() {
   return (
     <StyledNarbar>
       <Logo />
-      <Grid container alignItems="center" justifyContent="flex-end" gap={2}>
-        <SwitchThemeButton />
+      <StyledContainer>
         <StyledNavMobile>
           <NavLinks>
             <NavLinks.Toggle>
@@ -55,9 +50,10 @@ function Narbar() {
           </NavLinks>
         </StyledNavMobile>
         <StyledNavTable>
-          <NavLinks.Links direction="row" />
+          <NavLinks.Links />
         </StyledNavTable>
-      </Grid>
+        <img src="./icons/login.svg" alt="Login button" />
+      </StyledContainer>
     </StyledNarbar>
   );
 }

@@ -1,12 +1,13 @@
-import React, { ReactNode, useState } from "react";
+import { useState } from "react";
+import styled from "styled-components";
 import { Socket } from "socket.io-client";
 import { useSelector } from "react-redux";
-import { Box } from "@mui/system";
-import { Input, Button } from "@mui/material";
 import data from "@emoji-mart/data";
 import Picker from "@emoji-mart/react";
 import { MsgType } from "../../utils/APIRoutes";
 import { getUserId } from "../user/userSlice";
+import PrimaryButton from "../../ui/PrimaryButton";
+import { ButtonTypes } from "../../enum/ButtonTypes";
 
 interface EmojiData {
   id: string;
@@ -15,98 +16,55 @@ interface EmojiData {
   // 其他可能的属性...
 }
 
-const StyledBulletInputContainer = ({ children }: { children?: ReactNode }) => (
-  <Box
-    sx={(theme) => ({
-      border: `1px solid ${theme.palette.divider}`,
-      position: "relative",
-      padding: "0 0.5rem",
-      borderRadius: theme.shape.borderRadius,
-      boxShadow: "0px 2px 1px -1px rgba(0,0,0,0.2)",
-      zIndex: 100,
-    })}
-  >
-    {children}
-  </Box>
-);
+const StyledBulletInputContainer = styled.div`
+  position: relative;
+  padding: 0 1rem;
+  border-radius: 6rem;
+  z-index: 100;
+`;
 
-const FlexRow = ({ children }: { children?: ReactNode }) => (
-  <Box
-    sx={{
-      display: "flex",
-      alignItems: "center",
-      gap: "0.5rem",
-    }}
-  >
-    {children}
-  </Box>
-);
+const StyledFlex = styled.div`
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+`;
 
-const StyledInputText = ({ ...props }) => (
-  <Input
-    {...props}
-    sx={{
-      flexGrow: 1,
-      flexShrink: 1,
-      maxWidth: "70%",
-      padding: "0.5rem",
-    }}
-  />
-);
+const StyledInputContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: ${(props) => props.theme.colors.gray};
+  gap: 0.1rem;
+  padding: 0.4rem 1.6rem;
+  min-height: 4rem;
+  border-radius: 6rem;
+  flex: 1;
+`;
 
-const StyledButton = ({
-  children,
-  onClick,
-  ...props
-}: {
-  children?: ReactNode;
-  onClick: () => void;
-}) => (
-  <Button
-    {...props}
-    onClick={onClick}
-    sx={{
-      fontSize: "1.2rem",
-      padding: "2px",
-      marginLeft: "8px",
-    }}
-  >
-    {children}
-  </Button>
-);
+const StyledInputText = styled.input`
+  flex: 1;
+  max-width: 70%;
+  padding: 0.5rem;
+  border: none;
+  background-color: transparent;
+  font-size: 1.4rem;
+  color: ${(props) => props.theme.colors.white};
+  &::placeholder {
+    color: ${(props) => props.theme.colors.white};
+  }
+`;
 
-const EmojiButton = ({
-  children,
-  onClick,
-  ...props
-}: {
-  children?: ReactNode;
-  onClick: () => void;
-}) => (
-  <Button
-    {...props}
-    onClick={onClick}
-    sx={{
-      fontSize: "1.2rem",
-      padding: "2px",
-      marginLeft: "8px",
-    }}
-  >
-    {children}
-  </Button>
-);
+const StyledEmojiButton = styled.div`
+  font-size: 1.2rem;
+  padding: 2px;
+  margin-left: 8px;
+`;
 
-const EmojiContainer = ({ children }: { children?: ReactNode }) => (
-  <Box
-    sx={{
-      position: "absolute",
-      bottom: "3rem",
-      left: 0,
-    }}
-  >
-    {children}
-  </Box>
-);
+const StyledEmojiContainer = styled.div`
+  position: absolute;
+  bottom: 5rem;
+  left: 0;
+`;
 
 interface BulletInputTextProps {
   socket: React.RefObject<Socket | null>;
@@ -137,7 +95,7 @@ function BulletInputText({ socket }: BulletInputTextProps) {
   return (
     <StyledBulletInputContainer>
       {showPicker && (
-        <EmojiContainer>
+        <StyledEmojiContainer>
           <Picker
             data={data}
             onEmojiSelect={(emoji: EmojiData) => {
@@ -149,20 +107,31 @@ function BulletInputText({ socket }: BulletInputTextProps) {
             navPosition="none"
             perLine={8}
           />
-        </EmojiContainer>
+        </StyledEmojiContainer>
       )}
 
-      <FlexRow>
-        <StyledInputText
-          type="text"
-          value={inputContent}
-          onChange={handleInputChange}
-        ></StyledInputText>
-        <EmojiButton onClick={() => setShowPicker(!showPicker)}>
-          表情
-        </EmojiButton>
-        <StyledButton onClick={handleSendClick}>发送</StyledButton>
-      </FlexRow>
+      <StyledFlex>
+        <StyledInputContainer>
+          <StyledInputText
+            type="text"
+            value={inputContent}
+            onChange={handleInputChange}
+            placeholder="请输入弹幕..."
+          ></StyledInputText>
+          <StyledEmojiButton onClick={() => setShowPicker(!showPicker)}>
+            <img src="./icons/emoji.svg" alt="emoji" />
+          </StyledEmojiButton>
+        </StyledInputContainer>
+        <PrimaryButton
+          onClick={handleSendClick}
+          type={ButtonTypes.SEND_BULLET_BUTTON}
+        >
+          <StyledFlex>
+            发送
+            <img src="./icons/fly.svg" alt="fly" />
+          </StyledFlex>
+        </PrimaryButton>
+      </StyledFlex>
     </StyledBulletInputContainer>
   );
 }

@@ -1,0 +1,4 @@
+export enum ButtonTypes {
+  SEND_BULLET_BUTTON = "SEND_BULLET_BUTTON",
+  LOGIN_BUTTON = "LOGIN_BUTTON",
+}

@@ -1,8 +1,6 @@
 import styled from "styled-components";
-import { useState, createContext, useContext, ReactNode } from "react";
-import { LinkProps, NavLink } from "react-router-dom";
-import { Box } from "@mui/system";
-import { Link } from "@mui/material";
+import { useState, createContext, useContext } from "react";
+import { NavLink } from "react-router-dom";
 
 type FlexDirectionType = "row" | "row-reverse" | "column" | "column-reverse";
 
@@ -11,74 +9,43 @@ type StyledNavLinksProps = {
   children?: React.ReactNode;
 };
 
-const StyledNavLinks = ({
-  direction = "column",
-  children,
-}: StyledNavLinksProps) => (
-  <Box
-    component="ul"
-    display="flex"
-    flexDirection={direction}
-    alignItems="center"
-    gap={2.5}
-  >
-    {children}
-  </Box>
-);
+const StyledNavLinks = styled.ul<StyledNavLinksProps>`
+  display: flex;
+  flex-direction: ${(props) => props.direction || "column"};
+  align-items: center;
+  gap: 2.5rem;
+`;
 
-const StyledNavLink = (props: LinkProps) => (
-  <Link
-    {...props}
-    component={NavLink}
-    underline="none"
-    sx={{
-      textTransform: "uppercase",
-      fontSize: "1.2rem",
-      fontWeight: "bold",
-      letterSpacing: "0.2rem",
-    }}
-  />
-);
+const StyledNavLink = styled(NavLink)`
+  text-transform: uppercase;
+  font-size: 1.2rem;
+  font-weight: bold;
+  letter-spacing: 0.2rem;
+`;
 
-const StyledNavBg = ({ children }: { children?: ReactNode }) => (
-  <Box
-    sx={{
-      backgroundColor: "background.default",
-      color: "primary.main",
-      width: "25rem",
-      height: "20rem",
-      position: "absolute",
-      top: "4rem",
-      right: 0,
-    }}
-  >
-    {children}
-  </Box>
-);
+const StyledNavBg = styled.div`
+  background-color: ${(props) => props.theme.colors.primary};
+  color: ${(props) => props.theme.colors.primary};
+  width: 25rem;
+  height: 20rem;
+  position: absolute;
+  top: 4rem;
+  right: 0;
+`;
 
 const StyledToggle = styled.div`
   position: relative;
 `;
 
-const StyledImportantSpan = ({
-  children,
-  bgColor,
-}: {
-  children?: ReactNode;
-  bgColor?: string;
-}) => (
-  <Box
-    component="span"
-    sx={{
-      color: "#000",
-      backgroundColor: `${bgColor ? bgColor : "primary.main"}`,
-      padding: "0.5rem",
-      borderRadius: "0.5rem",
-    }}
-  >
-    {children}
-  </Box>
-);
+const StyledImportantSpan = styled.span<{ bgColor?: string }>`
+  background-color: ${(props) =>
+    props.bgColor
+      ? props.theme.colors[props.bgColor]
+      : props.theme.colors.primary.main};
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.5rem;
+  color: ${(props) => props.theme.colors.primary};
+`;
 
 type ContextType = {
   isOpen: boolean;
@@ -128,7 +95,7 @@ function Toggle({ children }: ToggleProps) {
       {isOpen ? (
         <img src="./icons/close.svg" width={25} alt="menu" />
       ) : (
-        <img src="./icons/hamburger.svg" width={25} alt="menu" />
+        <img src="./icons/menu.svg" alt="menu" />
       )}
 
       {children}
@@ -151,13 +118,9 @@ function NavBg({ children }: NavBgProps) {
   return <StyledNavBg>{children}</StyledNavBg>;
 }
 
-interface LinksProps {
-  direction?: FlexDirectionType;
-}
-
-function Links({ direction }: LinksProps) {
+function Links() {
   return (
-    <StyledNavLinks direction={direction}>
+    <StyledNavLinks>
       <StyledNavLink to="/">Home</StyledNavLink>
       <StyledNavLink to="/hotel-info">咖啡馆房间</StyledNavLink>
       <StyledNavLink to="/activity-info">
@@ -166,9 +129,6 @@ function Links({ direction }: LinksProps) {
       <StyledNavLink to="/forum-page">
         <StyledImportantSpan>68克情报处</StyledImportantSpan>
       </StyledNavLink>
-      {/* <StyledNavLink to="/message-page">
-        <StyledImportantSpan>病友日记</StyledImportantSpan>
-      </StyledNavLink> */}
       <StyledNavLink to="/login-page">
         <StyledImportantSpan bgColor="secondary.main">登录</StyledImportantSpan>
       </StyledNavLink>

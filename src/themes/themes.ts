@@ -1,79 +1,56 @@
-import { createTheme } from "@mui/material/styles";
+const baseTheme = {
+  breakpoints: {
+    mobile: "393px",
+    tablet: "834px",
+    desktop: "1440px",
+  },
+  fontSizes: {
+    mobile: {
+      bulletSize: "1.2rem",
+      drinkMenu: "1.6rem",
+      story: {
+        title: "1.6rem",
+        content: "1.4rem",
+        large: "1.2rem",
+      },
+    },
+    tablet: {
+      bulletSize: "1.4rem",
+      drinkMenu: "2rem",
+      story: {
+        title: "1.6rem",
+        content: "1.4rem",
+        large: "1.2rem",
+      },
+    },
+    desktop: {
+      bulletSize: "1.4rem",
+      drinkMenu: "2.4rem",
+      story: {
+        title: "1.6rem",
+        content: "1.4rem",
+        large: "1.2rem",
+      },
+    },
+  },
+  borderRadius: "2.6rem",
+  padding: {
+    tiny: "0.4rem",
+    small: "0.8rem",
+    medium: "1.2rem",
+    big: "1.6rem",
+  },
+  PingFangSC: '"PingFang SC", serif',
+};
 
-const warmColors = {
-  backgroundColor: "#FFFAF0",
-  primaryTextColor: "#8B4513",
-  secondaryTextColor: "#D2691E",
-  primaryButtonColor: "#CD853F",
-  secondaryButtonColor: "#F4A460",
-
-  hoverColor: "#FFD700",
-  divider: "#E5E5E5", // a light gray color
-  shape: {
-    borderRadius: 4, // add this line
+const warmTheme = {
+  colors: {
+    default: "#000000",
+    secondary: "#CC995A",
+    primary: "#B05F25",
+    white: "#FFFFFF",
+    gray: "#8E8E8EA3",
   },
 };
 
-const coolColors = {
-  backgroundColor: "#F0F8FF",
-  primaryTextColor: "#4682B4",
-  secondaryTextColor: "#5F9EA0",
-  primaryButtonColor: "#7B68EE",
-  secondaryButtonColor: "#6A5ACD",
-  hoverColor: "#1E90FF",
-  divider: "#D3D3D3", // a light gray color
-  shape: {
-    borderRadius: 4, // add this line
-  },
-};
-const warmTheme = createTheme({
-  palette: {
-    background: {
-      default: warmColors.backgroundColor,
-    },
-    text: {
-      primary: warmColors.primaryTextColor,
-      secondary: warmColors.secondaryTextColor,
-    },
-    action: {
-      hover: warmColors.hoverColor,
-    },
-    primary: {
-      main: warmColors.primaryButtonColor,
-    },
-    secondary: {
-      main: warmColors.secondaryButtonColor,
-    },
-    divider: warmColors.divider,
-  },
-  shape: {
-    borderRadius: warmColors.shape.borderRadius, // add this line
-  },
-});
-
-const coolTheme = createTheme({
-  palette: {
-    background: {
-      default: coolColors.backgroundColor,
-    },
-    text: {
-      primary: coolColors.primaryTextColor,
-      secondary: coolColors.secondaryTextColor,
-    },
-    action: {
-      hover: coolColors.hoverColor,
-    },
-    primary: {
-      main: coolColors.primaryButtonColor,
-    },
-    secondary: {
-      main: coolColors.secondaryButtonColor,
-    },
-    divider: coolColors.divider,
-  },
-  shape: {
-    borderRadius: coolColors.shape.borderRadius, // add this line
-  },
-});
-
-export { warmTheme, coolTheme };
+export { baseTheme, warmTheme };

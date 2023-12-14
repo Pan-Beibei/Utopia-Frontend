@@ -1,28 +1,20 @@
-import { Box } from "@mui/system";
 import styled from "styled-components";
-
 import Video from "../../ui/Video";
 import BulletShow from "../../features/bullet/BulletShow";
-import { ReactNode } from "react";
+import BulletInputText from "../../features/bullet/BulletInputText";
+import { useSocket } from "../../hooks/useSocket";
 
-const StyledHero = ({ children }: { children?: ReactNode }) => (
-  <Box
-    component="section"
-    sx={{
-      position: "relative",
-      height: "100vh",
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      justifyContent: "flex-start",
-      overflow: "hidden",
-    }}
-  >
-    {children}
-  </Box>
-);
+const StyledHero = styled.section`
+  position: relative;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  overflow: hidden;
+`;
 
-const StyledBulletContainer = styled(Box)`
+const StyledBulletContainer = styled.div`
   height: 100%;
   width: 100%;
   background-color: transparent;
@@ -32,18 +24,29 @@ const StyledBulletContainer = styled(Box)`
   z-index: 2;
 `;
 
-const VideoContainer = styled(Box)`
+const VideoContainer = styled.div`
   position: relative;
   width: 100%;
   height: 100%;
   z-index: 1;
 `;
 
+const StyledInputContainer = styled.div`
+  position: absolute;
+  width: 100%;
+  bottom: 11rem;
+`;
+
 function Hero() {
+  const socketRef = useSocket();
+
   return (
     <StyledHero>
       <StyledBulletContainer>
         <BulletShow />
+        <StyledInputContainer>
+          <BulletInputText socket={socketRef} />
+        </StyledInputContainer>
       </StyledBulletContainer>
       <VideoContainer>
         <Video />
