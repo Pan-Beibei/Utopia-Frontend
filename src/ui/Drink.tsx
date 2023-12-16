@@ -35,7 +35,7 @@ const StyledNameBg = styled.div`
 
 const StyledName = styled.div`
   font-size: 1.4rem;
-  color: ${(props) => props.theme.colors.default};
+  color: ${(props) => props.theme.colors.black};
 `;
 
 interface DrinkProps {

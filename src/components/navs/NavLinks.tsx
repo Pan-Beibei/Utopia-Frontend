@@ -19,13 +19,13 @@ const StyledNavLinks = styled.ul<StyledNavLinksProps>`
 const StyledNavLink = styled(NavLink)`
   text-transform: uppercase;
   font-size: 1.2rem;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 0.2rem;
 `;
 
 const StyledNavBg = styled.div`
   background-color: ${(props) => props.theme.colors.white};
-  color: ${(props) => props.theme.colors.default};
+  color: ${(props) => props.theme.colors.black};
   width: 9.3rem;
   height: 15rem;
   position: absolute;

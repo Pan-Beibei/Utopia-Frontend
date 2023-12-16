@@ -45,7 +45,8 @@ const baseTheme = {
 
 const warmTheme = {
   colors: {
-    default: "#000000",
+    bgColor: "#F1F3F4",
+    black: "#000000",
     secondary: "#CC995A",
     primary: "#B05F25",
     white: "#FFFFFF",

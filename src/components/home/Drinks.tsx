@@ -19,7 +19,7 @@ const StyledContainer = styled.section`
 const StyledContent = styled.p`
   padding: 0 1rem;
   font-size: 1.6rem;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 0.8px;
   color: ${(props) => props.theme.colors.text};
 `;

@@ -1,20 +1,29 @@
 import { Outlet } from "react-router-dom";
+import styled from "styled-components";
 import Navbar from "./navs/Narbar";
-import Footer from "./footer/Footer";
+import Footer from "../ui/Footer";
+
+const StyledContainer = styled.div`
+  background-color: ${(props) => props.theme.colors.bgColor};
+`;
+
+const StyledFooter = styled.footer`
+  padding-top: 5rem;
+`;
 
 function AppLayout() {
   return (
-    <>
+    <StyledContainer>
       <header>
         <Navbar />
       </header>
       <main>
         <Outlet />
       </main>
-      <footer>
+      <StyledFooter>
         <Footer />
-      </footer>
-    </>
+      </StyledFooter>
+    </StyledContainer>
   );
 }
 
