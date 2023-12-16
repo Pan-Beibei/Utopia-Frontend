@@ -9,8 +9,8 @@ const StyledDrink = styled.div<StyledDrinkProps>`
   position: relative;
   border-radius: 0.8rem;
   overflow: hidden;
-  width: ${(props) => props.$width};
-  height: ${(props) => props.$height};
+  min-width: ${(props) => props.$width};
+  min-height: ${(props) => props.$height};
 `;
 
 const StyledImg = styled.img`

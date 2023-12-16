@@ -23,14 +23,14 @@ const StyledContainer = styled.div`
 `;
 
 const StyledNavMobile = styled.div`
-  @media (min-width: 1024px) {
+  @media (min-width: 834px) {
     display: none;
   }
 `;
 
 const StyledNavTable = styled.div`
   display: none;
-  @media (min-width: 1024px) {
+  @media (min-width: 834px) {
     display: block;
   }
 `;

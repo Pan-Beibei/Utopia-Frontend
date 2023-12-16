@@ -10,11 +10,15 @@ const StyledContainer = styled.div`
   justify-content: center;
   align-items: center;
   color: ${(props) => props.theme.colors.white};
+  @media (min-width: 834px) {
+    gap: 0;
+    background-color: ${(props) => props.theme.colors.primary};
+  }
 `;
 
 const StyledCard = styled.div`
   display: flex;
-  max-width: 36rem;
+  margin: 0 2rem;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
@@ -23,6 +27,11 @@ const StyledCard = styled.div`
   color: ${(props) => props.theme.colors.black};
   border-radius: 0.8rem;
   padding: 1.6rem;
+  @media (min-width: 834px) {
+    color: ${(props) => props.theme.colors.white};
+    background-color: transparent;
+    width: 100%;
+  }
 `;
 
 const StyledTitle = styled.h3`
@@ -37,6 +46,7 @@ const StyledCardText = styled.p`
 `;
 
 const StyledContactContainer = styled.div`
+  width: 100%;
   background-color: ${(props) => props.theme.colors.primary};
   padding: 1.6rem;
 `;

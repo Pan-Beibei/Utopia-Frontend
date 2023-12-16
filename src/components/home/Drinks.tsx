@@ -3,24 +3,29 @@ import { useSelector } from "react-redux";
 import { getPictures, getTextContents } from "../../pageSlices/homePageSlice";
 import Drink from "../../ui/Drink";
 import SectionTitleProps from "../../ui/SectionTitle";
+import { BaseColumnFlex } from "../../styles/BaseStyles";
 
-const StyledContainer = styled.section`
+const StyledContainer = styled(BaseColumnFlex)`
   padding: 0 2rem;
-  display: flex;
-  flex-direction: column;
   gap: 2rem;
-  justify-content: center;
-  align-items: center;
-  @media (min-width: 768px) {
+`;
+
+const StyledFlex = styled(BaseColumnFlex)`
+  gap: 2rem;
+  @media (min-width: 834px) {
+    align-items: start;
     flex-direction: row;
   }
 `;
 
 const StyledContent = styled.p`
+  margin-top: 1rem;
   padding: 0 1rem;
   font-size: 1.6rem;
   font-weight: 700;
   letter-spacing: 0.8px;
+  border-radius: 0.8rem;
+  background-color: ${(props) => props.theme.colors.white};
   color: ${(props) => props.theme.colors.text};
 `;
 
@@ -34,6 +39,9 @@ const StyledDrinksListContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 2.5rem;
+  @media (min-width: 834px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
 `;
 
 function Drinks() {
@@ -44,18 +52,25 @@ function Drinks() {
   const des = textContents[0] as string;
 
   return (
-    <StyledContainer>
-      <SectionTitleProps>Drink Menu</SectionTitleProps>
-      <StyledDrinksListImg src={pictures[18]} alt="drink list" />
-      <StyledContent>{des}</StyledContent>
-      <StyledDrinksListContainer>
-        {Array(6)
-          .fill(null)
-          .map((_, index) => (
-            <Drink key={index} width="15rem" height="15rem" imgUrl="" />
-          ))}
-      </StyledDrinksListContainer>
-    </StyledContainer>
+    <section>
+      <StyledContainer>
+        <SectionTitleProps>Drink Menu</SectionTitleProps>
+        <StyledFlex>
+          <div>
+            <StyledDrinksListImg src={pictures[18]} alt="drink list" />
+            <StyledContent>{des}</StyledContent>
+          </div>
+
+          <StyledDrinksListContainer>
+            {Array(6)
+              .fill(null)
+              .map((_, index) => (
+                <Drink key={index} width="15rem" height="15rem" imgUrl="" />
+              ))}
+          </StyledDrinksListContainer>
+        </StyledFlex>
+      </StyledContainer>
+    </section>
   );
 }
 

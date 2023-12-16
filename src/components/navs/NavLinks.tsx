@@ -11,9 +11,13 @@ type StyledNavLinksProps = {
 
 const StyledNavLinks = styled.ul<StyledNavLinksProps>`
   display: flex;
-  flex-direction: ${(props) => props.direction || "column"};
+  flex-direction: column;
   align-items: center;
   gap: 1rem;
+  @media (min-width: 834px) {
+    flex-direction: row;
+    gap: 2rem;
+  }
 `;
 
 const StyledNavLink = styled(NavLink)`
@@ -21,6 +25,20 @@ const StyledNavLink = styled(NavLink)`
   font-size: 1.2rem;
   font-weight: 700;
   letter-spacing: 0.2rem;
+
+  &.home-icon {
+    display: none;
+  }
+
+  @media (min-width: 834px) {
+    font-size: 1.4rem;
+    &.home-link {
+      display: none;
+    }
+    &.home-icon {
+      display: block;
+    }
+  }
 `;
 
 const StyledNavBg = styled.div`
@@ -28,6 +46,7 @@ const StyledNavBg = styled.div`
   color: ${(props) => props.theme.colors.black};
   width: 9.3rem;
   height: 15rem;
+  border-radius: 0 0 0.8rem 0.8rem;
   position: absolute;
   top: 4rem;
   right: 0;
@@ -36,16 +55,6 @@ const StyledNavBg = styled.div`
 const StyledToggle = styled.div`
   position: relative;
 `;
-
-// const StyledImportantSpan = styled.span<{ bgColor?: string }>`
-//   background-color: ${(props) =>
-//     props.bgColor
-//       ? props.theme.colors[props.bgColor]
-//       : props.theme.colors.primary.main};
-//   padding: 0.2rem 0.5rem;
-//   border-radius: 0.5rem;
-//   color: ${(props) => props.theme.colors.primary};
-// `;
 
 type ContextType = {
   isOpen: boolean;
@@ -121,7 +130,12 @@ function NavBg({ children }: NavBgProps) {
 function Links() {
   return (
     <StyledNavLinks>
-      <StyledNavLink to="/">主页</StyledNavLink>
+      <StyledNavLink className="home-link" to="/">
+        主页
+      </StyledNavLink>
+      <StyledNavLink className="home-icon" to="/">
+        <img src="./icons/home.svg" alt="home" />
+      </StyledNavLink>
       <StyledNavLink to="/forum-page">68克情报处</StyledNavLink>
       <StyledNavLink to="/activity-info">最近活动</StyledNavLink>
       <StyledNavLink to="/hotel-info">民宿房间</StyledNavLink>
