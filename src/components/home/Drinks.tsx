@@ -1,87 +1,61 @@
-import { ReactNode } from "react";
-import { Box, Typography } from "@mui/material";
-// import { useText, InfoProps } from "../contexts/TextContext";
-import Pictures from "../../ui/Pictures";
-import { getPictures, getTextContents } from "../../pageSlices/homePageSlice";
+import styled from "styled-components";
 import { useSelector } from "react-redux";
+import { getPictures, getTextContents } from "../../pageSlices/homePageSlice";
+import Drink from "../../ui/Drink";
+import SectionTitleProps from "../../ui/SectionTitle";
 
-const StyledDrinks = ({ children }: { children?: ReactNode }) => (
-  <Box
-    component="section"
-    sx={{
-      padding: "0 2rem",
-      display: "flex",
-      flexDirection: "column",
-      gap: "3rem",
-      justifyContent: "center",
-      alignItems: "center",
-      "@media (min-width: 768px)": {
-        flexDirection: "row",
-      },
-    }}
-  >
-    {children}
-  </Box>
-);
+const StyledContainer = styled.section`
+  padding: 0 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  justify-content: center;
+  align-items: center;
+  @media (min-width: 768px) {
+    flex-direction: row;
+  }
+`;
 
-const StyledText = ({
-  children,
-  $isMain,
-}: {
-  children?: ReactNode;
-  $isMain: boolean;
-}) => (
-  <Typography
-    sx={{
-      fontSize: $isMain ? "1.8rem" : "1.5rem",
-      color: "text.primary",
-      "@media (min-width: 600px)": {
-        fontSize: $isMain ? "2.8rem" : "2.5rem",
-      },
-    }}
-  >
-    {children}
-  </Typography>
-);
+const StyledContent = styled.p`
+  padding: 0 1rem;
+  font-size: 1.6rem;
+  font-weight: 600;
+  letter-spacing: 0.8px;
+  color: ${(props) => props.theme.colors.text};
+`;
 
-const StyledFlexRow = ({ children }: { children?: ReactNode }) => (
-  <Box
-    sx={{
-      display: "flex",
-      flexDirection: "column",
-      justifyContent: "center",
-      alignItems: "center",
-      "@media (min-width: 768px)": {
-        gap: "3rem",
-      },
-    }}
-  >
-    {children}
-  </Box>
-);
+const StyledDrinksListImg = styled.img`
+  width: 100%;
+  height: 100%;
+  border-radius: 0.8rem;
+`;
+
+const StyledDrinksListContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2.5rem;
+`;
 
 function Drinks() {
   const pictures = useSelector(getPictures);
   const textContents = useSelector(getTextContents);
 
-  // const { getTextByIndex } = useText();
-
-  // const info: InfoProps = getTextByIndex(1);
   if (textContents.length === 0) return null;
   const des = textContents[0] as string;
 
-  // console.log(des);
-
-  const desArr = des.split("|");
-
   return (
-    <StyledDrinks>
-      <Pictures imgs={[pictures[18], pictures[18]]} altstr="Drinks Info" />
-      <StyledFlexRow>
-        <StyledText $isMain={true}>{desArr[0]}</StyledText>
-        <StyledText $isMain={false}>{"-----" + desArr[1]}</StyledText>
-      </StyledFlexRow>
-    </StyledDrinks>
+    <StyledContainer>
+      <SectionTitleProps>Drink Menu</SectionTitleProps>
+      <StyledDrinksListImg src={pictures[18]} alt="drink list" />
+      <StyledContent>{des}</StyledContent>
+      <StyledDrinksListContainer>
+        {Array(6)
+          .fill(null)
+          .map((_, index) => (
+            <Drink key={index} width="15rem" height="15rem" imgUrl="" />
+          ))}
+      </StyledDrinksListContainer>
+    </StyledContainer>
   );
 }
 

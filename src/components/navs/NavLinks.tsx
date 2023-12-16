@@ -13,21 +13,21 @@ const StyledNavLinks = styled.ul<StyledNavLinksProps>`
   display: flex;
   flex-direction: ${(props) => props.direction || "column"};
   align-items: center;
-  gap: 2.5rem;
+  gap: 1rem;
 `;
 
 const StyledNavLink = styled(NavLink)`
   text-transform: uppercase;
   font-size: 1.2rem;
-  font-weight: bold;
+  font-weight: 600;
   letter-spacing: 0.2rem;
 `;
 
 const StyledNavBg = styled.div`
-  background-color: ${(props) => props.theme.colors.primary};
-  color: ${(props) => props.theme.colors.primary};
-  width: 25rem;
-  height: 20rem;
+  background-color: ${(props) => props.theme.colors.white};
+  color: ${(props) => props.theme.colors.default};
+  width: 9.3rem;
+  height: 15rem;
   position: absolute;
   top: 4rem;
   right: 0;
@@ -37,15 +37,15 @@ const StyledToggle = styled.div`
   position: relative;
 `;
 
-const StyledImportantSpan = styled.span<{ bgColor?: string }>`
-  background-color: ${(props) =>
-    props.bgColor
-      ? props.theme.colors[props.bgColor]
-      : props.theme.colors.primary.main};
-  padding: 0.2rem 0.5rem;
-  border-radius: 0.5rem;
-  color: ${(props) => props.theme.colors.primary};
-`;
+// const StyledImportantSpan = styled.span<{ bgColor?: string }>`
+//   background-color: ${(props) =>
+//     props.bgColor
+//       ? props.theme.colors[props.bgColor]
+//       : props.theme.colors.primary.main};
+//   padding: 0.2rem 0.5rem;
+//   border-radius: 0.5rem;
+//   color: ${(props) => props.theme.colors.primary};
+// `;
 
 type ContextType = {
   isOpen: boolean;
@@ -93,7 +93,7 @@ function Toggle({ children }: ToggleProps) {
   return (
     <StyledToggle onClick={handleClick}>
       {isOpen ? (
-        <img src="./icons/close.svg" width={25} alt="menu" />
+        <img src="./icons/menu.svg" alt="menu" />
       ) : (
         <img src="./icons/menu.svg" alt="menu" />
       )}
@@ -121,17 +121,11 @@ function NavBg({ children }: NavBgProps) {
 function Links() {
   return (
     <StyledNavLinks>
-      <StyledNavLink to="/">Home</StyledNavLink>
-      <StyledNavLink to="/hotel-info">咖啡馆房间</StyledNavLink>
-      <StyledNavLink to="/activity-info">
-        <StyledImportantSpan>活动</StyledImportantSpan>
-      </StyledNavLink>
-      <StyledNavLink to="/forum-page">
-        <StyledImportantSpan>68克情报处</StyledImportantSpan>
-      </StyledNavLink>
-      <StyledNavLink to="/login-page">
-        <StyledImportantSpan bgColor="secondary.main">登录</StyledImportantSpan>
-      </StyledNavLink>
+      <StyledNavLink to="/">主页</StyledNavLink>
+      <StyledNavLink to="/forum-page">68克情报处</StyledNavLink>
+      <StyledNavLink to="/activity-info">最近活动</StyledNavLink>
+      <StyledNavLink to="/hotel-info">民宿房间</StyledNavLink>
+      <StyledNavLink to="/user-profile-page">我的主页</StyledNavLink>
     </StyledNavLinks>
   );
 }

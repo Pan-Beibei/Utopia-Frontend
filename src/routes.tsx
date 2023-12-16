@@ -8,6 +8,7 @@ import HomePage from "./pages/HomePage";
 import MessagePage from "./pages/MessagePage";
 import LoginPage from "./pages/LoginPage";
 import ForumPage from "./pages/ForumPage";
+import UserProfilePage from "./pages/UserProfilePage";
 import {
   hoemLoader,
   activityLoader,
@@ -53,6 +54,10 @@ export const routes = [
         path: "forum-page",
         element: <ForumPage />,
         loader: forumLoader,
+      },
+      {
+        path: "user-profile-page",
+        element: <UserProfilePage />,
       },
       {
         path: "login-page",

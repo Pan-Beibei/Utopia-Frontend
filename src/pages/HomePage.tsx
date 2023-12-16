@@ -1,6 +1,6 @@
 import Hero from "../components/home/Hero";
 import Drinks from "../components/home/Drinks";
-import OurMemories from "../components/home/OurMemories";
+import OurMemories from "../components/home/Stories";
 
 import styled from "styled-components";
 
