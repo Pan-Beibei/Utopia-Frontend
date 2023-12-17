@@ -1,9 +1,7 @@
-// import { useState, useCallback } from "react";
-import styled from "styled-components";
-// import { useSelector } from "react-redux";
-// import { getTextContents } from "../../pageSlices/homePageSlice";
+import { useLocation } from "react-router-dom";
+import styled, { css } from "styled-components";
 
-const StyledContainer = styled.div`
+const StyledContainer = styled.div<{ $currentPath: string }>`
   display: flex;
   flex-direction: column;
   gap: 2rem;
@@ -14,9 +12,16 @@ const StyledContainer = styled.div`
     gap: 0;
     background-color: ${(props) => props.theme.colors.primary};
   }
+  ${(props) =>
+    props.$currentPath !== "/"
+      ? css`
+          gap: 0;
+          background-color: ${(props) => props.theme.colors.primary};
+        `
+      : ""}
 `;
 
-const StyledCard = styled.div`
+const StyledCard = styled.div<{ $currentPath: string }>`
   display: flex;
   margin: 0 2rem;
   flex-direction: column;
@@ -32,6 +37,14 @@ const StyledCard = styled.div`
     background-color: transparent;
     width: 100%;
   }
+  ${(props) =>
+    props.$currentPath !== "/"
+      ? css`
+          color: ${props.theme.colors.white};
+          background-color: transparent;
+          width: 100%;
+        `
+      : ""}
 `;
 
 const StyledTitle = styled.h3`
@@ -48,7 +61,7 @@ const StyledCardText = styled.p`
 const StyledContactContainer = styled.div`
   width: 100%;
   background-color: ${(props) => props.theme.colors.primary};
-  padding: 1.6rem;
+  padding: 0 1.6rem 1.6rem;
 `;
 
 const StyledContactList = styled.ul`
@@ -63,31 +76,14 @@ const StyledContactItem = styled.li`
 `;
 
 function Footer() {
-  // const textContents = useSelector(getTextContents);
-  // const [open, setOpen] = useState(false);
+  const location = useLocation();
+  const currentPath = location.pathname;
 
-  // const handleClick = useCallback(
-  //   (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-  //     const target = event.target as Element;
-  //     const spanElement = target.closest(".social");
-  //     if (spanElement) {
-  //       navigator.clipboard
-  //         .writeText(spanElement.getAttribute("data-value") || "")
-  //         .then(() => {
-  //           console.log("Text copied to clipboard");
-  //           setOpen(true); // 显示 Snackbar
-  //         })
-  //         .catch((err) => {
-  //           console.log("Something went wrong", err);
-  //         });
-  //     }
-  //   },
-  //   []
-  // );
+  console.log(currentPath);
 
   return (
-    <StyledContainer>
-      <StyledCard>
+    <StyledContainer $currentPath={currentPath}>
+      <StyledCard $currentPath={currentPath}>
         <StyledTitle>六元咖啡馆</StyledTitle>
         <StyledCardText>
           咖啡店的初衷只是想做一杯咖啡，不图收益，简简单单，能够给所有来来往往的人幸福感。能够让所有来大理的人能够暂时停下脚步，不用想太多，只要简单的喝一杯咖啡来缓解一下。

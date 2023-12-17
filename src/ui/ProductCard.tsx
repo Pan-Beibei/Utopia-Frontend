@@ -1,11 +1,11 @@
 import styled from "styled-components";
 
-interface StyledDrinkProps {
+interface StyledProductProps {
   $width: string;
   $height: string;
 }
 
-const StyledDrink = styled.div<StyledDrinkProps>`
+const StyledDrink = styled.div<StyledProductProps>`
   position: relative;
   border-radius: 0.8rem;
   overflow: hidden;
@@ -38,13 +38,13 @@ const StyledName = styled.div`
   color: ${(props) => props.theme.colors.black};
 `;
 
-interface DrinkProps {
+interface ProductProps {
   imgUrl: string;
   width: string;
   height: string;
 }
 
-function Drink({ imgUrl, width, height }: DrinkProps) {
+function Product({ imgUrl, width, height }: ProductProps) {
   console.log(imgUrl);
 
   return (
@@ -57,4 +57,4 @@ function Drink({ imgUrl, width, height }: DrinkProps) {
   );
 }
 
-export default Drink;
+export default Product;

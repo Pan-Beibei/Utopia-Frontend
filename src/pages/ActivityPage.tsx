@@ -1,30 +1,15 @@
-import { Box } from "@mui/material";
-import { ReactNode } from "react";
+import styled from "styled-components";
 import ActivityList from "../components/activity/ActivityList";
-import ActivityDetail from "../components/activity/ActivityDetail";
 
-const ActivityContainer = ({ children }: { children?: ReactNode }) => (
-  <Box
-    sx={{
-      padding: "1rem",
-      paddingTop: "10rem",
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      justifyContent: "center",
-      backgroundColor: "background.default",
-    }}
-  >
-    {children}
-  </Box>
-);
+const StyledContainer = styled.div`
+  padding-top: 7.6rem;
+`;
 
 function ActivityPage() {
   return (
-    <ActivityContainer>
+    <StyledContainer>
       <ActivityList />
-      <ActivityDetail />
-    </ActivityContainer>
+    </StyledContainer>
   );
 }
 

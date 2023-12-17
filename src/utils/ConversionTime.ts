@@ -15,3 +15,18 @@ export function CovTime(utcTimeStr: string) {
   // const milliseconds = utcTime.getUTCMilliseconds();
   return year + "-" + month + "-" + day + "   " + hours + ":" + minutes;
 }
+
+export function formatDateTime(dateTimeStr: string): string {
+  const date = new Date(dateTimeStr);
+
+  const options: Intl.DateTimeFormatOptions = {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+    hour12: true,
+  };
+
+  return date.toLocaleDateString("zh-CN", options).replace("上午", "中午");
+}
