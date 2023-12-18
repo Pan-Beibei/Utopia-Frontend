@@ -18,6 +18,6 @@ export const HTTPS = {
     route +
     "pages" +
     `?filter=${JSON.stringify({ title: "Home" })}`,
-  DAILY_PAGE: SERVER_ADDRESS.host + route + "dailies",
+  DAILY_PAGE: SERVER_ADDRESS.host + route + "posts",
 };
 //`${HTTPS.HOME_PAGE}?filter=${JSON.stringify({ title: "Home" })}`

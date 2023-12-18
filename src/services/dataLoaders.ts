@@ -4,7 +4,7 @@ import { HTTPS } from "../utils/APIRoutes";
 import { initActivities } from "../pageSlices/activityPageSlice";
 import { initHome } from "../pageSlices/homePageSlice";
 import { initBullet } from "../features/bullet/bulletSlice";
-import { initDailyPage } from "../pageSlices/ForumPageSlice";
+import { initForumPage } from "../pageSlices/ForumPageSlice";
 
 async function loadData(url: string, action: (data: []) => Action) {
   const res = await fetch(url);
@@ -27,6 +27,6 @@ export async function activityLoader() {
 }
 
 export async function forumLoader() {
-  loadData(HTTPS.DAILY_PAGE, initDailyPage);
+  loadData(HTTPS.DAILY_PAGE, initForumPage);
   return null;
 }

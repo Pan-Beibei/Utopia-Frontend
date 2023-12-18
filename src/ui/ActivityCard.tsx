@@ -9,7 +9,13 @@ const StyledContainer = styled(BaseColumnFlex)`
   gap: 2rem;
 `;
 
-const StyledFlex = styled(BaseColumnFlex)``;
+const StyledFlex = styled(BaseColumnFlex)`
+  @media (min-width: 1024px) {
+    flex-direction: row;
+    align-items: start;
+    align-items: stretch;
+  }
+`;
 
 const StyledImg = styled.img`
   width: 100%;
@@ -28,6 +34,9 @@ const StyledCard = styled.div`
   color: ${(props) => props.theme.colors.white};
   letter-spacing: 0.7px;
   line-height: normal;
+  @media (min-width: 1024px) {
+    heihgt: 100%;
+  }
 `;
 
 const StyledCardTitle = styled.h3`

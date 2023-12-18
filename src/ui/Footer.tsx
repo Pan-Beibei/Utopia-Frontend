@@ -79,8 +79,6 @@ function Footer() {
   const location = useLocation();
   const currentPath = location.pathname;
 
-  console.log(currentPath);
-
   return (
     <StyledContainer $currentPath={currentPath}>
       <StyledCard $currentPath={currentPath}>

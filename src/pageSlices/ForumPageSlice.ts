@@ -2,10 +2,10 @@ import { createSlice } from "@reduxjs/toolkit"; //
 import { RootState } from "../store/store";
 
 interface StateProps {
-  dailies: Array<DailyProps>;
+  posts: Array<PostProps>;
 }
 
-interface DailyProps {
+interface PostProps {
   title: string;
   content: string;
   pictures: Array<string>;
@@ -14,21 +14,21 @@ interface DailyProps {
 }
 
 const initialState: StateProps = {
-  dailies: [],
+  posts: [],
 };
 
-const dailyPageSlice = createSlice({
-  name: "dailyPage",
+const forumPageSlice = createSlice({
+  name: "forumPage",
   initialState,
   reducers: {
-    initDailyPage(state, action) {
-      state.dailies = action.payload;
+    initForumPage(state, action) {
+      state.posts = action.payload;
     },
   },
 });
 
-export const { initDailyPage } = dailyPageSlice.actions;
+export const { initForumPage } = forumPageSlice.actions;
 
-export default dailyPageSlice.reducer;
+export default forumPageSlice.reducer;
 
-export const getDailies = (state: RootState) => state.dailyPage.dailies;
+export const getPosts = (state: RootState) => state.forumPage.posts;
