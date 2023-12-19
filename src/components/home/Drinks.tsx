@@ -21,8 +21,8 @@ const StyledFlex = styled(BaseColumnFlex)`
 const StyledContent = styled.p`
   margin-top: 1rem;
   padding: 0 1rem;
-  font-size: 1.6rem;
-  font-weight: 700;
+  font-size: ${(props) => props.theme.fontSize.large};
+  font-weight: ${(props) => props.theme.fontWeight.bold};
   letter-spacing: 0.8px;
   border-radius: 0.8rem;
   background-color: ${(props) => props.theme.colors.white};

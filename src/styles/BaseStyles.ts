@@ -1,8 +1,11 @@
 import styled from "styled-components";
 
-export const BaseColumnFlex = styled.div`
+export const BaseFlex = styled.div`
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+`;
+
+export const BaseColumnFlex = styled(BaseFlex)`
+  flex-direction: column;
 `;

@@ -47,7 +47,7 @@ const StyledInputText = styled.input`
   padding: 0.5rem;
   border: none;
   background-color: transparent;
-  font-size: 1.4rem;
+  font-size: ${(props) => props.theme.fontSize.medium};
   color: ${(props) => props.theme.colors.white};
   &::placeholder {
     color: ${(props) => props.theme.colors.white};
@@ -55,7 +55,7 @@ const StyledInputText = styled.input`
 `;
 
 const StyledEmojiButton = styled.div`
-  font-size: 1.2rem;
+  font-size: ${(props) => props.theme.fontSize.small};
   padding: 2px;
   margin-left: 8px;
 `;

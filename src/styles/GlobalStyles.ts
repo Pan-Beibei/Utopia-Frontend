@@ -11,14 +11,14 @@ const GlobalStyles = createGlobalStyle`
 @font-face {
   font-family: 'PingFang SC';
   src: url('/fonts/PingFang-SC-Regular.ttf') format('truetype');
-  font-weight: 500;
+  font-weight: 400;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'PingFang SC';
   src: url('/fonts/PingFang-SC-Bold.ttf') format('truetype');
-  font-weight: 700;
+  font-weight: 600;
   font-style: normal;
 }
 

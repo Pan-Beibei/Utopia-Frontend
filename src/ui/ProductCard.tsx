@@ -22,7 +22,7 @@ const StyledNameBg = styled.div`
   background-color: #f1f2eb;
   min-height: 2.4rem;
   min-width: 7.1rem;
-  font-size: 1.4rem;
+  font-size: ${(props) => props.theme.fontSize.medium};
   font-weight: 400;
   border-radius: 0.8rem;
   padding: 0.2rem 0.6rem;
@@ -34,7 +34,7 @@ const StyledNameBg = styled.div`
 `;
 
 const StyledName = styled.div`
-  font-size: 1.4rem;
+  font-size: ${(props) => props.theme.fontSize.medium};
   color: ${(props) => props.theme.colors.black};
 `;
 

@@ -22,8 +22,8 @@ const StyledNavLinks = styled.ul<StyledNavLinksProps>`
 
 const StyledNavLink = styled(NavLink)`
   text-transform: uppercase;
-  font-size: 1.2rem;
-  font-weight: 700;
+  font-size: ${(props) => props.theme.fontSize.small};
+  font-weight: ${(props) => props.theme.fontWeight.bold};
   letter-spacing: 0.2rem;
 
   &.home-icon {
@@ -31,7 +31,7 @@ const StyledNavLink = styled(NavLink)`
   }
 
   @media (min-width: 834px) {
-    font-size: 1.4rem;
+    font-size: ${(props) => props.theme.fontSize.medium};
     &.home-link {
       display: none;
     }

@@ -4,34 +4,15 @@ const baseTheme = {
     tablet: "834px",
     desktop: "1440px",
   },
-  fontSizes: {
-    mobile: {
-      bulletSize: "1.2rem",
-      drinkMenu: "1.6rem",
-      story: {
-        title: "1.6rem",
-        content: "1.4rem",
-        large: "1.2rem",
-      },
-    },
-    tablet: {
-      bulletSize: "1.4rem",
-      drinkMenu: "2rem",
-      story: {
-        title: "1.6rem",
-        content: "1.4rem",
-        large: "1.2rem",
-      },
-    },
-    desktop: {
-      bulletSize: "1.4rem",
-      drinkMenu: "2.4rem",
-      story: {
-        title: "1.6rem",
-        content: "1.4rem",
-        large: "1.2rem",
-      },
-    },
+  fontSize: {
+    small: "1.2rem",
+    medium: "1.4rem",
+    large: "1.6rem",
+  },
+  fontWeight: {
+    light: 300,
+    normal: 400,
+    bold: 600,
   },
   borderRadius: "2.6rem",
   padding: {
@@ -51,6 +32,7 @@ const warmTheme = {
     primary: "#B05F25",
     white: "#FFFFFF",
     gray: "#8E8E8EA3",
+    lightGray: "#F0F0F0",
   },
 };
 

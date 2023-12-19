@@ -26,7 +26,7 @@ const StyledBullet = styled.div<BulletStyleProps>`
   ${constantStyles}
 
   ${(props) => css`
-    font-size: 1.4rem;
+    font-size: ${(props) => props.theme.fontSize.medium};
     color: ${(props) => props.theme.colors.white};
     top: ${props.$posY}px;
 

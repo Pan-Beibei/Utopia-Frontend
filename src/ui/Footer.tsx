@@ -48,14 +48,14 @@ const StyledCard = styled.div<{ $currentPath: string }>`
 `;
 
 const StyledTitle = styled.h3`
-  font-size: 1.6rem;
-  font-weight: 700;
+  font-size: ${(props) => props.theme.fontSize.large};
+  font-weight: ${(props) => props.theme.fontWeight.bold};
   letter-spacing: 2.56px;
 `;
 
 const StyledCardText = styled.p`
-  font-size: 1.4rem;
-  font-weight: 500;
+  font-size: ${(props) => props.theme.fontSize.medium};
+  font-weight: ${(props) => props.theme.fontWeight.normal};
 `;
 
 const StyledContactContainer = styled.div`
@@ -71,8 +71,8 @@ const StyledContactList = styled.ul`
 `;
 
 const StyledContactItem = styled.li`
-  font-size: 1.4rem;
-  font-weight: 500;
+  font-size: ${(props) => props.theme.fontSize.medium};
+  font-weight: ${(props) => props.theme.fontWeight.normal};
 `;
 
 function Footer() {

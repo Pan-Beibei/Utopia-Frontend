@@ -23,22 +23,22 @@ const StyledTextContainer = styled.div`
 `;
 
 const StyledTitle = styled.h3`
-  font-size: 1.6rem;
-  font-weight: 700;
+  font-size: ${(props) => props.theme.fontSize.large};
+  font-weight: ${(props) => props.theme.fontWeight.bold};
   color: ${({ theme }) => theme.colors.black};
   letter-spacing: 0.8px;
   margin-bottom: 0.2rem;
 `;
 
 const StyledContent = styled.p`
-  font-size: 1.4rem;
+  font-size: ${(props) => props.theme.fontSize.medium};
   font-weight: 400;
   color: ${({ theme }) => theme.colors.black};
   letter-spacing: 0.8px;
 `;
 
 const StyledDate = styled.span`
-  font-size: 1.2rem;
+  font-size: ${(props) => props.theme.fontSize.small};
   font-weight: 400;
   letter-spacing: 0.8px;
   color: #686868;

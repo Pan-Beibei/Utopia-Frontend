@@ -40,18 +40,18 @@ const StyledCard = styled.div`
 `;
 
 const StyledCardTitle = styled.h3`
-  font-size: 1.6rem;
-  font-weight: 700;
+  font-size: ${(props) => props.theme.fontSize.large};
+  font-weight: ${(props) => props.theme.fontWeight.bold};
 `;
 
 const StyledCardContent = styled.p`
-  font-size: 1.4rem;
+  font-size: ${(props) => props.theme.fontSize.medium};
   font-weight: 300;
 `;
 
 const StyledCardDate = styled.span`
-  font-size: 1.2rem;
-  font-weight: 500;
+  font-size: ${(props) => props.theme.fontSize.small};
+  font-weight: ${(props) => props.theme.fontWeight.normal};
 `;
 
 const StyledBookingButton = styled.button`
@@ -60,8 +60,8 @@ const StyledBookingButton = styled.button`
   border: 1px solid ${(props) => props.theme.colors.primary};
   border-radius: ${(props) => props.theme.borderRadius};
   padding: 1.2rem 1.6rem;
-  font-size: 1.2rem;
-  font-weight: 700;
+  font-size: ${(props) => props.theme.fontSize.small};
+  font-weight: ${(props) => props.theme.fontWeight.bold};
   letter-spacing: 0.7px;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
