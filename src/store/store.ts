@@ -3,6 +3,8 @@ import slideSlice from "../features/slide/slideSlice";
 import BulletSlice from "../features/bullet/bulletSlice";
 import userSlice from "../features/user/userSlice";
 import reviewSlice from "../features/review/reviewSlice";
+import postSlice from "../features/post/postSlice";
+
 import homePageSlice from "../pageSlices/homePageSlice";
 import activityPageSlice from "../pageSlices/activityPageSlice";
 import forumPageSlice from "../pageSlices/ForumPageSlice";
@@ -13,6 +15,7 @@ const store = configureStore({
     bullet: BulletSlice,
     user: userSlice,
     review: reviewSlice,
+    post: postSlice,
     homePage: homePageSlice,
     activityPage: activityPageSlice,
     forumPage: forumPageSlice,

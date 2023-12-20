@@ -1,10 +1,11 @@
-import styled from "styled-components";
+import styled, { useTheme } from "styled-components";
 
 import { getPictures } from "../../pageSlices/homePageSlice";
 import { useSelector } from "react-redux";
 import SectionTitleProps from "../../ui/SectionTitle";
 import Story from "../../ui/Story";
 import { BaseColumnFlex } from "../../styles/BaseStyles";
+import ArrowSvg from "../../ui/ArrowSvg";
 
 const StyledContainer = styled(BaseColumnFlex)`
   padding: 0 2rem;
@@ -28,7 +29,7 @@ const StyledFlex = styled(BaseColumnFlex)`
 
 function OurMemories() {
   const pics = useSelector(getPictures).slice(0, 18);
-
+  const theme = useTheme();
   const titleStr =
     "哈佛学霸公开私生活，引900万人围观：空闲时间，决定你的人生上限";
   const contentStr =
@@ -39,8 +40,8 @@ function OurMemories() {
       <StyledContainer>
         <SectionTitleProps>Story about us</SectionTitleProps>
         <StyledArrowFlex>
-          <img src="./icons/right-arrow.svg" alt="right-arrow" />
-          <img src="./icons/left-arrow.svg" alt="left-arrow" />
+          <ArrowSvg leftOrRight="right" bgColor={theme.colors.white} />
+          <ArrowSvg leftOrRight="left" bgColor={theme.colors.white} />
         </StyledArrowFlex>
         <StyledFlex>
           {pics.slice(0, 3).map((pic, index) => (

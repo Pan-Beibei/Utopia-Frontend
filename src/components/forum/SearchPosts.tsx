@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { BaseFlex } from "../../styles/BaseStyles";
 
 const StyledContainer = styled(BaseFlex)`
+  flex-grow: 1;
   gap: 1rem;
 
   background-color: ${(props) => props.theme.colors.lightGray};
@@ -12,6 +13,7 @@ const StyledContainer = styled(BaseFlex)`
 `;
 
 const StyledInput = styled.input`
+  flex-grow: 1;
   padding: 1rem;
   font-size: ${(props) => props.theme.fontSize.medium};
   font-weight: ${(props) => props.theme.fontWeight.bold};
@@ -21,6 +23,7 @@ const StyledInput = styled.input`
 
 const StyledSearchButton = styled.button`
   padding: 0.6rem 0.8rem;
+  min-width: 4.5rem;
   border: none;
   box-shadow: 0px 4px 3px 0px rgba(0, 0, 0, 0.15);
   font-size: ${(props) => props.theme.fontSize.small};

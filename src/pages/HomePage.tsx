@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Hero from "../components/home/Hero";
 import Drinks from "../components/home/Drinks";
-import OurMemories from "../components/home/Stories";
+import Stories from "../components/home/Stories";
 
 const StyledHome = styled.div`
   display: flex;
@@ -24,7 +24,7 @@ function HomePage() {
       </StyleFlexColumn>
 
       <Drinks />
-      <OurMemories />
+      <Stories />
     </StyledHome>
   );
 }
