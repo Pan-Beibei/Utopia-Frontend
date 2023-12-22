@@ -12,8 +12,17 @@ const StyledButton = styled.button`
   border: none;
 `;
 
-function LoginBotton({ children }: { children: ReactNode }) {
-  return <StyledButton>{children}</StyledButton>;
+interface LoginBottonProps {
+  children: ReactNode;
+  onClick?: () => void;
+}
+
+function LoginBotton({ children, onClick }: LoginBottonProps) {
+  return (
+    <StyledButton type="submit" onClick={onClick}>
+      {children}
+    </StyledButton>
+  );
 }
 
 export default LoginBotton;

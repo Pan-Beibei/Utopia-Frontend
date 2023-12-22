@@ -1,13 +1,22 @@
-import { StyledLoginInput, StyledLoginForm } from "./LoginStyle";
+import {
+  StyledLoginInput,
+  StyledLoginForm,
+  AuthFormProps,
+  authFieldsConfig,
+} from "./LoginCommon";
 
-const placeholders = ["请输入用户名...", "请输入密码..."];
-
-function LoginForm() {
+function LoginForm({ register, getValues }: AuthFormProps) {
   return (
     <StyledLoginForm>
-      {placeholders.map((placeholder, index) => (
-        <StyledLoginInput placeholder={placeholder} key={index} />
-      ))}
+      {authFieldsConfig
+        .slice(0, 2)
+        .map(({ id, validation, placeholder }, index) => (
+          <StyledLoginInput
+            {...register(id, validation(getValues))}
+            placeholder={placeholder}
+            key={index}
+          />
+        ))}
     </StyledLoginForm>
   );
 }
