@@ -8,7 +8,7 @@ const StyledContainer = styled.div<{ $currentPath: string }>`
   justify-content: center;
   align-items: center;
   color: ${(props) => props.theme.colors.white};
-  @media (min-width: 834px) {
+  @media (min-width: ${(props) => props.theme.breakpoints.tablet}) {
     gap: 0;
     background-color: ${(props) => props.theme.colors.primary};
   }
@@ -32,7 +32,7 @@ const StyledCard = styled.div<{ $currentPath: string }>`
   color: ${(props) => props.theme.colors.black};
   border-radius: 0.8rem;
   padding: 1.6rem;
-  @media (min-width: 834px) {
+  @media (min-width: ${(props) => props.theme.breakpoints.tablet}) {
     color: ${(props) => props.theme.colors.white};
     background-color: transparent;
     width: 100%;

@@ -40,7 +40,7 @@ const StyledFlexForPostDetails = styled(BaseFlex)`
 const StyledFlexMobile = styled(BaseColumnFlex)`
   align-items: flex-start;
   gap: 1rem;
-  @media (min-width: 834px) {
+  @media (min-width: ${(props) => props.theme.breakpoints.tablet}) {
     flex-direction: row;
   }
 `;

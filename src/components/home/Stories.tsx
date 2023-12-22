@@ -22,7 +22,7 @@ const StyledArrowFlex = styled.div`
 `;
 const StyledFlex = styled(BaseColumnFlex)`
   gap: 2rem;
-  @media (min-width: 834px) {
+  @media (min-width: ${(props) => props.theme.breakpoints.tablet}) {
     flex-direction: row;
   }
 `;
@@ -40,8 +40,16 @@ function OurMemories() {
       <StyledContainer>
         <SectionTitleProps>Story about us</SectionTitleProps>
         <StyledArrowFlex>
-          <ArrowSvg leftOrRight="right" bgColor={theme.colors.white} />
-          <ArrowSvg leftOrRight="left" bgColor={theme.colors.white} />
+          <ArrowSvg
+            leftOrRight="right"
+            bgColor={theme.colors.white}
+            boxShadow="0px 2px 0px 0px rgba(0, 0, 0, 0.15)"
+          />
+          <ArrowSvg
+            leftOrRight="left"
+            bgColor={theme.colors.white}
+            boxShadow="0px 2px 0px 0px rgba(0, 0, 0, 0.15)"
+          />
         </StyledArrowFlex>
         <StyledFlex>
           {pics.slice(0, 3).map((pic, index) => (

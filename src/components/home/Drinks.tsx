@@ -12,7 +12,7 @@ const StyledContainer = styled(BaseColumnFlex)`
 
 const StyledFlex = styled(BaseColumnFlex)`
   gap: 2rem;
-  @media (min-width: 834px) {
+  @media (min-width: ${(props) => props.theme.breakpoints.tablet}) {
     align-items: start;
     flex-direction: row;
   }
@@ -39,7 +39,7 @@ const StyledDrinksListContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 2.5rem;
-  @media (min-width: 834px) {
+  @media (min-width: ${(props) => props.theme.breakpoints.tablet}) {
     grid-template-columns: repeat(3, 1fr);
   }
 `;

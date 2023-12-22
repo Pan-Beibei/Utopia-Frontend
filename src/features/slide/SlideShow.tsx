@@ -26,10 +26,10 @@ const StyledRoomPic = styled.div<{ $img: string }>`
   align-items: center;
   justify-content: space-between;
   padding: 0 2rem;
-  @media (min-width: 768px) {
+  @media (min-width: ${(props) => props.theme.breakpoints.tablet}) {
     min-height: 50rem;
   }
-  @media (min-width: 1024px) {
+  @media (min-width: ${(props) => props.theme.breakpoints.desktop}) {
     min-height: 80rem;
   }
 `;

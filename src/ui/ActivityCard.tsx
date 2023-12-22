@@ -10,7 +10,7 @@ const StyledContainer = styled(BaseColumnFlex)`
 `;
 
 const StyledFlex = styled(BaseColumnFlex)`
-  @media (min-width: 1024px) {
+  @media (min-width: ${(props) => props.theme.breakpoints.desktop}) {
     flex-direction: row;
     align-items: start;
     align-items: stretch;
@@ -34,7 +34,7 @@ const StyledCard = styled.div`
   color: ${(props) => props.theme.colors.white};
   letter-spacing: 0.7px;
   line-height: normal;
-  @media (min-width: 1024px) {
+  @media (min-width: ${(props) => props.theme.breakpoints.desktop}) {
     heihgt: 100%;
   }
 `;
@@ -78,7 +78,7 @@ const StyledFoodsListContainer = styled.div`
   grid-template-columns: repeat(2, 1fr);
   column-gap: 1.8rem;
   row-gap: 1rem;
-  @media (min-width: 834px) {
+  @media (min-width: ${(props) => props.theme.breakpoints.tablet}) {
     grid-template-columns: repeat(4, 1fr);
   }
 `;

@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { useState, createContext, useContext } from "react";
 import { NavLink } from "react-router-dom";
+import { BaseColumnFlex } from "../../styles/BaseStyles";
 
 type FlexDirectionType = "row" | "row-reverse" | "column" | "column-reverse";
 
@@ -14,7 +15,7 @@ const StyledNavLinks = styled.ul<StyledNavLinksProps>`
   flex-direction: column;
   align-items: center;
   gap: 1rem;
-  @media (min-width: 834px) {
+  @media (min-width: ${(props) => props.theme.breakpoints.tablet}) {
     flex-direction: row;
     gap: 2rem;
   }
@@ -30,7 +31,7 @@ const StyledNavLink = styled(NavLink)`
     display: none;
   }
 
-  @media (min-width: 834px) {
+  @media (min-width: ${(props) => props.theme.breakpoints.tablet}) {
     font-size: ${(props) => props.theme.fontSize.medium};
     &.home-link {
       display: none;
@@ -53,7 +54,7 @@ const StyledNavBg = styled.div`
   box-shadow: 0px -0.5px 0px 0px rgba(0, 0, 0, 0.25) inset;
 `;
 
-const StyledToggle = styled.div`
+const StyledToggle = styled(BaseColumnFlex)`
   position: relative;
 `;
 

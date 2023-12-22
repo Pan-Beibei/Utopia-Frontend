@@ -2,7 +2,7 @@ const baseTheme = {
   breakpoints: {
     mobile: "393px",
     tablet: "834px",
-    desktop: "1440px",
+    desktop: "1024px",
   },
   fontSize: {
     small: "1.2rem",

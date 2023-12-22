@@ -3,7 +3,7 @@ import Post from "./Post";
 import { PostProps } from "./postSlice";
 
 const StyledContainer = styled.div`
-  padding-top: 2rem;
+  padding-top: 1rem;
 `;
 
 const StyledList = styled.ul`

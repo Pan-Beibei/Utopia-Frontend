@@ -1,10 +1,12 @@
 import styled from "styled-components";
 import SearchPosts from "./SearchPosts";
-import { BaseFlex } from "../../styles/BaseStyles";
+import { BaseFlex, BaseColumnFlex } from "../../styles/BaseStyles";
 import PostList from "../../features/post/PostList";
+import Pagination from "../../ui/Pagination";
 
-const StyledContainer = styled.div`
+const StyledContainer = styled(BaseColumnFlex)`
   padding: 2rem 1rem;
+  gap: 1rem;
   width: 100%;
   height: 100%;
 
@@ -25,6 +27,7 @@ const StyledPostButton = styled.button`
 
 const StyledFlex = styled(BaseFlex)`
   justify-content: space-between;
+  width: 100%;
   gap: 1rem;
 `;
 
@@ -36,6 +39,12 @@ function ForumLayout() {
         <StyledPostButton>发帖</StyledPostButton>
       </StyledFlex>
       <PostList />
+      <Pagination pageCount={30}>
+        <Pagination.PreviousButton />
+        <Pagination.PageList />
+        <Pagination.PageIndicator />
+        <Pagination.NextButton />
+      </Pagination>
     </StyledContainer>
   );
 }

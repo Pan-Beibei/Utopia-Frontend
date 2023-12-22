@@ -21,20 +21,20 @@ const StyledTopCardTitle = styled.h3`
   font-size: ${(props) => props.theme.fontSize.large};
   font-weight: ${(props) => props.theme.fontWeight.normal};
   letter-spacing: 0.7px;
-  @media (min-width: 1024px) {
+  @media (min-width: ${(props) => props.theme.breakpoints.desktop}) {
     font-size: 3.2rem;
   }
 `;
 
 const StyledTitleMobile = styled(StyledTopCardTitle)`
-  @media (min-width: 834px) {
+  @media (min-width: ${(props) => props.theme.breakpoints.tablet}) {
     display: none;
   }
 `;
 
 const StyledTitleTablet = styled(StyledTopCardTitle)`
   display: none;
-  @media (min-width: 834px) {
+  @media (min-width: ${(props) => props.theme.breakpoints.tablet}) {
     display: block;
   }
 `;
@@ -45,10 +45,10 @@ const StyledTopCardText = styled.p`
   font-weight: ${(props) => props.theme.fontWeight.normal};
   letter-spacing: 0.7px;
   justify-self: flex-end;
-  @media (min-width: 834px) {
+  @media (min-width: ${(props) => props.theme.breakpoints.tablet}) {
     font-size: ${(props) => props.theme.fontSize.medium};
   }
-  @media (min-width: 1024px) {
+  @media (min-width: ${(props) => props.theme.breakpoints.desktop}) {
     font-size: ${(props) => props.theme.fontSize.large};
   }
 `;
