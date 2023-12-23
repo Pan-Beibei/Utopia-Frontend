@@ -2,6 +2,7 @@ import { useState, useMemo } from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ThemeProvider } from "styled-components";
+import { Toaster } from "react-hot-toast";
 import { baseTheme, warmTheme } from "./themes/themes";
 import { ThemeContext } from "./themes/ThemeContext";
 import GlobalStyles from "./styles/GlobalStyles";
@@ -25,6 +26,7 @@ function App() {
 
   return (
     <>
+      <Toaster />
       <QueryClientProvider client={queryClient}>
         <GlobalStyles />
         <ThemeProvider theme={theme}>

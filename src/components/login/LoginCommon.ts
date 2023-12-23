@@ -62,8 +62,8 @@ export const authFieldsConfig: AuthFieldConfig[] = [
     validation: () => ({
       required: "This field is required",
       minLength: {
-        value: 6,
-        message: "Password should be at least 6 characters",
+        value: 3,
+        message: "用户名请至少输入3个字符",
       },
     }),
   },
@@ -74,11 +74,11 @@ export const authFieldsConfig: AuthFieldConfig[] = [
       required: "This field is required",
       minLength: {
         value: 6,
-        message: "Password should be at least 6 characters",
+        message: "用户密码请至少输入6个字符",
       },
       pattern: {
         value: /^[A-Za-z0-9]+$/,
-        message: "Password can only contain numbers and letters",
+        message: "密码只能包含数字或者字母",
       },
     }),
   },
@@ -87,8 +87,7 @@ export const authFieldsConfig: AuthFieldConfig[] = [
     placeholder: "请再次输入密码确认...",
     validation: (getValues) => ({
       required: "This field is required",
-      validate: (value) =>
-        getValues().password === value || "Passwords need to match",
+      validate: (value) => getValues().password === value || "密码不匹配",
     }),
   },
   {
@@ -98,7 +97,7 @@ export const authFieldsConfig: AuthFieldConfig[] = [
       required: "This field is required",
       pattern: {
         value: /^1[3456789]\d{9}$/,
-        message: "Invalid phone number",
+        message: "无效的手机号码",
       },
     }),
   },
@@ -109,7 +108,7 @@ export const authFieldsConfig: AuthFieldConfig[] = [
       required: "This field is required",
       pattern: {
         value: /^\d{6}$/,
-        message: "Verification code should be 6 digits",
+        message: "验证码必须是6位数字",
       },
     }),
   },

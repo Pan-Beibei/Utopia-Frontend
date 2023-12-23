@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
-// import { toast } from "react-hot-toast";
+import { toast } from "react-hot-toast";
 import { BaseColumnFlex, BaseFlex } from "../styles/BaseStyles";
 import LandingTop from "../components/login/LoginTop";
 import LoginPromptLabel from "../components/login/LoginPromptLabel";
@@ -27,13 +27,19 @@ function LoginPage() {
     getValues,
     formState: { errors },
   } = useForm<AuthFieldsProps>(); //, formState, getValues, reset
+
   function handleSwitch() {
     setIsLogin((isLogin) => !isLogin);
   }
 
   function onSubmit(data: AuthFieldsProps) {
     console.log("onSubmit called", data);
-    console.log(errors.username?.message);
+  }
+
+  function onError() {
+    console.log("onError called", errors);
+    const errorMessage = Object.values(errors)[0]?.message || "请检查输入!!";
+    toast.error(errorMessage);
   }
 
   return (
@@ -47,7 +53,8 @@ function LoginPage() {
         )}
 
         <LoginPromptLabel isLogin={isLogin} onSwitch={handleSwitch} />
-        <LoginBotton onClick={handleSubmit(onSubmit)}>
+
+        <LoginBotton onClick={handleSubmit(onSubmit, onError)}>
           {isLogin ? "登录" : "注册"}
         </LoginBotton>
       </StyledDiv>
