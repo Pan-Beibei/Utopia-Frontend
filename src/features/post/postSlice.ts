@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../../store/store";
 
 export interface PostProps {
+  id: string;
   title: string;
   content: string;
   pictures: Array<string>;

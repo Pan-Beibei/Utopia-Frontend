@@ -104,9 +104,9 @@ function Toggle({ children }: ToggleProps) {
   return (
     <StyledToggle onClick={handleClick}>
       {isOpen ? (
-        <img src="./icons/menu.svg" alt="menu" />
+        <img src="/icons/menu.svg" alt="menu" />
       ) : (
-        <img src="./icons/menu.svg" alt="menu" />
+        <img src="/icons/menu.svg" alt="menu" />
       )}
 
       {children}
@@ -136,7 +136,7 @@ function Links() {
         主页
       </StyledNavLink>
       <StyledNavLink className="home-icon" to="/">
-        <img src="./icons/home.svg" alt="home" />
+        <img src="/icons/home.svg" alt="home" />
       </StyledNavLink>
       <StyledNavLink to="/forum-page">68克情报处</StyledNavLink>
       <StyledNavLink to="/activity-info">最近活动</StyledNavLink>

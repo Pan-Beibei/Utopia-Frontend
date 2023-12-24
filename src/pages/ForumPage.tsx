@@ -18,7 +18,7 @@ function ForumPage() {
   return (
     <StyledContainer>
       <ForumTop />
-      <ForumLayout></ForumLayout>
+      <ForumLayout />
     </StyledContainer>
   );
 }

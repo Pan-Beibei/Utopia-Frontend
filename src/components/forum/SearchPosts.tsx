@@ -41,7 +41,7 @@ const StyledImg = styled.img`
 function SearchPosts() {
   return (
     <StyledContainer>
-      <StyledImg src="./icons/search.svg" alt="Search posts" />
+      <StyledImg src="/icons/search.svg" alt="Search posts" />
       <StyledInput placeholder="请输入关键词搜索..." />
       <StyledSearchButton>搜索</StyledSearchButton>
     </StyledContainer>

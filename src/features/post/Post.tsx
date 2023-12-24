@@ -54,7 +54,7 @@ const StyledFlexForTags = styled(BaseFlex)`
 
 function Post({ post }: { post: PostProps }) {
   return (
-    <StyledContainer>
+    <StyledContainer data-post-id={post.id} className="post-container">
       <StyledFlexMobile>
         <StyledTitle>{post.title}</StyledTitle>
         <StyledFlexForTags>

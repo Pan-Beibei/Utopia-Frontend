@@ -8,7 +8,7 @@ const StyledLogo = styled.img`
 function Logo() {
   return (
     <div>
-      <StyledLogo src="./icons/logo.svg" alt="Logo" />
+      <StyledLogo src="/icons/logo.svg" alt="Logo" />
     </div>
   );
 }
