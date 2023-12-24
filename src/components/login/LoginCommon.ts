@@ -24,7 +24,7 @@ export const StyledLoginInput = styled.input`
   padding: 0.8rem 1.6rem;
   background-color: transparent;
   border: none;
-  border-bottom: 1px solid rgba(104, 104, 104, 0.6);
+  border-bottom: 1px solid ${(props) => props.theme.colors.gray400};
   &:focus {
     outline: none;
   }

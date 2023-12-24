@@ -3,9 +3,11 @@ import { useParams } from "react-router-dom";
 import { BaseColumnFlex } from "../../styles/BaseStyles";
 import PostDetailNavigationButtons from "./PostDetailNavigationButtons";
 import PostCommentInputBox from "./PostCommentInputBox";
+import PostCommentList from "../comment/CommentList";
 
 const StyledContainer = styled(BaseColumnFlex)`
   padding-top: 7.6rem;
+  background-color: ${({ theme }) => theme.colors.white};
 `;
 
 const StyledPostContainer = styled(BaseColumnFlex)`
@@ -34,6 +36,7 @@ function PostDetail() {
       <StyledPostContainer>
         <StyledCommentContainer>
           <PostCommentInputBox />
+          <PostCommentList />
         </StyledCommentContainer>
       </StyledPostContainer>
     </StyledContainer>

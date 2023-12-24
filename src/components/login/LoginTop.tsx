@@ -20,7 +20,7 @@ const StyledTitle = styled.h2`
 const StyledP = styled.p`
   font-size: ${(props) => props.theme.fontSize.medium};
   font-weight: ${(props) => props.theme.fontWeight.bold};
-  color: rgba(104, 104, 104, 0.6);
+  color: ${(props) => props.theme.colors.gray400};
 `;
 
 function LandingTop() {

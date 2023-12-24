@@ -65,6 +65,7 @@ function BulletInputBox({ socket }: BulletInputTextProps) {
           setInputContent={setInputContent}
           showPicker={showPicker}
           setShowPicker={setShowPicker}
+          placeholder="请输入弹幕..."
         />
         <PrimaryButton
           onClick={handleSendClick}

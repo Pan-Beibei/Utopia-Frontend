@@ -9,15 +9,27 @@ const StyledContainer = styled(BaseFlex)`
   padding: 0 2rem;
 `;
 
-const StyledReturnButton = styled.button`
-  color: ${(props) => props.theme.colors.primary};
+const StyledReturnIcon = styled.div`
+  @media (min-width: ${(props) => props.theme.breakpoints.desktop}) {
+    display: none;
+  }
+`;
+
+const StyledReturnButton = styled(BaseFlex)`
+  color: ${(props) => props.theme.colors.black};
   font-size: ${(props) => props.theme.fontSize.large};
   font-weight: ${(props) => props.theme.fontWeight.bold};
-  border: none;
+  @media (min-width: ${(props) => props.theme.breakpoints.desktop}) {
+    color: ${(props) => props.theme.colors.primary};
+  }
 `;
 
 const StyledFlex = styled(BaseFlex)`
-  gap: 0.5rem;
+  display: none;
+  @media (min-width: ${(props) => props.theme.breakpoints.desktop}) {
+    display: flex;
+    gap: 0.5rem;
+  }
 `;
 
 const StyledTitle = styled.h4`
@@ -57,6 +69,9 @@ function PostDetailNavigationButtons({
         <StyledTitle>上一篇: {lastTitle}</StyledTitle>
       </StyledFlex>
       <StyledReturnButton onClick={handleReturnToForumPage}>
+        <StyledReturnIcon>
+          <ArrowSvg leftOrRight="right" bgColor={theme.colors.white} />
+        </StyledReturnIcon>
         返回论坛主页
       </StyledReturnButton>
       <StyledFlex>

@@ -5,7 +5,7 @@ const StyledContainer = styled(BaseFlex)`
   flex-grow: 1;
   gap: 1rem;
 
-  background-color: ${(props) => props.theme.colors.lightGray};
+  background-color: ${(props) => props.theme.colors.gray300};
   border-radius: 3.6rem;
   padding: 0.5rem 1rem;
 

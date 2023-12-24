@@ -12,7 +12,7 @@ interface BulletStyleProps {
 }
 
 const constantStyles = css`
-  background-color: ${(props) => props.theme.colors.gray};
+  background-color: ${(props) => props.theme.colors.gray500};
   white-space: nowrap;
   opacity: 0.8;
   border-radius: 0.3rem;

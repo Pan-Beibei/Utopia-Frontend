@@ -1,5 +1,5 @@
 import { useState } from "react";
-import styled from "styled-components";
+import styled, { useTheme } from "styled-components";
 import { BaseFlex } from "../../styles/BaseStyles";
 import EmojiPicker from "../../ui/EmojiPicker";
 import EmojiTextInput from "../../ui/EmojiTextInput";
@@ -28,6 +28,7 @@ const StyledPulishButton = styled(BaseFlex)`
 function PostCommentInputBox() {
   const [inputContent, setInputContent] = useState("");
   const [showPicker, setShowPicker] = useState(false);
+  const theme = useTheme();
 
   return (
     <StyledContainer>
@@ -41,6 +42,9 @@ function PostCommentInputBox() {
         setInputContent={setInputContent}
         showPicker={showPicker}
         setShowPicker={setShowPicker}
+        backgroundColor={theme.colors.gray300}
+        fontColor="#A09A9E"
+        placeholder="评论..."
       />
       <StyledPulishButton>
         <img src="/icons/fly.svg" alt="fly" />

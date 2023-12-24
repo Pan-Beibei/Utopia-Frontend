@@ -34,7 +34,7 @@ const StyledFlexForPostDetails = styled(BaseFlex)`
   width: 100%;
   font-size: ${(props) => props.theme.fontSize.small};
   font-weight: ${(props) => props.theme.fontWeight.normal};
-  color: rgba(104, 104, 104, 0.6);
+  color: ${(props) => props.theme.colors.gray400};
 `;
 
 const StyledFlexMobile = styled(BaseColumnFlex)`
