@@ -1,10 +1,14 @@
 import styled, { css } from "styled-components";
 
-const StyledInputContainer = styled.div<{ $bgColor?: string }>`
+const StyledInputContainer = styled.div<{
+  $bgColor?: string;
+  $border?: string;
+}>`
   ${(props) => css`
     background-color: ${props.$bgColor
       ? props.$bgColor
       : props.theme.colors.gray500};
+    border: ${props.$border ? props.$border : "none"};
   `}
   display: flex;
   align-items: center;
@@ -46,6 +50,7 @@ interface EmojiTextInputProps {
   placeholder: string;
   backgroundColor?: string;
   fontColor?: string;
+  border?: string;
 }
 
 function EmojiTextInput({
@@ -56,13 +61,14 @@ function EmojiTextInput({
   backgroundColor,
   fontColor,
   placeholder,
+  border,
 }: EmojiTextInputProps) {
   function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
     setInputContent(e.target.value);
   }
 
   return (
-    <StyledInputContainer $bgColor={backgroundColor}>
+    <StyledInputContainer $bgColor={backgroundColor} $border={border}>
       <StyledInputText
         type="text"
         value={inputContent}

@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { BaseColumnFlex } from "../../styles/BaseStyles";
-import Comment from "./Comment";
+// import Comment from "./Comment";
+import CommentWithReplies from "../../ui/CommentWithReplies";
 
 const StyledContainer = styled(BaseColumnFlex)`
   gap: 1.5rem;
@@ -10,8 +11,9 @@ const StyledContainer = styled(BaseColumnFlex)`
 function CommentList() {
   return (
     <StyledContainer>
-      <Comment />
-      <Comment />
+      <CommentWithReplies postId="32132131123">
+        <CommentWithReplies.ReplyList />
+      </CommentWithReplies>
     </StyledContainer>
   );
 }

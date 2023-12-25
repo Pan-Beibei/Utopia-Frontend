@@ -1,15 +1,19 @@
 import styled from "styled-components";
-import { BaseFlex } from "../../styles/BaseStyles";
+import { BaseFlex } from "../styles/BaseStyles";
 
-const StyledContainer = styled(BaseFlex)`
+const StyledReplyButton = styled(BaseFlex)`
   color: ${(props) => props.theme.colors.primary};
   min-width: 6rem;
   align-self: flex-start;
 `;
 
-function CommentReplyButton() {
+function ReplyButton({ handleReply }: { handleReply: () => void }) {
+  function handleReplyClick() {
+    handleReply();
+  }
+
   return (
-    <StyledContainer>
+    <StyledReplyButton onClick={handleReplyClick}>
       <svg
         width="24"
         height="24"
@@ -25,8 +29,8 @@ function CommentReplyButton() {
         />
       </svg>
       回复
-    </StyledContainer>
+    </StyledReplyButton>
   );
 }
 
-export default CommentReplyButton;
+export default ReplyButton;
