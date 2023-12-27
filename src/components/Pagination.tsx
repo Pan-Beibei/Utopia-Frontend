@@ -1,7 +1,7 @@
 import { ReactNode, createContext, useState, useContext } from "react";
 import styled, { useTheme, css } from "styled-components";
-import { BaseFlex } from "../../styles/BaseStyles";
-import ArrowSvg from "./ArrowSvg";
+import { BaseFlex } from "../styles/BaseStyles";
+import ArrowSvg from "./ui/ArrowSvg";
 
 const StyledContainer = styled(BaseFlex)`
   gap: 1.5rem;

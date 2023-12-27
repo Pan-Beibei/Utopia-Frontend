@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import ActivityList from "../components/activity/ActivityList";
+import ActivityList from "./ActivityList";
 
 const StyledContainer = styled.div`
   padding-top: 7.6rem;

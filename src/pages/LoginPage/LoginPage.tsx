@@ -2,13 +2,13 @@ import { useState } from "react";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
-import { BaseColumnFlex, BaseFlex } from "../styles/BaseStyles";
-import LandingTop from "../components/login/LoginTop";
-import LoginPromptLabel from "../components/login/LoginPromptLabel";
-import LoginBotton from "../components/login/LoginBotton";
-import RegisterForm from "../components/login/RegisterForm";
-import LoginForm from "../components/login/LoginForm";
-import { AuthFieldsProps } from "../components/login/LoginCommon";
+import { BaseColumnFlex, BaseFlex } from "../../styles/BaseStyles";
+import LandingTop from "./LoginTop";
+import LoginPromptLabel from "./LoginPromptLabel";
+import LoginBotton from "./LoginBotton";
+import RegisterForm from "./RegisterForm";
+import LoginForm from "./LoginForm";
+import { AuthFieldsProps } from "./LoginCommon";
 
 const StyledContainer = styled(BaseFlex)`
   height: 100vh;

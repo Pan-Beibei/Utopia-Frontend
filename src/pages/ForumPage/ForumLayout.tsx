@@ -2,7 +2,7 @@ import styled from "styled-components";
 import SearchPosts from "./SearchPosts";
 import { BaseFlex, BaseColumnFlex } from "../../styles/BaseStyles";
 import PostList from "../../features/post/PostList";
-import Pagination from "../ui/Pagination";
+import Pagination from "../../components/Pagination";
 
 const StyledContainer = styled(BaseColumnFlex)`
   padding: 2rem 1rem;

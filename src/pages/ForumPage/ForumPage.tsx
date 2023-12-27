@@ -1,11 +1,11 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
-import { getPosts } from "../pageSlices/ForumPageSlice";
-import { BaseColumnFlex } from "../styles/BaseStyles";
-import ForumIntroduction from "../components/forum/ForumIntroduction";
-import ForumLayout from "../components/forum/ForumLayout";
-import CreatePost from "../components/forum/CreatePost";
+import { getPosts } from "../../pageSlices/ForumPageSlice";
+import { BaseColumnFlex } from "../../styles/BaseStyles";
+import ForumIntroduction from "./ForumIntroduction";
+import ForumLayout from "./ForumLayout";
+import CreatePost from "./CreatePost";
 
 const StyledContainer = styled(BaseColumnFlex)`
   padding-top: 7.6rem;

@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import Hero from "../components/home/Hero";
-import Drinks from "../components/home/Drinks";
-import Stories from "../components/home/Stories";
+import Hero from "./Hero";
+import Drinks from "./Drinks";
+import Stories from "./Stories";
 
 const StyledHome = styled.div`
   display: flex;

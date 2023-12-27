@@ -2,10 +2,10 @@ import styled, { useTheme } from "styled-components";
 
 import { getPictures } from "../../pageSlices/homePageSlice";
 import { useSelector } from "react-redux";
-import SectionTitleProps from "../ui/SectionTitle";
-import Story from "../ui/Story";
+import SectionTitleProps from "../../components/ui/SectionTitle";
+import Story from "../../components/Story";
 import { BaseColumnFlex } from "../../styles/BaseStyles";
-import ArrowSvg from "../ui/ArrowSvg";
+import ArrowSvg from "../../components/ui/ArrowSvg";
 
 const StyledContainer = styled(BaseColumnFlex)`
   padding: 0 2rem;

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { BaseFlex, BaseColumnFlex } from "../../styles/BaseStyles";
-import Logo from "../ui/Logo";
+import Logo from "../../components/ui/Logo";
 
 const StyledFlex = styled(BaseFlex)`
   gap: 1rem;

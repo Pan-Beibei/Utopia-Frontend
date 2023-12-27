@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 import { getActivities } from "../../pageSlices/activityPageSlice";
-import ActivityCard from "../ui/ActivityCard";
+import ActivityCard from "../../components/ActivityCard";
 import { BaseColumnFlex } from "../../styles/BaseStyles";
 
 const StyledContainer = styled(BaseColumnFlex)`

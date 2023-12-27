@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 import { getPictures, getTextContents } from "../../pageSlices/homePageSlice";
-import Drink from "../ui/ProductCard";
-import SectionTitleProps from "../ui/SectionTitle";
+import Drink from "../../components/ProductCard";
+import SectionTitleProps from "../../components/ui/SectionTitle";
 import { BaseColumnFlex } from "../../styles/BaseStyles";
 
 const StyledContainer = styled(BaseColumnFlex)`

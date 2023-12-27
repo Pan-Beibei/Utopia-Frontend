@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import { formatDateTime } from "../../utils/ConversionTime";
-import { BaseColumnFlex } from "../../styles/BaseStyles";
+import { formatDateTime } from "../utils/ConversionTime";
+import { BaseColumnFlex } from "../styles/BaseStyles";
 import FoodCard from "./ProductCard";
-import SectionTitle from "./SectionTitle";
+import SectionTitle from "./ui/SectionTitle";
 
 const StyledContainer = styled(BaseColumnFlex)`
   padding: 0 2rem;

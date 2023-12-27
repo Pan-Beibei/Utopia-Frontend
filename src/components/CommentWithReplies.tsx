@@ -1,9 +1,9 @@
 import { ReactNode, createContext, useContext, useState } from "react";
 import styled from "styled-components";
-import { BaseColumnFlex, BaseFlex } from "../../styles/BaseStyles";
-import ExpandMoreButton from "./ExpandButton";
-import ReplyButton from "./ReplyButton";
-import ReplyInputBox from "./ReplyInputBox";
+import { BaseColumnFlex, BaseFlex } from "../styles/BaseStyles";
+import ExpandMoreButton from "./ui/ExpandButton";
+import ReplyButton from "./ui/ReplyButton";
+import ReplyInputBox from "./ui/ReplyInputBox";
 
 type ContextType = {
   handleExpandMore: () => void;

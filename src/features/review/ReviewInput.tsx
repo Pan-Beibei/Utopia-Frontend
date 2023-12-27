@@ -7,7 +7,7 @@ import {
 } from "./ReviewStyle";
 
 import { sendReview } from "../../services/apiReviews";
-import GlobalSnackbar from "../../components/ui/GlobalSnackbar";
+// import GlobalSnackbar from "../../components/ui/GlobalSnackbar";
 import { HTTPS } from "../../utils/APIRoutes";
 import { useQueryClient } from "react-query";
 
@@ -20,6 +20,8 @@ function ReviewInput({ activityId }: ReviewInputProps) {
   const [inputText, setInputText] = useState("");
   const [open, setOpen] = useState(false);
   const queryClient = useQueryClient();
+
+  console.log(open);
 
   function handleChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
     setInputText(e.target.value);
@@ -50,11 +52,11 @@ function ReviewInput({ activityId }: ReviewInputProps) {
     <ReviewRowStyle>
       <ReviewReplyInputBox value={inputText} onChange={handleChange} />
       <ReviewPublishBtnStyle onClick={handleClick}>发布</ReviewPublishBtnStyle>
-      <GlobalSnackbar
+      {/* <GlobalSnackbar
         open={open}
         message="发送成功"
         close={() => setOpen(false)}
-      />
+      /> */}
     </ReviewRowStyle>
   );
 }
