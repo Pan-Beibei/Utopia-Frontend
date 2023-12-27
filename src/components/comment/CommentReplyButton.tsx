@@ -7,7 +7,7 @@ const StyledReplyButton = styled(BaseFlex)`
   align-self: flex-start;
 `;
 
-function ReplyButton({ handleReply }: { handleReply: () => void }) {
+function CommentReplyButton({ handleReply }: { handleReply: () => void }) {
   function handleReplyClick() {
     handleReply();
   }
@@ -33,4 +33,4 @@ function ReplyButton({ handleReply }: { handleReply: () => void }) {
   );
 }
 
-export default ReplyButton;
+export default CommentReplyButton;

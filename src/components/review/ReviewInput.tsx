@@ -8,7 +8,7 @@ import {
 
 import { sendReview } from "../../services/apiReviews";
 // import GlobalSnackbar from "../../components/ui/GlobalSnackbar";
-import { HTTPS } from "../../utils/APIRoutes";
+import { HTTPS } from "../../services/api/APIRoutes";
 import { useQueryClient } from "react-query";
 
 interface ReviewInputProps {

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Post from "./Post";
-import { PostProps } from "./postSlice";
+import { PostProps } from "../../services/state/postSlice";
 import { useNavigate } from "react-router-dom";
 
 const StyledContainer = styled.div`

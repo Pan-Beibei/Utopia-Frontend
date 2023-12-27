@@ -24,11 +24,11 @@ const StyledPulishButton = styled(BaseFlex)`
   color: ${(props) => props.theme.colors.primary};
 `;
 
-interface ReplyInputBoxProps {
+interface CommentReplyInputBoxProps {
   repliedUserName: string;
 }
 
-function ReplyInputBox({ repliedUserName }: ReplyInputBoxProps) {
+function CommentReplyInputBox({ repliedUserName }: CommentReplyInputBoxProps) {
   const [inputContent, setInputContent] = useState("");
   const [showPicker, setShowPicker] = useState(false);
   const theme = useTheme();
@@ -57,4 +57,4 @@ function ReplyInputBox({ repliedUserName }: ReplyInputBoxProps) {
   );
 }
 
-export default ReplyInputBox;
+export default CommentReplyInputBox;

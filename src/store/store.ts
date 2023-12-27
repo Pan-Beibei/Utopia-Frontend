@@ -1,9 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-import slideSlice from "../features/slide/slideSlice";
-import BulletSlice from "../features/bullet/bulletSlice";
-import userSlice from "../features/user/userSlice";
-import reviewSlice from "../features/review/reviewSlice";
-import postSlice from "../features/post/postSlice";
+import slideSlice from "../components/slide/slideSlice";
+import BulletSlice from "../components/bullet/bulletSlice";
+import userSlice from "../services/state/userSlice";
+import reviewSlice from "../services/state/reviewSlice";
+import postSlice from "../services/state/postSlice";
 
 import homePageSlice from "../pageSlices/homePageSlice";
 import activityPageSlice from "../pageSlices/activityPageSlice";

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Video from "../../components/Video";
-import BulletShow from "../../features/bullet/BulletShow";
-import BulletInputBox from "../../features/bullet/BulletInputBox";
+import BulletShow from "../../components/bullet/BulletShow";
+import BulletInputBox from "../../components/bullet/BulletInputBox";
 import { useSocket } from "../../hooks/useSocket";
 
 const StyledHero = styled.section`

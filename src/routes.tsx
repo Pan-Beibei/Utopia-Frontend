@@ -3,12 +3,12 @@ import PeripheralProductsPage from "./pages/PeripheralProductsPage";
 import TouristAttractionsPage from "./pages/TouristAttractionsPage";
 import HotelPage from "./pages/HotelPage";
 import MemberLoginPage from "./pages/MemberLoginPage";
-import ActivityPage from "./pages/ActivityPage/ActivityPage";
-import HomePage from "./pages/HomePage/HomePage";
+import ActivityPage from "./pages/activityPage/ActivityPage";
+import HomePage from "./pages/homePage/HomePage";
 import MessagePage from "./pages/MessagePage";
-import LoginPage from "./pages/LoginPage/LoginPage";
-import ForumPage from "./pages/ForumPage/ForumPage";
-import PostDetail from "./features/post/PostDetail";
+import LoginPage from "./pages/loginPage/LoginPage";
+import ForumPage from "./pages/forumPage/ForumPage";
+import PostDetail from "./components/post/PostDetail";
 import UserProfilePage from "./pages/UserProfilePage";
 import {
   hoemLoader,

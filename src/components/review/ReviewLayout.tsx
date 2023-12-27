@@ -3,9 +3,9 @@ import { Box } from "@mui/system";
 import ReviewDetail from "./ReviewDetail";
 import ReviewInput from "./ReviewInput";
 import store from "../../store/store";
-import { init, getReviews } from "./reviewSlice";
+import { init, getReviews } from "../../services/state/reviewSlice";
 import { useSelector } from "react-redux";
-import { HTTPS } from "../../utils/APIRoutes";
+import { HTTPS } from "../../services/api/APIRoutes";
 import useFetchData from "../../hooks/useFetchData";
 
 const ReviewLayoutContainer = ({

@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import { ReactNode } from "react";
 
-import SlideShow from "../features/slide/SlideShow";
+import SlideShow from "../components/slide/SlideShow";
 
 const StyledHotel = ({ children }: { children?: ReactNode }) => (
   <Box

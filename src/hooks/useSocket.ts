@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { io, Socket } from "socket.io-client";
-import { SERVER_ADDRESS, MsgType } from "../utils/APIRoutes";
-import { addBullet } from "../features/bullet/bulletSlice";
+import { SERVER_ADDRESS, MsgType } from "../services/api/APIRoutes";
+import { addBullet } from "../components/bullet/bulletSlice";
 import store from "../store/store";
 import { useAsyncEffect } from "./customHooks";
 

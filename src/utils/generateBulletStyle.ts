@@ -1,4 +1,4 @@
-import { ServerBulletProps } from "./../features/bullet/bulletSlice";
+import { ServerBulletProps } from "../components/bullet/bulletSlice";
 
 const COLORS = [
   "gray",

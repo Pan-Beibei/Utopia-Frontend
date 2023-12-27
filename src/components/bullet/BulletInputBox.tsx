@@ -3,12 +3,12 @@ import styled from "styled-components";
 import { Socket } from "socket.io-client";
 import { useSelector } from "react-redux";
 
-import { MsgType } from "../../utils/APIRoutes";
-import { getUserId } from "../user/userSlice";
-import PrimaryButton from "../../components/ui/PrimaryButton";
+import { MsgType } from "../../services/api/APIRoutes";
+import { getUserId } from "../../services/state/userSlice";
+import PrimaryButton from "../ui/PrimaryButton";
 import { ButtonTypes } from "../../enum/ButtonTypes";
-import EmojiPicker from "../../components/EmojiPicker";
-import EmojiTextInput from "../../components/EmojiTextInput";
+import EmojiPicker from "../EmojiPicker";
+import EmojiTextInput from "../EmojiTextInput";
 
 const StyledBulletInputContainer = styled.div`
   position: relative;

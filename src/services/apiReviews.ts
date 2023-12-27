@@ -1,4 +1,4 @@
-import { SERVER_ADDRESS } from "../utils/APIRoutes";
+import { SERVER_ADDRESS } from "./api/APIRoutes";
 
 const Url = SERVER_ADDRESS.host + "/api/v1/reviews";
 

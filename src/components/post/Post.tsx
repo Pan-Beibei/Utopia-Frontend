@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { BaseColumnFlex, BaseFlex } from "../../styles/BaseStyles";
-import { PostProps } from "./postSlice";
+import { PostProps } from "../../services/state/postSlice";
 
 const StyledContainer = styled(BaseColumnFlex)`
   align-items: flex-start;

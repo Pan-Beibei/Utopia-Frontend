@@ -1,8 +1,8 @@
 import { useState } from "react";
 import styled, { useTheme } from "styled-components";
 import { BaseFlex } from "../../styles/BaseStyles";
-import EmojiPicker from "../../components/EmojiPicker";
-import EmojiTextInput from "../../components/EmojiTextInput";
+import EmojiPicker from "../EmojiPicker";
+import EmojiTextInput from "../EmojiTextInput";
 
 const StyledContainer = styled(BaseFlex)`
   justify-content: space-between;

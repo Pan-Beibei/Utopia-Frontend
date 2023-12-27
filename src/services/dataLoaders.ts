@@ -1,9 +1,9 @@
 import { Action } from "@reduxjs/toolkit";
 import store from "../store/store";
-import { HTTPS } from "../utils/APIRoutes";
+import { HTTPS } from "./api/APIRoutes";
 import { initActivities } from "../pageSlices/activityPageSlice";
 import { initHome } from "../pageSlices/homePageSlice";
-import { initBullet } from "../features/bullet/bulletSlice";
+import { initBullet } from "../components/bullet/bulletSlice";
 import { initForumPage } from "../pageSlices/ForumPageSlice";
 
 async function loadData(url: string, action: (data: []) => Action) {

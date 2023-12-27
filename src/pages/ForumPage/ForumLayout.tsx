@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import SearchPosts from "./SearchPosts";
 import { BaseFlex, BaseColumnFlex } from "../../styles/BaseStyles";
-import PostList from "../../features/post/PostList";
+import PostList from "../../components/post/PostList";
 import Pagination from "../../components/Pagination";
 
 const StyledContainer = styled(BaseColumnFlex)`

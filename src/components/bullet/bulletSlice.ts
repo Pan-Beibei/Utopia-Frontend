@@ -1,7 +1,7 @@
 // import { useMemo } from "react";
 import { createSlice } from "@reduxjs/toolkit"; //createSelector
 import { RootState } from "../../store/store";
-import { generateBulletStyle } from "./../../utils/generateBulletStyle";
+import { generateBulletStyle } from "../../utils/generateBulletStyle";
 import { FixedLengthArray } from "../../store/types";
 
 export enum BulletStatusType {
