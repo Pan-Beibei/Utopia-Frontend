@@ -1,6 +1,6 @@
 import { ReactNode, createContext, useState, useContext } from "react";
 import styled, { useTheme, css } from "styled-components";
-import { BaseFlex } from "../styles/BaseStyles";
+import { BaseFlex } from "../../styles/BaseStyles";
 import ArrowSvg from "./ArrowSvg";
 
 const StyledContainer = styled(BaseFlex)`

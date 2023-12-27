@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
 import styled from "styled-components";
 import Navbar from "./navs/Narbar";
-import Footer from "../ui/Footer";
+import Footer from "./ui/Footer";
 
 const StyledContainer = styled.div`
   background-color: ${(props) => props.theme.colors.bgColor};

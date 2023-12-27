@@ -2,7 +2,7 @@ import styled from "styled-components";
 import SearchPosts from "./SearchPosts";
 import { BaseFlex, BaseColumnFlex } from "../../styles/BaseStyles";
 import PostList from "../../features/post/PostList";
-import Pagination from "../../ui/Pagination";
+import Pagination from "../ui/Pagination";
 
 const StyledContainer = styled(BaseColumnFlex)`
   padding: 2rem 1rem;
@@ -31,12 +31,16 @@ const StyledFlex = styled(BaseFlex)`
   gap: 1rem;
 `;
 
-function ForumLayout() {
+interface ForumLayoutProps {
+  setShowCreatePost: () => void;
+}
+
+function ForumLayout({ setShowCreatePost }: ForumLayoutProps) {
   return (
     <StyledContainer>
       <StyledFlex>
         <SearchPosts />
-        <StyledPostButton>发帖</StyledPostButton>
+        <StyledPostButton onClick={setShowCreatePost}>发帖</StyledPostButton>
       </StyledFlex>
       <PostList />
       <Pagination pageCount={30}>

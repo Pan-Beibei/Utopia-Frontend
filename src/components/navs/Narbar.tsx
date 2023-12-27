@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import Logo from "../../ui/Logo";
+import Logo from "../ui/Logo";
 import NavLinks from "./NavLinks";
 import { BaseFlex } from "../../styles/BaseStyles";
 // import SwitchThemeButton from "../../themes/ThemeContext";

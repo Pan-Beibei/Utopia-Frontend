@@ -5,10 +5,10 @@ import { useSelector } from "react-redux";
 
 import { MsgType } from "../../utils/APIRoutes";
 import { getUserId } from "../user/userSlice";
-import PrimaryButton from "../../ui/PrimaryButton";
+import PrimaryButton from "../../components/ui/PrimaryButton";
 import { ButtonTypes } from "../../enum/ButtonTypes";
-import EmojiPicker from "../../ui/EmojiPicker";
-import EmojiTextInput from "../../ui/EmojiTextInput";
+import EmojiPicker from "../../components/ui/EmojiPicker";
+import EmojiTextInput from "../../components/ui/EmojiTextInput";
 
 const StyledBulletInputContainer = styled.div`
   position: relative;

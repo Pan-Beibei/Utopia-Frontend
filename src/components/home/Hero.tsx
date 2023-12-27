@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Video from "../../ui/Video";
+import Video from "../ui/Video";
 import BulletShow from "../../features/bullet/BulletShow";
 import BulletInputBox from "../../features/bullet/BulletInputBox";
 import { useSocket } from "../../hooks/useSocket";

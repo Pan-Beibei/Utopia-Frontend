@@ -1,6 +1,6 @@
 import { ReactNode, createContext, useContext, useState } from "react";
 import styled from "styled-components";
-import { BaseColumnFlex, BaseFlex } from "../styles/BaseStyles";
+import { BaseColumnFlex, BaseFlex } from "../../styles/BaseStyles";
 import ExpandMoreButton from "./ExpandButton";
 import ReplyButton from "./ReplyButton";
 import ReplyInputBox from "./ReplyInputBox";

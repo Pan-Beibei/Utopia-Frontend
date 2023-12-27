@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { BaseFlex } from "../styles/BaseStyles";
+import { BaseFlex } from "../../styles/BaseStyles";
 
 const StyledReplyButton = styled(BaseFlex)`
   color: ${(props) => props.theme.colors.primary};

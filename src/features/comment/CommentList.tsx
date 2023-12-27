@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { BaseColumnFlex } from "../../styles/BaseStyles";
 // import Comment from "./Comment";
-import CommentWithReplies from "../../ui/CommentWithReplies";
+import CommentWithReplies from "../../components/ui/CommentWithReplies";
 
 const StyledContainer = styled(BaseColumnFlex)`
   gap: 1.5rem;

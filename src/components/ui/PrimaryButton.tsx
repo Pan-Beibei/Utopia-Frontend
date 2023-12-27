@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import styled, { useTheme } from "styled-components";
-import { ButtonTypes } from "../enum/ButtonTypes";
+import { ButtonTypes } from "../../enum/ButtonTypes";
 
 const StyledPrimaryButton = styled.button<{
   $type: ButtonTypes;

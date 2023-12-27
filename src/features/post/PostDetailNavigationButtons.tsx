@@ -1,6 +1,6 @@
 import styled, { useTheme } from "styled-components";
 import { useNavigate } from "react-router-dom";
-import ArrowSvg from "../../ui/ArrowSvg";
+import ArrowSvg from "../../components/ui/ArrowSvg";
 import { BaseFlex } from "../../styles/BaseStyles";
 
 const StyledContainer = styled(BaseFlex)`

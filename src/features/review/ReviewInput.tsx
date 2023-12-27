@@ -7,7 +7,7 @@ import {
 } from "./ReviewStyle";
 
 import { sendReview } from "../../services/apiReviews";
-import GlobalSnackbar from "../../ui/GlobalSnackbar";
+import GlobalSnackbar from "../../components/ui/GlobalSnackbar";
 import { HTTPS } from "../../utils/APIRoutes";
 import { useQueryClient } from "react-query";
 

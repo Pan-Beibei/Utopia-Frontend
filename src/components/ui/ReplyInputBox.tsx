@@ -2,7 +2,7 @@ import { useState } from "react";
 import styled, { useTheme } from "styled-components";
 import EmojiTextInput from "./EmojiTextInput";
 import EmojiPicker from "./EmojiPicker";
-import { BaseFlex } from "../styles/BaseStyles";
+import { BaseFlex } from "../../styles/BaseStyles";
 
 const StyledContainer = styled(BaseFlex)`
   position: relative;
