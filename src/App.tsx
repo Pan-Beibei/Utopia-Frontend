@@ -4,7 +4,7 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import { ThemeProvider } from "styled-components";
 import { Toaster } from "react-hot-toast";
 import { baseTheme, warmTheme } from "./themes/themes";
-import { ThemeContext } from "./themes/ThemeContext";
+import { ThemeContext } from "./services/providers/ThemeContext";
 import GlobalStyles from "./styles/GlobalStyles";
 import { routes } from "./routes";
 
