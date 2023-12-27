@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
-import { getPosts } from "../../pageSlices/ForumPageSlice";
+import { getPosts } from "../../services/state/ForumPageSlice";
 import { BaseColumnFlex } from "../../styles/BaseStyles";
 import ForumIntroduction from "./ForumIntroduction";
 import ForumLayout from "./ForumLayout";

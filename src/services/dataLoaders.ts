@@ -1,10 +1,10 @@
 import { Action } from "@reduxjs/toolkit";
 import store from "../store/store";
 import { HTTPS } from "./api/APIRoutes";
-import { initActivities } from "../pageSlices/activityPageSlice";
-import { initHome } from "../pageSlices/homePageSlice";
+import { initActivities } from "./state/activityPageSlice";
+import { initHome } from "./state/homePageSlice";
 import { initBullet } from "../components/bullet/bulletSlice";
-import { initForumPage } from "../pageSlices/ForumPageSlice";
+import { initForumPage } from "./state/ForumPageSlice";
 
 async function loadData(url: string, action: (data: []) => Action) {
   const res = await fetch(url);

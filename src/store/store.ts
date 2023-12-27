@@ -5,9 +5,9 @@ import userSlice from "../services/state/userSlice";
 import reviewSlice from "../services/state/reviewSlice";
 import postSlice from "../services/state/postSlice";
 
-import homePageSlice from "../pageSlices/homePageSlice";
-import activityPageSlice from "../pageSlices/activityPageSlice";
-import forumPageSlice from "../pageSlices/ForumPageSlice";
+import homePageSlice from "../services/state/homePageSlice";
+import activityPageSlice from "../services/state/activityPageSlice";
+import forumPageSlice from "../services/state/ForumPageSlice";
 
 const store = configureStore({
   reducer: {

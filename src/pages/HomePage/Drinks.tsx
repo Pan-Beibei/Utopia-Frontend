@@ -1,6 +1,9 @@
 import styled from "styled-components";
 import { useSelector } from "react-redux";
-import { getPictures, getTextContents } from "../../pageSlices/homePageSlice";
+import {
+  getPictures,
+  getTextContents,
+} from "../../services/state/homePageSlice";
 import Drink from "../../components/ProductCard";
 import SectionTitleProps from "../../components/ui/SectionTitle";
 import { BaseColumnFlex } from "../../styles/BaseStyles";

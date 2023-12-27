@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useSelector } from "react-redux";
-import { getActivities } from "../../pageSlices/activityPageSlice";
+import { getActivities } from "../../services/state/activityPageSlice";
 import ActivityCard from "../../components/ActivityCard";
 import { BaseColumnFlex } from "../../styles/BaseStyles";
 
