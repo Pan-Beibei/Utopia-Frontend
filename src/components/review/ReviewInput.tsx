@@ -6,7 +6,7 @@ import {
   ReviewRowStyle,
 } from "./ReviewStyle";
 
-import { sendReview } from "../../services/apiReviews";
+import { sendReview } from "../../services/api/apiReviews";
 // import GlobalSnackbar from "../../components/ui/GlobalSnackbar";
 import { HTTPS } from "../../services/api/APIRoutes";
 import { useQueryClient } from "react-query";

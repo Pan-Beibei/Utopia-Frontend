@@ -1,13 +1,9 @@
 import AppLayout from "./components/AppLayout";
-import PeripheralProductsPage from "./pages/PeripheralProductsPage";
-import TouristAttractionsPage from "./pages/TouristAttractionsPage";
-import HotelPage from "./pages/HotelPage";
-import MemberLoginPage from "./pages/MemberLoginPage";
-import ActivityPage from "./pages/activityPage/ActivityPage";
-import HomePage from "./pages/homePage/HomePage";
-import MessagePage from "./pages/MessagePage";
-import LoginPage from "./pages/loginPage/LoginPage";
-import ForumPage from "./pages/forumPage/ForumPage";
+import AccommodationPage from "./pages/AccommodationPage";
+import ActivityPage from "./pages/ActivityPage";
+import HomePage from "./pages/HomePage";
+import LoginPage from "./pages/LoginPage";
+import ForumPage from "./pages/ForumPage";
 import PostDetail from "./components/post/PostDetail";
 import UserProfilePage from "./pages/UserProfilePage";
 import {
@@ -27,29 +23,13 @@ export const routes = [
         loader: hoemLoader,
       },
       {
-        path: "peripheral-products",
-        element: <PeripheralProductsPage />,
-      },
-      {
-        path: "tourist-attractions",
-        element: <TouristAttractionsPage />,
-      },
-      {
         path: "hotel-info",
-        element: <HotelPage />,
-      },
-      {
-        path: "member-login",
-        element: <MemberLoginPage />,
+        element: <AccommodationPage />,
       },
       {
         path: "activity-info",
         element: <ActivityPage />,
         loader: activityLoader,
-      },
-      {
-        path: "message-page",
-        element: <MessagePage />,
       },
       {
         path: "forum-page",
