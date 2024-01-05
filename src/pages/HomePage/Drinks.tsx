@@ -11,6 +11,9 @@ import { BaseColumnFlex } from "../../styles/BaseStyles";
 const StyledContainer = styled(BaseColumnFlex)`
   padding: 0 2rem;
   gap: 2rem;
+  @media (min-width: ${(props) => props.theme.breakpoints.desktop}) {
+    align-items: flex-start;
+  }
 `;
 
 const StyledFlex = styled(BaseColumnFlex)`
