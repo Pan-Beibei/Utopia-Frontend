@@ -10,6 +10,7 @@ import CreatePost from "./CreatePost";
 const StyledContainer = styled(BaseColumnFlex)`
   padding-top: 7.6rem;
   gap: 2rem;
+  border-radius: 0.8rem;
 `;
 
 function ForumPage() {
@@ -22,7 +23,9 @@ function ForumPage() {
     <StyledContainer>
       <ForumIntroduction />
       {showCreatePost ? (
-        <CreatePost />
+        <CreatePost
+          setShowCreatePost={() => setShowCreatePost((show) => !show)}
+        />
       ) : (
         <ForumLayout
           setShowCreatePost={() => setShowCreatePost((show) => !show)}

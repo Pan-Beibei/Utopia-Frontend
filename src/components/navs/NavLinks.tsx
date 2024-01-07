@@ -140,7 +140,7 @@ function Links() {
       </StyledNavLink>
       <StyledNavLink to="/forum-page">68克情报处</StyledNavLink>
       <StyledNavLink to="/activity-info">最近活动</StyledNavLink>
-      <StyledNavLink to="/hotel-info">民宿房间</StyledNavLink>
+      {/* <StyledNavLink to="/hotel-info">民宿房间</StyledNavLink> */}
       <StyledNavLink to="/user-profile-page">我的主页</StyledNavLink>
     </StyledNavLinks>
   );
