@@ -2,11 +2,11 @@ import { Box } from "@mui/system";
 
 import ReviewDetail from "./ReviewDetail";
 import ReviewInput from "./ReviewInput";
-import store from "../../store/store";
-import { init, getReviews } from "../../services/state/reviewSlice";
+// import store from "../../store/store";
+import { getReviews } from "../../services/state/reviewSlice";
 import { useSelector } from "react-redux";
-import { HTTPS } from "../../services/api/APIRoutes";
-import useFetchData from "../../hooks/useFetchData";
+// import { HTTPS } from "../../services/api/APIRoutes";
+// import useFetchData from "../../hooks/useFetchData";
 
 const ReviewLayoutContainer = ({
   children,
@@ -33,9 +33,9 @@ interface ReviewLayoutProps {
 
 function ReviewLayout({ activityId }: ReviewLayoutProps) {
   const reviews = useSelector(getReviews);
-  useFetchData(HTTPS.ACTIVITY + `/${activityId}/reviews`, null, (data) =>
-    store.dispatch(init(data))
-  );
+  // useFetchData(HTTPS.ACTIVITY + `/${activityId}/reviews`, null, (data) =>
+  //   store.dispatch(init(data))
+  // );
   console.log("reviews: ", reviews);
   if (reviews.length === 0) return null;
 

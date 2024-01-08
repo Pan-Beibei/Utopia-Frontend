@@ -1,10 +1,10 @@
 import { Action } from "@reduxjs/toolkit";
 import store from "../store/store";
-import { HTTPS } from "./api/APIRoutes";
+import { SERVER_ADDRESS, API_VERSION } from "../config";
 import { initActivities } from "./state/activityPageSlice";
-import { initHome } from "./state/homePageSlice";
-import { initBullet } from "../components/bullet/bulletSlice";
-import { initForumPage } from "./state/ForumPageSlice";
+// import { initHome } from "./state/homePageSlice";
+// import { initBullet } from "../components/bullet/bulletSlice";
+// import { initForumPage } from "./state/ForumPageSlice";
 
 async function loadData(url: string, action: (data: []) => Action) {
   const res = await fetch(url);
@@ -15,18 +15,20 @@ async function loadData(url: string, action: (data: []) => Action) {
   store.dispatch(action(data));
 }
 
+const url = SERVER_ADDRESS + API_VERSION;
+
 export async function hoemLoader() {
-  loadData(HTTPS.BULLETS, initBullet);
-  loadData(HTTPS.HOME_PAGE, initHome);
+  // loadData(url + "bullets", initBullet);
+  // loadData(HTTPS.HOME_PAGE, initHome);
   return null;
 }
 
 export async function activityLoader() {
-  loadData(HTTPS.ACTIVITY, initActivities);
+  loadData(url + "activities", initActivities);
   return null;
 }
 
 export async function forumLoader() {
-  loadData(HTTPS.DAILY_PAGE, initForumPage);
+  // loadData(url + "", initForumPage);
   return null;
 }

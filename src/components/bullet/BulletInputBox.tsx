@@ -1,10 +1,10 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { Socket } from "socket.io-client";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 
-import { MsgType } from "../../services/api/APIRoutes";
-import { getUserId } from "../../services/state/userSlice";
+import { MsgType } from "../../config";
+// import { getUserId } from "../../services/state/userSlice";
 import PrimaryButton from "../ui/PrimaryButton";
 import { ButtonTypes } from "../../enum/ButtonTypes";
 import EmojiPicker from "../EmojiPicker";
@@ -36,13 +36,13 @@ interface BulletInputTextProps {
 function BulletInputBox({ socket }: BulletInputTextProps) {
   const [inputContent, setInputContent] = useState("");
   const [showPicker, setShowPicker] = useState(false);
-  const userId = useSelector(getUserId);
+  // const userId = useSelector(getUserId);
 
   function handleSendClick() {
     if (inputContent.length > 3) {
       if (socket.current) {
         socket.current.emit(MsgType.SEND_BULLET, {
-          id: userId,
+          id: "userId",
           msg: inputContent,
         });
         setInputContent("");

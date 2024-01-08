@@ -44,7 +44,7 @@ export const StyledGetVerificationCodeButton = styled.button`
 export interface AuthFieldsProps {
   username: string;
   password: string;
-  confirmPassword: string;
+  passwordConfirm: string;
   phone: string;
   verificationCode: string;
 }
@@ -83,7 +83,7 @@ export const authFieldsConfig: AuthFieldConfig[] = [
     }),
   },
   {
-    id: "confirmPassword",
+    id: "passwordConfirm",
     placeholder: "请再次输入密码确认...",
     validation: (getValues) => ({
       required: "This field is required",
@@ -96,7 +96,7 @@ export const authFieldsConfig: AuthFieldConfig[] = [
     validation: () => ({
       required: "This field is required",
       pattern: {
-        value: /^1[3456789]\d{9}$/,
+        value: /^1[3-9]\d{9}$/,
         message: "无效的手机号码",
       },
     }),

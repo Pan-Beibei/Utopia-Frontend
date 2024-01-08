@@ -1,25 +1,26 @@
 import { useState } from "react";
-import { useMutation } from "react-query";
+// import { useMutation } from "react-query";
 import {
   ReviewPublishBtnStyle,
   ReviewReplyInputBox,
   ReviewRowStyle,
 } from "./ReviewStyle";
 
-import { sendReview } from "../../services/api/apiReviews";
 // import GlobalSnackbar from "../../components/ui/GlobalSnackbar";
-import { HTTPS } from "../../services/api/APIRoutes";
-import { useQueryClient } from "react-query";
+// import { HTTPS } from "../../services/api/APIRoutes";
+// import { useQueryClient } from "react-query";
 
 interface ReviewInputProps {
   activityId: string;
 }
 
 function ReviewInput({ activityId }: ReviewInputProps) {
-  const mutation = useMutation(sendReview);
+  console.log(activityId);
+
+  // const mutation = useMutation(sendReview);
   const [inputText, setInputText] = useState("");
-  const [open, setOpen] = useState(false);
-  const queryClient = useQueryClient();
+  // const [open, setOpen] = useState(false);
+  // const queryClient = useQueryClient();
 
   console.log(open);
 
@@ -27,21 +28,21 @@ function ReviewInput({ activityId }: ReviewInputProps) {
     setInputText(e.target.value);
   }
 
-  function updateReviews() {
-    queryClient.invalidateQueries(HTTPS.ACTIVITY + `/${activityId}/reviews`);
-  }
+  // function updateReviews() {
+  //   queryClient.invalidateQueries(HTTPS.ACTIVITY + `/${activityId}/reviews`);
+  // }
 
   const send = () => {
-    mutation.mutate(
-      { review: inputText, id: activityId },
-      {
-        onSuccess: (data) => {
-          console.log(data);
-          setOpen(true);
-          updateReviews();
-        },
-      }
-    );
+    // mutation.mutate(
+    //   { review: inputText, id: activityId },
+    //   {
+    //     onSuccess: (data) => {
+    //       console.log(data);
+    //       setOpen(true);
+    //       updateReviews();
+    //     },
+    //   }
+    // );
   };
 
   function handleClick() {

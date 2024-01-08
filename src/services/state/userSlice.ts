@@ -1,29 +1,30 @@
 import { createSlice } from "@reduxjs/toolkit"; //
 import { RootState } from "../../store/store";
+import { User } from "../../types";
 
 interface StateProps {
-  userId: string;
+  user: User | null;
 }
 
 const initialState: StateProps = {
-  userId: "",
+  user: null,
 };
 
 const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    setUserId(state, action) {
-      state.userId = action.payload;
+    setUser(state, action) {
+      state.user = action.payload;
     },
   },
 });
 
-export const { setUserId } = userSlice.actions;
+export const { setUser } = userSlice.actions;
 
 export default userSlice.reducer;
 
-export const getUserId = (state: RootState) => state.user.userId;
+export const getUser = (state: RootState) => state.user.user;
 
 // export const getSlideIndexByName = createSelector(
 //   [getSlideIndex, (_, ikey) => ikey],

@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Logo from "../ui/Logo";
 import NavLinks from "./NavLinks";
 import { BaseFlex } from "../../styles/BaseStyles";
+import { useLocalStorage } from "../../hooks/useLocalStorage";
 // import SwitchThemeButton from "../../themes/ThemeContext";
 
 const StyledNarbar = styled.nav`
@@ -47,6 +48,14 @@ const StyledLoginButton = styled.button`
 
 function Narbar() {
   const navigate = useNavigate();
+  const { getItem } = useLocalStorage("token");
+
+  const token = getItem();
+
+  function handleNavigateToUserProfilePage() {
+    navigate("/user-profile-page");
+  }
+
   function handleNavigateToLoginPage() {
     navigate("/login-page");
   }
@@ -67,9 +76,17 @@ function Narbar() {
         <StyledNavTable>
           <NavLinks.Links />
         </StyledNavTable>
-        <StyledLoginButton onClick={handleNavigateToLoginPage}>
-          登录
-        </StyledLoginButton>
+        {token ? (
+          <img
+            src="/icons/head.svg"
+            alt="Head"
+            onClick={handleNavigateToUserProfilePage}
+          />
+        ) : (
+          <StyledLoginButton onClick={handleNavigateToLoginPage}>
+            登录
+          </StyledLoginButton>
+        )}
       </StyledContainer>
     </StyledNarbar>
   );
