@@ -50,7 +50,8 @@ function Narbar() {
   const navigate = useNavigate();
   const { getItem } = useLocalStorage("token");
 
-  const token = getItem();
+  const token: string = getItem();
+  console.log(token);
 
   function handleNavigateToUserProfilePage() {
     navigate("/user-profile-page");

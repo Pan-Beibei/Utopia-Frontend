@@ -2,7 +2,9 @@ import { Action } from "@reduxjs/toolkit";
 import store from "../store/store";
 import { SERVER_ADDRESS, API_VERSION } from "../config";
 import { initActivities } from "./state/activityPageSlice";
-// import { initHome } from "./state/homePageSlice";
+import { getDrinks } from "./api/home";
+
+import { setDrinks } from "./state/homePageSlice";
 // import { initBullet } from "../components/bullet/bulletSlice";
 // import { initForumPage } from "./state/ForumPageSlice";
 
@@ -18,8 +20,18 @@ async function loadData(url: string, action: (data: []) => Action) {
 const url = SERVER_ADDRESS + API_VERSION;
 
 export async function hoemLoader() {
-  // loadData(url + "bullets", initBullet);
-  // loadData(HTTPS.HOME_PAGE, initHome);
+  getDrinks()
+    .then((res) => {
+      if (res.code === "success") {
+        console.log(res);
+        store.dispatch(setDrinks(res.data));
+      } else {
+        console.error(res.error);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+    });
   return null;
 }
 

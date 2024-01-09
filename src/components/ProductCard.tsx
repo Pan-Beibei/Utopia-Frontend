@@ -39,19 +39,19 @@ const StyledName = styled.div`
 `;
 
 interface ProductProps {
+  name: string;
   imgUrl: string;
+  description?: string;
   width: string;
   height: string;
 }
 
-function Product({ imgUrl, width, height }: ProductProps) {
-  console.log(imgUrl);
-
+function Product({ name, imgUrl, description, width, height }: ProductProps) {
   return (
     <StyledDrink $width={width} $height={height}>
-      <StyledImg src="./block3/pic-1.jpg" alt="drink image"></StyledImg>
+      <StyledImg src={imgUrl} alt={description}></StyledImg>
       <StyledNameBg>
-        <StyledName>卡布奇诺</StyledName>
+        <StyledName>{name}</StyledName>
       </StyledNameBg>
     </StyledDrink>
   );

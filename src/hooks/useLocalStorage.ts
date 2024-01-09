@@ -10,6 +10,10 @@ export function useLocalStorage(key: string) {
   function getItem() {
     try {
       const item = window.localStorage.getItem(key);
+      if (typeof item !== "object") {
+        return item;
+      }
+
       return item ? JSON.parse(item) : undefined;
     } catch (error) {
       console.log(error);

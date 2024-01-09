@@ -1,35 +1,27 @@
 import { createSlice } from "@reduxjs/toolkit"; //
 import { RootState } from "../../store/store";
+import { DrinkType } from "../../types";
 
 interface StateProps {
-  pictures: Array<string>;
-  textContents: Array<string>;
+  drinks: Array<DrinkType>;
 }
 
 const initialState: StateProps = {
-  pictures: [],
-  textContents: [],
+  drinks: [],
 };
 
 const homePageSlice = createSlice({
   name: "homePage",
   initialState,
   reducers: {
-    initHome(state, action) {
-      state.pictures = action.payload[0].pictures;
-      const textContents = JSON.parse(action.payload[0].textContents);
-      state.textContents = textContents.map(
-        (el: { [key: string]: string }) => el.src
-      );
+    setDrinks(state, action) {
+      state.drinks = action.payload;
     },
   },
 });
 
-export const { initHome } = homePageSlice.actions;
+export const { setDrinks } = homePageSlice.actions;
 
 export default homePageSlice.reducer;
 
-export const getPictures = (state: RootState) => state.homePage.pictures;
-
-export const getTextContents = (state: RootState) =>
-  state.homePage.textContents;
+export const getDrinks = (state: RootState) => state.homePage.drinks;

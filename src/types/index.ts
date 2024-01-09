@@ -4,3 +4,9 @@ export interface User {
   phone: string;
   roles: [];
 }
+
+export interface DrinkType {
+  name: string;
+  description: string;
+  pictures: Array<string>;
+}

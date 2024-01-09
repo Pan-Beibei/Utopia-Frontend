@@ -1,12 +1,10 @@
 import styled from "styled-components";
 import { useSelector } from "react-redux";
-import {
-  getPictures,
-  getTextContents,
-} from "../../services/state/homePageSlice";
-import Drink from "../../components/ProductCard";
+import { getDrinks } from "../../services/state/homePageSlice";
 import SectionTitleProps from "../../components/ui/SectionTitle";
 import { BaseColumnFlex } from "../../styles/BaseStyles";
+import { DrinkType } from "../../types";
+import Drink from "../../components/ProductCard";
 
 const StyledContainer = styled(BaseColumnFlex)`
   padding: 0 2rem;
@@ -51,11 +49,13 @@ const StyledDrinksListContainer = styled.div`
 `;
 
 function Drinks() {
-  const pictures = useSelector(getPictures);
-  const textContents = useSelector(getTextContents);
+  const drinks = useSelector(getDrinks);
 
-  if (textContents.length === 0) return null;
-  const des = textContents[0] as string;
+  if (drinks.length === 0) return null;
+  let drinkMenu: DrinkType = { name: "", description: "", pictures: [] };
+  drinks.forEach((drink) => {
+    if (drink.name === "酒水牌") drinkMenu = drink;
+  });
 
   return (
     <section>
@@ -63,16 +63,39 @@ function Drinks() {
         <SectionTitleProps>Drink Menu</SectionTitleProps>
         <StyledFlex>
           <div>
-            <StyledDrinksListImg src={pictures[18]} alt="drink list" />
-            <StyledContent>{des}</StyledContent>
+            <StyledDrinksListImg src={drinkMenu.pictures[0]} alt="drink list" />
+            <StyledContent>
+              {JSON.parse(drinkMenu.description)[0].src}
+            </StyledContent>
           </div>
 
           <StyledDrinksListContainer>
-            {Array(6)
-              .fill(null)
-              .map((_, index) => (
-                <Drink key={index} width="15rem" height="15rem" imgUrl="" />
-              ))}
+            {drinks.map((drink, index) => {
+              if (drink.name !== "酒水牌")
+                return (
+                  <Drink
+                    key={index}
+                    width="15rem"
+                    height="15rem"
+                    name={drink.name}
+                    description={JSON.parse(drinkMenu.description)[0].src}
+                    imgUrl={drink.pictures[0]}
+                  />
+                );
+            })}
+            {drinks.map((drink, index) => {
+              if (drink.name !== "酒水牌")
+                return (
+                  <Drink
+                    key={index}
+                    width="15rem"
+                    height="15rem"
+                    name={drink.name}
+                    description={JSON.parse(drinkMenu.description)[0].src}
+                    imgUrl={drink.pictures[0]}
+                  />
+                );
+            })}
           </StyledDrinksListContainer>
         </StyledFlex>
       </StyledContainer>

@@ -1,9 +1,9 @@
 import styled from "styled-components";
 
-import { getPictures } from "../../services/state/homePageSlice";
-import { useSelector } from "react-redux";
+// import { getPictures } from "../../services/state/homePageSlice";
+// import { useSelector } from "react-redux";
 import SectionTitleProps from "../../components/ui/SectionTitle";
-import Story from "../../components/Story";
+// import Story from "../../components/Story";
 import { BaseColumnFlex } from "../../styles/BaseStyles";
 import StoryNavigationButton from "./StoryNavigationButton";
 
@@ -44,12 +44,12 @@ const StyledRight = styled.div`
 const StyledLeft = styled(StyledRight)``;
 
 function OurMemories() {
-  const pics = useSelector(getPictures).slice(0, 18);
+  // const pics = useSelector(getPictures).slice(0, 18);
 
-  const titleStr =
-    "哈佛学霸公开私生活，引900万人围观：空闲时间，决定你的人生上限";
-  const contentStr =
-    "还真别说，我幻想过，假如我脑子里有个大容量硬盘，我把维基百科或者百度百科的镜像缓存到脑子里，一定帅呆了。";
+  // const titleStr =
+  //   "哈佛学霸公开私生活，引900万人围观：空闲时间，决定你的人生上限";
+  // const contentStr =
+  //   "还真别说，我幻想过，假如我脑子里有个大容量硬盘，我把维基百科或者百度百科的镜像缓存到脑子里，一定帅呆了。";
 
   return (
     <section>
@@ -63,7 +63,7 @@ function OurMemories() {
           <StyledRight>
             <StoryNavigationButton leftOrRight="right" />
           </StyledRight>
-          {pics.slice(0, 3).map((pic, index) => (
+          {/* {pics.slice(0, 3).map((pic, index) => (
             <Story
               imgUrl={pic}
               title={titleStr}
@@ -71,7 +71,7 @@ function OurMemories() {
               date="2020年12月23日"
               key={index}
             />
-          ))}
+          ))} */}
           <StyledLeft>
             <StoryNavigationButton leftOrRight="left" />
           </StyledLeft>
