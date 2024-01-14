@@ -3,11 +3,13 @@ import { RootState } from "../../store/store";
 import { DrinkType } from "../../types";
 
 interface StateProps {
-  drinks: Array<DrinkType>;
+  drinks: {
+    [key in string]: DrinkType[];
+  };
 }
 
 const initialState: StateProps = {
-  drinks: [],
+  drinks: {},
 };
 
 const homePageSlice = createSlice({
@@ -15,7 +17,13 @@ const homePageSlice = createSlice({
   initialState,
   reducers: {
     setDrinks(state, action) {
-      state.drinks = action.payload;
+      if (Object.keys(state.drinks).length > 0) return;
+
+      const drinks = action.payload;
+      drinks.forEach((drink: DrinkType) => {
+        if (!state.drinks[drink.type]) state.drinks[drink.type] = [];
+        state.drinks[drink.type].push(drink);
+      });
     },
   },
 });

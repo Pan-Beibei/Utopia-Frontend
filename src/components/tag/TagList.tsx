@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import Tag from "./Tag";
 import { BaseColumnFlex, BaseFlex } from "../../styles/BaseStyles";
+import { postTags } from "../../types";
 
 const StyledContainer = styled(BaseColumnFlex)`
   align-items: flex-start;
@@ -16,16 +16,38 @@ const StyledSelectTag = styled.h4`
   font-weight: ${(props) => props.theme.fontWeight.normal};
 `;
 
-function TagList() {
+const StyledTagButton = styled.div<{ $isSelected: boolean }>`
+  background-color: ${(props) =>
+    props.$isSelected ? props.theme.colors.primary : props.theme.colors.white};
+  color: ${(props) =>
+    props.$isSelected ? props.theme.colors.white : props.theme.colors.primary};
+  padding: 1.2rem 1.6rem;
+  border-radius: 2.5rem;
+  border: 1px solid ${(props) => props.theme.colors.primary};
+
+  font-size: ${(props) => props.theme.fontSize.medium};
+  font-weight: ${(props) => props.theme.fontWeight.bold};
+`;
+
+interface TagListProps {
+  tags: string[];
+  handleSelectTag: (tag: string) => void;
+}
+
+function TagList({ tags, handleSelectTag }: TagListProps) {
   return (
     <StyledContainer>
       <StyledSelectTag>选择标签</StyledSelectTag>
       <StyledTagList>
-        {Array(6)
-          .fill(null)
-          .map((_, index) => (
-            <Tag key={index} name="划水吐槽" />
-          ))}
+        {postTags.map((tag) => (
+          <StyledTagButton
+            key={tag.id}
+            onClick={() => handleSelectTag(tag.id)}
+            $isSelected={tags.includes(tag.id)}
+          >
+            {tag.name}
+          </StyledTagButton>
+        ))}
       </StyledTagList>
     </StyledContainer>
   );

@@ -7,10 +7,6 @@ interface UserParams {
   token: string;
 }
 
-export const getMe = requestHandler<UserParams, User>((params) =>
-  api.get(SERVER_ADDRESS + API_VERSION + "/auth/me", {
-    headers: {
-      Authorization: `Bearer ${params?.token}`,
-    },
-  })
+export const getMe = requestHandler<UserParams, User>(() =>
+  api.get(SERVER_ADDRESS + API_VERSION + "/auth/me")
 );

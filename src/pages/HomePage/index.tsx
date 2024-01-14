@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Hero from "./Hero";
 import Drinks from "./Drinks";
-import Stories from "./Stories";
+// import Stories from "./Stories";
 
 const StyledHome = styled.div`
   display: flex;
@@ -24,7 +24,7 @@ function HomePage() {
       </StyleFlexColumn>
 
       <Drinks />
-      <Stories />
+      {/* <Stories /> */}
     </StyledHome>
   );
 }

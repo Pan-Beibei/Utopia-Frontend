@@ -1,4 +1,4 @@
-// import { useState } from "react";
+import { useState } from "react";
 import { EditorState } from "lexical";
 import styled from "styled-components";
 import { App as Editor } from "beibei-lexical-editor";
@@ -43,25 +43,40 @@ const StyledButton = styled.button`
   background-color: ${(props) => props.theme.colors.primary};
 `;
 
-function onChange(editorState: EditorState) {
-  const editorStateJSON = JSON.stringify(editorState.toJSON());
-
-  console.log("onChange: ", editorStateJSON);
-}
-
 interface CreatePostProps {
   setShowCreatePost: () => void;
 }
 
 function CreatePost({ setShowCreatePost }: CreatePostProps) {
+  const [publishString, setPublishString] = useState("");
+  const [tags, setTags] = useState<string[]>([]);
+
+  function onChange(editorState: EditorState) {
+    const editorStateJSON = JSON.stringify(editorState.toJSON());
+    setPublishString(editorStateJSON);
+    console.log("onChange: ", editorStateJSON);
+  }
+  function handlePublish() {
+    console.log(publishString);
+    console.log(tags);
+  }
+
+  function handleSelectTag(tag: string) {
+    if (tags.includes(tag)) {
+      setTags((tags) => tags.filter((t) => t !== tag));
+      return;
+    }
+    setTags((tags) => [...tags, tag]);
+  }
+
   return (
     <StyledEditor>
       <StyledTitleInpit type="text" placeholder="标题" />
-      {<Editor onChange={onChange} />}
-      <TagList />
+      {<Editor onChange={onChange} editable={true} />}
+      <TagList tags={tags} handleSelectTag={handleSelectTag} />
       <StyledButtonList>
         <StyledButton onClick={setShowCreatePost}>取消</StyledButton>
-        <StyledButton>发布</StyledButton>
+        <StyledButton onClick={handlePublish}>发布</StyledButton>
       </StyledButtonList>
     </StyledEditor>
   );
