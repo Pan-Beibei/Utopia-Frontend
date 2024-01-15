@@ -1,8 +1,9 @@
 import styled from "styled-components";
 import SearchPosts from "./SearchPosts";
 import { BaseFlex, BaseColumnFlex } from "../../styles/BaseStyles";
-import PostList from "../../components/post/PostList";
+import PostList from "../../components/Post/PostList";
 import Pagination from "../../components/Pagination";
+import { usePosts } from "../../services/api/post";
 
 const StyledContainer = styled(BaseColumnFlex)`
   padding: 2rem 1rem;
@@ -36,13 +37,18 @@ interface ForumLayoutProps {
 }
 
 function ForumLayout({ setShowCreatePost }: ForumLayoutProps) {
+  const { data: posts, isLoading, error } = usePosts(1, 5);
+
+  if (isLoading) return <div>loading...</div>;
+  console.log(isLoading, error, posts);
+
   return (
     <StyledContainer>
       <StyledFlex>
         <SearchPosts />
         <StyledPostButton onClick={setShowCreatePost}>发帖</StyledPostButton>
       </StyledFlex>
-      <PostList />
+      <PostList posts={posts} />
       <Pagination pageCount={30}>
         <Pagination.PreviousButton />
         <Pagination.PageList />

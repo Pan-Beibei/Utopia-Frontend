@@ -4,7 +4,7 @@ import ActivityPage from "./pages/ActivityPage";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import ForumPage from "./pages/ForumPage";
-import PostDetail from "./components/post/PostDetail";
+import PostDetail from "./components/Post/PostDetail";
 import UserProfilePage from "./pages/UserProfilePage";
 import {
   hoemLoader,

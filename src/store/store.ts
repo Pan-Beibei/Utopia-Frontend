@@ -3,11 +3,9 @@ import slideSlice from "../components/slide/slideSlice";
 import BulletSlice from "../components/bullet/bulletSlice";
 import userSlice from "../services/state/userSlice";
 import reviewSlice from "../services/state/reviewSlice";
-import postSlice from "../services/state/postSlice";
 
 import homePageSlice from "../services/state/homePageSlice";
 import activityPageSlice from "../services/state/activityPageSlice";
-import forumPageSlice from "../services/state/ForumPageSlice";
 
 const store = configureStore({
   reducer: {
@@ -15,10 +13,8 @@ const store = configureStore({
     bullet: BulletSlice,
     user: userSlice,
     review: reviewSlice,
-    post: postSlice,
     homePage: homePageSlice,
     activityPage: activityPageSlice,
-    forumPage: forumPageSlice,
   },
 });
 

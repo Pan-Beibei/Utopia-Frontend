@@ -1,21 +1,21 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
+import { useDispatch } from "react-redux";
 import { io, Socket } from "socket.io-client";
 import { SERVER_ADDRESS, MsgType } from "../config";
 import { addBullet } from "../components/bullet/bulletSlice";
-import store from "../store/store";
-import { useAsyncEffect } from "./customHooks";
 
 export function useSocket() {
   const socketRef = useRef<Socket | null>(null);
+  const dispatch = useDispatch();
 
-  useAsyncEffect(async () => {
+  useEffect(() => {
     socketRef.current = io(SERVER_ADDRESS, {
       reconnection: false, //!!!!!!!!!!!!!!!!!!!! No  reconnection
     });
 
     socketRef.current.on(MsgType.REV_BULLET, (data) => {
       console.log(data);
-      store.dispatch(addBullet(data));
+      dispatch(addBullet(data));
     });
 
     return () => {
@@ -25,7 +25,7 @@ export function useSocket() {
         socketRef.current.close();
       }
     };
-  });
+  }, [dispatch]);
 
   return socketRef;
 }

@@ -1,7 +1,5 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { useSelector } from "react-redux";
-import { getPosts } from "../../services/state/ForumPageSlice";
 import { BaseColumnFlex } from "../../styles/BaseStyles";
 import ForumIntroduction from "./ForumIntroduction";
 import ForumLayout from "./ForumLayout";
@@ -15,9 +13,6 @@ const StyledContainer = styled(BaseColumnFlex)`
 
 function ForumPage() {
   const [showCreatePost, setShowCreatePost] = useState(false);
-  const posts = useSelector(getPosts);
-
-  console.log(posts);
 
   return (
     <StyledContainer>

@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { App as Editor } from "beibei-lexical-editor";
 import TagList from "../../components/tag/TagList";
 import { BaseFlex } from "../../styles/BaseStyles";
+import { createPost } from "../../services/api/post";
 
 const StyledEditor = styled.div`
   width: 100%;
@@ -48,17 +49,28 @@ interface CreatePostProps {
 }
 
 function CreatePost({ setShowCreatePost }: CreatePostProps) {
-  const [publishString, setPublishString] = useState("");
+  const [content, setContent] = useState("");
+  const [title, setTitle] = useState("");
   const [tags, setTags] = useState<string[]>([]);
 
   function onChange(editorState: EditorState) {
     const editorStateJSON = JSON.stringify(editorState.toJSON());
-    setPublishString(editorStateJSON);
+    setContent(editorStateJSON);
     console.log("onChange: ", editorStateJSON);
   }
   function handlePublish() {
-    console.log(publishString);
+    console.log(content);
     console.log(tags);
+    console.log(title);
+
+    createPost({ title, content, tags })
+      .then((res) => {
+        console.log(res);
+        if (res.code === "success") setShowCreatePost();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   function handleSelectTag(tag: string) {
@@ -71,7 +83,12 @@ function CreatePost({ setShowCreatePost }: CreatePostProps) {
 
   return (
     <StyledEditor>
-      <StyledTitleInpit type="text" placeholder="标题" />
+      <StyledTitleInpit
+        type="text"
+        placeholder="标题"
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+      />
       {<Editor onChange={onChange} editable={true} />}
       <TagList tags={tags} handleSelectTag={handleSelectTag} />
       <StyledButtonList>

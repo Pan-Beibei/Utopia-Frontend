@@ -1,9 +1,8 @@
 import { ReactNode, useEffect, useRef, useState, forwardRef } from "react";
 import { Box } from "@mui/system";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import Bullet from "./Bullet";
 import { BulletProps, getBullets, removeBullet } from "./bulletSlice";
-import store from "../../store/store";
 
 const StyledBulletContainer = forwardRef<
   HTMLDivElement,
@@ -30,6 +29,7 @@ function BulletShow() {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const bulletIdsRef = useRef<Set<string>>(new Set());
   const [initialized, setInitialized] = useState(false);
+  const dispatch = useDispatch();
 
   //只做初始化使用
   useEffect(() => {
@@ -47,7 +47,7 @@ function BulletShow() {
 
   const animationend = (id: string, track: number) => {
     // 从bullets中删除已经播放完的弹幕
-    store.dispatch(removeBullet(id));
+    dispatch(removeBullet(id));
 
     // 从bullets中获取新的弹幕数据下标
     let index = 0;
