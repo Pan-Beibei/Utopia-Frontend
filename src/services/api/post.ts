@@ -19,14 +19,22 @@ export interface PostListResponse {
   commentsCount: number;
 }
 
+interface getPostCountParams {}
+
 export function usePosts(page: number, limit: number) {
-  return useQuery("posts", async () => {
+  console.log(page, limit);
+
+  return useQuery(["posts", page, limit], async () => {
     const { data } = await api.get(SERVER_ADDRESS + API_VERSION + "/posts", {
       params: { page, limit },
     });
     return data;
   });
 }
+
+export const getPostsCount = requestHandler<getPostCountParams, number>(() =>
+  api.get(SERVER_ADDRESS + API_VERSION + "/posts/count")
+);
 
 export const createPost = requestHandler<createPostParams, { id: string }>(
   (params) => api.post(SERVER_ADDRESS + API_VERSION + "/posts", params)

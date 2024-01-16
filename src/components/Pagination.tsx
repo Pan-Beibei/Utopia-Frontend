@@ -1,4 +1,4 @@
-import { ReactNode, createContext, useState, useContext } from "react";
+import { ReactNode, createContext, useContext } from "react";
 import styled, { useTheme, css } from "styled-components";
 import { BaseFlex } from "../styles/BaseStyles";
 import ArrowSvg from "./ui/ArrowSvg";
@@ -41,9 +41,9 @@ const StyledPageButton = styled.button<{ $selected: boolean }>`
 `;
 
 type ContextType = {
-  previous: () => void;
-  next: () => void;
-  setCurrentPage: (index: number) => void;
+  previousPage: () => void;
+  nextPage: () => void;
+  setCurrentPage: (page: number) => void;
   currentPage: number;
   pageCount: number;
 };
@@ -51,8 +51,11 @@ type ContextType = {
 const PaginationContext = createContext<ContextType | null>(null);
 
 interface PaginationProps {
+  currentPage: number;
+  setCurrentPage: (page: number) => void;
   children: ReactNode;
-  pageCount: number;
+  postCount: number;
+  postsPerPage: number;
 }
 
 function PreviousButton() {
@@ -61,10 +64,10 @@ function PreviousButton() {
   if (!context) {
     return null;
   }
-  const { previous } = context;
+  const { previousPage } = context;
 
   return (
-    <StyledArrowButton onClick={previous}>
+    <StyledArrowButton onClick={previousPage}>
       <ArrowSvg
         leftOrRight="right"
         bgColor={theme.colors.primary}
@@ -80,9 +83,9 @@ function NextButton() {
   if (!context) {
     return null;
   }
-  const { next } = context;
+  const { nextPage } = context;
   return (
-    <StyledArrowButton onClick={next}>
+    <StyledArrowButton onClick={nextPage}>
       <ArrowSvg
         leftOrRight="left"
         bgColor={theme.colors.primary}
@@ -114,9 +117,8 @@ function PageList() {
     return null;
   }
 
-  const { currentPage, setCurrentPage } = context;
-
-  const pages = Array.from({ length: 5 }, (_, i) => i + 1);
+  const { currentPage, pageCount, setCurrentPage } = context;
+  const pages = Array.from({ length: pageCount }, (_, i) => i + 1);
 
   return (
     <StyledPageList>
@@ -133,24 +135,45 @@ function PageList() {
   );
 }
 
-function Pagination({ children, pageCount }: PaginationProps) {
-  const [currentPage, setCurrentPage] = useState(1);
+function Pagination({
+  children,
+  postCount,
+  currentPage,
+  setCurrentPage,
+  postsPerPage,
+}: PaginationProps) {
+  function previousPage() {
+    const pageCount = Math.max(currentPage - 1, 1);
+    if (pageCount === currentPage) {
+      console.log("到达第一页");
 
-  function previous() {
-    if (currentPage > 1) {
-      setCurrentPage((prev) => prev - 1);
+      return;
     }
+    setCurrentPage(pageCount);
   }
 
-  function next() {
-    if (currentPage < pageCount) {
-      setCurrentPage((prev) => prev + 1);
+  function nextPage() {
+    const pageCount = Math.min(
+      currentPage + 1,
+      Math.ceil(postCount / postsPerPage)
+    );
+    if (pageCount === currentPage) {
+      console.log("到达最后一页");
+
+      return;
     }
+    setCurrentPage(pageCount);
   }
 
   return (
     <PaginationContext.Provider
-      value={{ currentPage, setCurrentPage, previous, next, pageCount }}
+      value={{
+        currentPage,
+        previousPage,
+        nextPage,
+        setCurrentPage,
+        pageCount: Math.ceil(postCount / postsPerPage),
+      }}
     >
       <StyledContainer>{children}</StyledContainer>
     </PaginationContext.Provider>

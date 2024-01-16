@@ -3,7 +3,8 @@ import SearchPosts from "./SearchPosts";
 import { BaseFlex, BaseColumnFlex } from "../../styles/BaseStyles";
 import PostList from "../../components/Post/PostList";
 import Pagination from "../../components/Pagination";
-import { usePosts } from "../../services/api/post";
+import { getPostsCount, usePosts } from "../../services/api/post";
+import { useEffect, useState } from "react";
 
 const StyledContainer = styled(BaseColumnFlex)`
   padding: 2rem 1rem;
@@ -37,10 +38,42 @@ interface ForumLayoutProps {
 }
 
 function ForumLayout({ setShowCreatePost }: ForumLayoutProps) {
-  const { data: posts, isLoading, error } = usePosts(1, 5);
+  const [postCount, setPostCount] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage, setPostsPerPage] = useState(5);
 
-  if (isLoading) return <div>loading...</div>;
+  useEffect(() => {
+    getPostsCount()
+      .then((res) => {
+        console.log(res);
+        if (res.code !== "success") {
+          console.log(res);
+          return;
+        }
+        setPostCount(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    function handleResize() {
+      const width = window.innerWidth;
+      if (width > 1024) {
+        setPostsPerPage(10);
+      } else {
+        setPostsPerPage(5);
+      }
+    }
+
+    window.addEventListener("resize", handleResize);
+    handleResize();
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const { isLoading, error, data: posts } = usePosts(currentPage, postsPerPage);
   console.log(isLoading, error, posts);
+  if (isLoading) return <div>loading...</div>;
+  if (error) return <div>error</div>;
 
   return (
     <StyledContainer>
@@ -49,12 +82,19 @@ function ForumLayout({ setShowCreatePost }: ForumLayoutProps) {
         <StyledPostButton onClick={setShowCreatePost}>发帖</StyledPostButton>
       </StyledFlex>
       <PostList posts={posts} />
-      <Pagination pageCount={30}>
-        <Pagination.PreviousButton />
-        <Pagination.PageList />
-        <Pagination.PageIndicator />
-        <Pagination.NextButton />
-      </Pagination>
+      {postCount > 0 && (
+        <Pagination
+          postCount={postCount}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          postsPerPage={postsPerPage}
+        >
+          <Pagination.PreviousButton />
+          <Pagination.PageList />
+          <Pagination.PageIndicator />
+          <Pagination.NextButton />
+        </Pagination>
+      )}
     </StyledContainer>
   );
 }

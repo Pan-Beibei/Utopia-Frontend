@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { EditorState } from "lexical";
 import styled from "styled-components";
+import { toast } from "react-hot-toast";
 import { App as Editor } from "beibei-lexical-editor";
 import TagList from "../../components/tag/TagList";
 import { BaseFlex } from "../../styles/BaseStyles";
@@ -49,21 +50,33 @@ interface CreatePostProps {
 }
 
 function CreatePost({ setShowCreatePost }: CreatePostProps) {
-  const [content, setContent] = useState("");
+  const [editorState, setEditorState] = useState<EditorState | null>(null);
   const [title, setTitle] = useState("");
   const [tags, setTags] = useState<string[]>([]);
 
   function onChange(editorState: EditorState) {
-    const editorStateJSON = JSON.stringify(editorState.toJSON());
-    setContent(editorStateJSON);
-    console.log("onChange: ", editorStateJSON);
+    setEditorState(editorState);
   }
   function handlePublish() {
-    console.log(content);
+    if (!title) {
+      toast.error("标题不能为空");
+      return;
+    }
+    if (tags.length === 0) {
+      toast.error("标签不能为空");
+      return;
+    }
+    if (!editorState || editorState._nodeMap.size <= 2) {
+      toast.error("请填充内容");
+      return;
+    }
+
+    const editorStateJSON = JSON.stringify(editorState.toJSON());
     console.log(tags);
+    console.log(editorStateJSON);
     console.log(title);
 
-    createPost({ title, content, tags })
+    createPost({ title, content: editorStateJSON, tags })
       .then((res) => {
         console.log(res);
         if (res.code === "success") setShowCreatePost();

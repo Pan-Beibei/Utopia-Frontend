@@ -22,7 +22,7 @@ export function useFetchUser() {
           console.error(err);
         });
     }
-  }, [user]);
+  }, [user, dispatch]);
 
   return { user };
 }
