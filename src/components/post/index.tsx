@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { BaseColumnFlex, BaseFlex } from "../../styles/BaseStyles";
-import { PostListResponse } from "../../services/api/post";
+import { ServerPostData } from "../../services/api/post";
 import { postTags } from "../../types";
 import { convertTime } from "../../utils/ConversionTime";
 
@@ -60,7 +60,7 @@ const StyledFlexForTags = styled(BaseFlex)`
   gap: 1rem;
 `;
 
-function Post({ post }: { post: PostListResponse }) {
+function Post({ post }: { post: ServerPostData }) {
   const tags = postTags.filter((tag) => {
     return post.tags.includes(tag.id);
   });

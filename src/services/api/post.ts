@@ -9,7 +9,7 @@ interface createPostParams {
   tags: string[];
 }
 
-export interface PostListResponse {
+export interface ServerPostData {
   _id: string;
   title: string;
   content: string;
@@ -22,12 +22,25 @@ export interface PostListResponse {
 interface getPostCountParams {}
 
 export function usePosts(page: number, limit: number) {
-  console.log(page, limit);
+  // console.log(page, limit);
 
   return useQuery(["posts", page, limit], async () => {
     const { data } = await api.get(SERVER_ADDRESS + API_VERSION + "/posts", {
       params: { page, limit },
     });
+    return data;
+  });
+}
+
+export function usePost(id: string | undefined) {
+  return useQuery([id], async () => {
+    if (!id) {
+      // Throw an error or return undefined
+      throw new Error("post ID is undefined");
+    }
+    const { data } = await api.get(
+      `${SERVER_ADDRESS}${API_VERSION}/posts/${id}`
+    );
     return data;
   });
 }
@@ -49,13 +62,3 @@ export interface PostResponse {
   createdAt: string;
   commentsCount: number;
 }
-
-export const getPost = requestHandler<{ id: string }, PostResponse>(
-  (params) => {
-    if (!params || !params.id) {
-      throw new Error("Missing id parameter");
-    }
-
-    return api.get(`${SERVER_ADDRESS}${API_VERSION}/posts/${params.id}`);
-  }
-);

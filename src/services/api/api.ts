@@ -10,6 +10,9 @@ api.interceptors.request.use(
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
+    // 输出请求信息
+    // console.log("Request:", config);
+
     return config;
   },
   (error) => {

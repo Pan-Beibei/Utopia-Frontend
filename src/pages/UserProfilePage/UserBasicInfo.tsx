@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { BaseColumnFlex } from "../../styles/BaseStyles";
 import InputBox from "./InputBox";
-import { useFetchUser } from "./useFetchUser";
+import { useFetchUser } from "../../hooks/useFetchUser";
 
 const StyledContainer = styled(BaseColumnFlex)`
   align-items: flex-start;

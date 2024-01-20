@@ -3,6 +3,9 @@ import styled, { useTheme } from "styled-components";
 import { BaseFlex } from "../../styles/BaseStyles";
 import EmojiPicker from "../EmojiPicker";
 import EmojiTextInput from "../EmojiTextInput";
+import { createComment } from "../../services/api/comment";
+import { useFetchUser } from "../../hooks/useFetchUser";
+import toast from "react-hot-toast";
 
 const StyledContainer = styled(BaseFlex)`
   justify-content: space-between;
@@ -25,10 +28,34 @@ const StyledPulishButton = styled(BaseFlex)`
   min-height: 4rem;
 `;
 
-function PostCommentInputBox() {
+interface PostCommentInputBoxProps {
+  postId: string;
+}
+
+function PostCommentInputBox({ postId }: PostCommentInputBoxProps) {
   const [inputContent, setInputContent] = useState("");
   const [showPicker, setShowPicker] = useState(false);
   const theme = useTheme();
+  const { user } = useFetchUser();
+
+  function handlePulish() {
+    if (!user) {
+      toast.error("请先登录");
+      return;
+    }
+    console.log("publish");
+    createComment({
+      content: inputContent,
+      postId: postId,
+      authorId: user.id,
+    })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 
   return (
     <StyledContainer>
@@ -46,7 +73,7 @@ function PostCommentInputBox() {
         fontColor="#A09A9E"
         placeholder="评论..."
       />
-      <StyledPulishButton>
+      <StyledPulishButton onClick={handlePulish}>
         <img src="/icons/fly.svg" alt="fly" />
       </StyledPulishButton>
     </StyledContainer>

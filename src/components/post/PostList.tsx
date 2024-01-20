@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Post from ".";
-import { PostListResponse } from "../../services/api/post";
+import { ServerPostData } from "../../services/api/post";
 import { useNavigate } from "react-router-dom";
 
 const StyledList = styled.ul`
@@ -11,7 +11,7 @@ const StyledList = styled.ul`
 `;
 
 interface PostListProps {
-  posts: PostListResponse[];
+  posts: ServerPostData[];
 }
 
 function PostList({ posts }: PostListProps) {

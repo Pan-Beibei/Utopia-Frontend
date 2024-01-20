@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import { BaseColumnFlex } from "../../styles/BaseStyles";
 import PostDetailNavigationButtons from "./PostDetailNavigationButtons";
 import PostCommentInputBox from "./PostCommentInputBox";
-import PostCommentList from "../comment/CommentList";
+import PostCommentList from "../Comment/CommentList";
 import { App as Editor } from "beibei-lexical-editor";
-import { getPost, PostResponse } from "../../services/api/post";
+import { usePost } from "../../services/api/post";
 
 const StyledContainer = styled(BaseColumnFlex)`
   padding-top: 7.6rem;
@@ -29,27 +29,14 @@ const MemoizedEditor = React.memo(Editor);
 
 function PostDetail() {
   const { postId } = useParams();
-  const [post, setPost] = useState<PostResponse | null>(null);
 
-  useEffect(() => {
-    if (postId !== undefined) {
-      console.log(postId);
-      getPost({ id: postId })
-        .then((res) => {
-          if (res.code === "success") {
-            setPost(res.data);
-            console.log(res);
-          } else {
-            console.error(res.error);
-          }
-        })
-        .catch((err) => {
-          console.error(err);
-        });
-    }
-  }, [postId]);
+  const { isError, isLoading, data: post } = usePost(postId);
 
-  if (post === null) return <div>Loading...</div>;
+  if (isLoading) return <div>Loading...</div>;
+  if (isError) return <div>Error</div>;
+
+  if (postId === undefined || post === null)
+    return <div>内容为空...{postId}</div>;
 
   return (
     <StyledContainer>
@@ -60,8 +47,8 @@ function PostDetail() {
       <MemoizedEditor editable={false} stringifiedEditorState={post.content} />
       <StyledPostContainer>
         <StyledCommentContainer>
-          <PostCommentInputBox />
-          <PostCommentList />
+          <PostCommentInputBox postId={postId} />
+          <PostCommentList postId={postId} />
         </StyledCommentContainer>
       </StyledPostContainer>
     </StyledContainer>
