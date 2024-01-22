@@ -11,7 +11,7 @@ interface createCommentParams {
   replyToId?: string;
 }
 
-export interface ServerCommentData {
+export interface CommentResponse {
   id: string; //评论Id
   author: { id: string; username: string }; //评论作者
   content: string; //评论内容
@@ -21,21 +21,31 @@ export interface ServerCommentData {
   repliesCount: number; //子评论数量
 }
 
-export function useComments(
-  postId: string | undefined,
-  page: number,
-  limit: number
-) {
-  return useQuery(["comments", postId, page, limit], async () => {
+export function useComments(postId: string | undefined) {
+  return useQuery(["comments", postId], async () => {
     if (!postId) {
       throw new Error("post ID is undefined");
     }
-    const { data } = await api.get(SERVER_ADDRESS + API_VERSION + "/comments", {
-      params: { page, limit },
-    });
+    const { data } = await api.get(
+      `${SERVER_ADDRESS}${API_VERSION}/comments/${postId}`,
+      {
+        params: { sort: JSON.stringify({ createdAt: -1 }) },
+      }
+    );
     return data;
   });
 }
+
+export const getCommentsCount = requestHandler<{ postId: string }, number>(
+  (params) => {
+    if (!params?.postId) {
+      throw new Error("post ID is undefined");
+    }
+    return api.get(
+      SERVER_ADDRESS + API_VERSION + `/comments/count/${params.postId}`
+    );
+  }
+);
 
 export const createComment = requestHandler<
   createCommentParams,

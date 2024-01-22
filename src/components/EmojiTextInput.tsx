@@ -13,6 +13,7 @@ const StyledInputContainer = styled.div<{
   display: flex;
   align-items: center;
   justify-content: space-between;
+  width: 100%;
 
   gap: 0.1rem;
   padding: 0.4rem 1.6rem;
@@ -34,6 +35,10 @@ const StyledInputText = styled.input<{ $fontColor?: string }>`
   border: none;
   background-color: transparent;
   font-size: ${(props) => props.theme.fontSize.medium};
+  width: 100%;
+  &:focus {
+    outline: none;
+  }
 `;
 
 const StyledEmojiButton = styled.div`

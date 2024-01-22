@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import { BaseColumnFlex, BaseFlex } from "../../styles/BaseStyles";
-import { ServerPostData } from "../../services/api/post";
+import { PostResponse } from "../../services/api/post";
 import { postTags } from "../../types";
-import { convertTime } from "../../utils/ConversionTime";
+import { formatDateToChinese } from "../../utils/ConversionTime";
 
 const StyledContainer = styled(BaseColumnFlex)`
   align-items: flex-start;
@@ -60,13 +60,13 @@ const StyledFlexForTags = styled(BaseFlex)`
   gap: 1rem;
 `;
 
-function Post({ post }: { post: ServerPostData }) {
+function Post({ post }: { post: PostResponse }) {
   const tags = postTags.filter((tag) => {
     return post.tags.includes(tag.id);
   });
 
   return (
-    <StyledContainer data-post-id={post._id} className="post">
+    <StyledContainer data-post-id={post.id} className="post">
       <StyledFlexMobile>
         <StyledTitle>{post.title}</StyledTitle>
         <StyledFlexForTags>
@@ -81,7 +81,7 @@ function Post({ post }: { post: ServerPostData }) {
         <span>{post.author.username}</span>
         <StyledFlexForCommentsAndTime>
           <span>{post.commentsCount}条评论</span>
-          <span>{convertTime(post.createdAt)}</span>
+          <span>{formatDateToChinese(post.createdAt)}</span>
         </StyledFlexForCommentsAndTime>
       </StyledFlexForPostDetails>
     </StyledContainer>

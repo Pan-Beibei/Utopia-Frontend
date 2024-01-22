@@ -6,6 +6,7 @@ import EmojiTextInput from "../EmojiTextInput";
 import { createComment } from "../../services/api/comment";
 import { useFetchUser } from "../../hooks/useFetchUser";
 import toast from "react-hot-toast";
+import { useMutation, useQueryClient } from "react-query";
 
 const StyledContainer = styled(BaseFlex)`
   justify-content: space-between;
@@ -37,24 +38,32 @@ function PostCommentInputBox({ postId }: PostCommentInputBoxProps) {
   const [showPicker, setShowPicker] = useState(false);
   const theme = useTheme();
   const { user } = useFetchUser();
+  const queryClient = useQueryClient();
 
-  function handlePulish() {
+  const mutation = useMutation(createComment, {
+    onSuccess: (data) => {
+      console.log(data);
+      toast.success("评论已发布");
+      queryClient.invalidateQueries(["comments", postId]);
+      setInputContent("");
+    },
+    onError: (error) => {
+      console.log(error);
+      toast.error("发布评论失败");
+    },
+  });
+
+  function handlePublish() {
     if (!user) {
       toast.error("请先登录");
       return;
     }
     console.log("publish");
-    createComment({
+    mutation.mutate({
       content: inputContent,
       postId: postId,
       authorId: user.id,
-    })
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    });
   }
 
   return (
@@ -73,8 +82,8 @@ function PostCommentInputBox({ postId }: PostCommentInputBoxProps) {
         fontColor="#A09A9E"
         placeholder="评论..."
       />
-      <StyledPulishButton onClick={handlePulish}>
-        <img src="/icons/fly.svg" alt="fly" />
+      <StyledPulishButton onClick={handlePublish}>
+        <img src="/icons/fly.svg" alt="fly icon" />
       </StyledPulishButton>
     </StyledContainer>
   );

@@ -5,6 +5,8 @@ import PostList from "../../components/Post/PostList";
 import Pagination from "../../components/Pagination";
 import { getPostsCount, usePosts } from "../../services/api/post";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store/store";
 
 const StyledContainer = styled(BaseColumnFlex)`
   padding: 2rem 1rem;
@@ -40,7 +42,12 @@ interface ForumLayoutProps {
 function ForumLayout({ setShowCreatePost }: ForumLayoutProps) {
   const [postCount, setPostCount] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage, setPostsPerPage] = useState(5);
+  const postsPerPage = useSelector(
+    (state: RootState) => state.global.itemsPerPage
+  );
+  const buttonsToShow = useSelector(
+    (state: RootState) => state.global.paginationButtons
+  );
 
   useEffect(() => {
     getPostsCount()
@@ -55,19 +62,6 @@ function ForumLayout({ setShowCreatePost }: ForumLayoutProps) {
       .catch((err) => {
         console.log(err);
       });
-
-    function handleResize() {
-      const width = window.innerWidth;
-      if (width > 1024) {
-        setPostsPerPage(10);
-      } else {
-        setPostsPerPage(5);
-      }
-    }
-
-    window.addEventListener("resize", handleResize);
-    handleResize();
-    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const { isLoading, error, data: posts } = usePosts(currentPage, postsPerPage);
@@ -88,6 +82,7 @@ function ForumLayout({ setShowCreatePost }: ForumLayoutProps) {
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}
           postsPerPage={postsPerPage}
+          buttonsToShow={buttonsToShow}
         >
           <Pagination.PreviousButton />
           <Pagination.PageList />

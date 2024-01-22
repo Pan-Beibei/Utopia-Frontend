@@ -12,7 +12,8 @@ import {
   StyledCommentContent,
 } from "./Common";
 import CommentReplyList from "./CommentReplyList";
-import { ServerCommentData } from "../../services/api/comment";
+import { CommentResponse } from "../../services/api/comment";
+import { timeAgo } from "../../utils/ConversionTime";
 
 type ContextType = {
   handleExpandMore: () => void;
@@ -22,7 +23,7 @@ type ContextType = {
 
 interface CommentProps {
   children?: ReactNode;
-  data: ServerCommentData;
+  data: CommentResponse;
 }
 
 export const CommentContext = createContext<ContextType | null>(null);
@@ -51,7 +52,7 @@ function Comment({ children, data }: CommentProps) {
   const [showReplyInputBox, setShowReplyInputBox] = useState(false);
   const [repliedUserName, setRepliedUserName] = useState("");
 
-  console.log(data);
+  // console.log(data);
 
   function handleExpandMore() {
     console.log("expandMore");
@@ -69,7 +70,7 @@ function Comment({ children, data }: CommentProps) {
       <StyledComment>
         <StyledFlexForHeader>
           <StyledUserName>{data.author.username}</StyledUserName>
-          <StyledDate>{data.createdAt}</StyledDate>
+          <StyledDate>{timeAgo(data.createdAt)}</StyledDate>
         </StyledFlexForHeader>
         <StyledFlexForMainContent>
           <StyledCommentContent>{data.content}</StyledCommentContent>

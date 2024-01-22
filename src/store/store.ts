@@ -1,18 +1,15 @@
 import { configureStore } from "@reduxjs/toolkit";
-import slideSlice from "../components/slide/slideSlice";
 import BulletSlice from "../components/bullet/bulletSlice";
 import userSlice from "../services/state/userSlice";
-import reviewSlice from "../services/state/reviewSlice";
-
 import homePageSlice from "../services/state/homePageSlice";
 import activityPageSlice from "../services/state/activityPageSlice";
+import globalSlice from "../services/state/globalSlice";
 
 const store = configureStore({
   reducer: {
-    slide: slideSlice,
-    bullet: BulletSlice,
+    global: globalSlice,
     user: userSlice,
-    review: reviewSlice,
+    bullet: BulletSlice,
     homePage: homePageSlice,
     activityPage: activityPageSlice,
   },

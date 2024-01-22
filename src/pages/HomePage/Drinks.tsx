@@ -75,6 +75,8 @@ function Drinks() {
 
   if (Object.keys(drinks).length === 0) return null;
 
+  console.log(drinks[DrinkEnum.DRINK_MENU]);
+
   return (
     <section>
       <StyledContainer>

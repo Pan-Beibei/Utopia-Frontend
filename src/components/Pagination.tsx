@@ -46,6 +46,7 @@ type ContextType = {
   setCurrentPage: (page: number) => void;
   currentPage: number;
   pageCount: number;
+  buttonsToShow: number;
 };
 
 const PaginationContext = createContext<ContextType | null>(null);
@@ -56,6 +57,7 @@ interface PaginationProps {
   children: ReactNode;
   postCount: number;
   postsPerPage: number;
+  buttonsToShow: number;
 }
 
 function PreviousButton() {
@@ -117,8 +119,8 @@ function PageList() {
     return null;
   }
 
-  const { currentPage, pageCount, setCurrentPage } = context;
-  const pages = Array.from({ length: pageCount }, (_, i) => i + 1);
+  const { currentPage, buttonsToShow, setCurrentPage } = context;
+  const pages = Array.from({ length: buttonsToShow }, (_, i) => i + 1);
 
   return (
     <StyledPageList>
@@ -141,6 +143,7 @@ function Pagination({
   currentPage,
   setCurrentPage,
   postsPerPage,
+  buttonsToShow,
 }: PaginationProps) {
   function previousPage() {
     const pageCount = Math.max(currentPage - 1, 1);
@@ -173,6 +176,7 @@ function Pagination({
         nextPage,
         setCurrentPage,
         pageCount: Math.ceil(postCount / postsPerPage),
+        buttonsToShow,
       }}
     >
       <StyledContainer>{children}</StyledContainer>

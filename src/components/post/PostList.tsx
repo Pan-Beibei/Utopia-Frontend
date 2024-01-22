@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Post from ".";
-import { ServerPostData } from "../../services/api/post";
+import { PostResponse } from "../../services/api/post";
 import { useNavigate } from "react-router-dom";
 
 const StyledList = styled.ul`
@@ -11,7 +11,7 @@ const StyledList = styled.ul`
 `;
 
 interface PostListProps {
-  posts: ServerPostData[];
+  posts: PostResponse[];
 }
 
 function PostList({ posts }: PostListProps) {
@@ -31,7 +31,7 @@ function PostList({ posts }: PostListProps) {
   return (
     <StyledList onClick={handleClick}>
       {posts.map((data) => {
-        return <Post post={data} key={data._id} />;
+        return <Post post={data} key={data.id} />;
       })}
     </StyledList>
   );

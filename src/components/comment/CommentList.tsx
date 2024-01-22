@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { BaseColumnFlex } from "../../styles/BaseStyles";
 // import Comment from "./Comment";
 import Comment from ".";
-import { useComments, ServerCommentData } from "../../services/api/comment";
+import { useComments, CommentResponse } from "../../services/api/comment";
 
 const StyledContainer = styled(BaseColumnFlex)`
   gap: 1.5rem;
@@ -15,15 +15,17 @@ interface CommentListProps {
 }
 
 function CommentList({ postId }: CommentListProps) {
-  const { isError, isLoading, data: comments } = useComments(postId, 1, 5);
+  const { isError, isLoading, data: comments } = useComments(postId);
   if (isLoading) return <div>Loading...</div>;
   if (isError) return <div>Error</div>;
 
+  console.log(comments);
+
   return (
     <StyledContainer>
-      {comments.map((comment: ServerCommentData) => (
+      {comments.map((comment: CommentResponse) => (
         <Comment key={comment.id} data={comment}>
-          <Comment.ReplyList />
+          {comment.repliesCount > 0 && <Comment.ReplyList />}
         </Comment>
       ))}
     </StyledContainer>

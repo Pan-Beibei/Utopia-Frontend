@@ -1,12 +1,17 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ThemeProvider } from "styled-components";
 import { Toaster } from "react-hot-toast";
+import { useDispatch } from "react-redux";
 import { baseTheme, warmTheme } from "./themes/themes";
 import { ThemeContext } from "./services/providers/ThemeContext";
 import GlobalStyles from "./styles/GlobalStyles";
 import { routes } from "./routes";
+import {
+  setItemsPerPage,
+  setPaginationButtons,
+} from "./services/state/globalSlice";
 
 function App() {
   const queryClient = new QueryClient();
@@ -23,6 +28,25 @@ function App() {
     }),
     [theme]
   );
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    function handleResize() {
+      const width = window.innerWidth;
+      if (width > 1024) {
+        dispatch(setPaginationButtons(10));
+        dispatch(setItemsPerPage(15));
+      } else {
+        dispatch(setPaginationButtons(5));
+        dispatch(setItemsPerPage(10));
+      }
+    }
+
+    window.addEventListener("resize", handleResize);
+    handleResize();
+    return () => window.removeEventListener("resize", handleResize);
+  }, [dispatch]);
 
   return (
     <>
