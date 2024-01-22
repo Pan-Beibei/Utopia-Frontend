@@ -3,6 +3,7 @@ import BulletSlice from "../components/bullet/bulletSlice";
 import userSlice from "../services/state/userSlice";
 import homePageSlice from "../services/state/homePageSlice";
 import activityPageSlice from "../services/state/activityPageSlice";
+import commentSlice from "../services/state/commentSlice";
 import globalSlice from "../services/state/globalSlice";
 
 const store = configureStore({
@@ -12,6 +13,7 @@ const store = configureStore({
     bullet: BulletSlice,
     homePage: homePageSlice,
     activityPage: activityPageSlice,
+    comment: commentSlice,
   },
 });
 

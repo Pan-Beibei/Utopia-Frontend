@@ -6,8 +6,8 @@ import PostDetailNavigationButtons from "./PostDetailNavigationButtons";
 import PostCommentInputBox from "./PostCommentInputBox";
 import PostCommentList from "../Comment/CommentList";
 import { App as Editor } from "beibei-lexical-editor";
-import { usePost } from "../../services/api/post";
 import { formatDateToChinese } from "../../utils/ConversionTime";
+import { usePost } from "../../hooks/usePostsHooks";
 
 const StyledContainer = styled(BaseColumnFlex)`
   padding-top: 7.6rem;
@@ -52,8 +52,8 @@ function PostDetail() {
   if (isLoading) return <div>Loading...</div>;
   if (isError) return <div>Error</div>;
 
-  if (postId === undefined || post === null)
-    return <div>内容为空...{postId}</div>;
+  if (postId === undefined || post === undefined)
+    return <div>暂无内容。。。{postId}</div>;
 
   console.log(post);
 

@@ -23,6 +23,7 @@ type ContextType = {
 
 interface CommentProps {
   children?: ReactNode;
+  postId: string;
   data: CommentResponse;
 }
 
@@ -48,11 +49,12 @@ const StyledReplyInputBoxContainer = styled.div`
   padding-left: 2rem;
 `;
 
-function Comment({ children, data }: CommentProps) {
+function Comment({ postId, children, data }: CommentProps) {
   const [showReplyInputBox, setShowReplyInputBox] = useState(false);
   const [repliedUserName, setRepliedUserName] = useState("");
+  // useCommentsByParentId(data.id);
 
-  // console.log(data);
+  console.log("Comment", data);
 
   function handleExpandMore() {
     console.log("expandMore");
@@ -79,7 +81,12 @@ function Comment({ children, data }: CommentProps) {
         {children}
         {showReplyInputBox && (
           <StyledReplyInputBoxContainer>
-            <ReplyInputBox repliedUserName={repliedUserName} />
+            <ReplyInputBox
+              postId={postId} //帖子的id
+              repliedUserName={repliedUserName} //回复目标的用户名
+              parentId={data.parent} //父级评论的id(如果回复的评论的父级为空的话，那么该回复的父级也是回复的目标)
+              replyToId={data.id} //回复目标评论的id
+            />
           </StyledReplyInputBoxContainer>
         )}
       </StyledComment>

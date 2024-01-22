@@ -3,10 +3,11 @@ import SearchPosts from "./SearchPosts";
 import { BaseFlex, BaseColumnFlex } from "../../styles/BaseStyles";
 import PostList from "../../components/Post/PostList";
 import Pagination from "../../components/Pagination";
-import { getPostsCount, usePosts } from "../../services/api/post";
+import { getPostsCount } from "../../services/api/post";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
+import { usePosts } from "../../hooks/usePostsHooks";
 
 const StyledContainer = styled(BaseColumnFlex)`
   padding: 2rem 1rem;
@@ -68,6 +69,7 @@ function ForumLayout({ setShowCreatePost }: ForumLayoutProps) {
   console.log(isLoading, error, posts);
   if (isLoading) return <div>loading...</div>;
   if (error) return <div>error</div>;
+  if (posts === undefined || posts.length === 0) return <div>暂无帖子</div>;
 
   return (
     <StyledContainer>

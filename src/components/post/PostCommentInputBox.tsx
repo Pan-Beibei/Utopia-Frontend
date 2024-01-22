@@ -62,7 +62,6 @@ function PostCommentInputBox({ postId }: PostCommentInputBoxProps) {
     mutation.mutate({
       content: inputContent,
       postId: postId,
-      authorId: user.id,
     });
   }
 

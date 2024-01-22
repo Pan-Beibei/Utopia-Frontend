@@ -1,10 +1,8 @@
 import { SERVER_ADDRESS, API_VERSION } from "../../config";
 import { requestHandler } from "../../utils/requestHandler";
 import api from "./api";
-import { useQuery } from "react-query";
 
 interface createCommentParams {
-  authorId: string;
   postId: string;
   content: string;
   parentId?: string;
@@ -21,20 +19,18 @@ export interface CommentResponse {
   repliesCount: number; //子评论数量
 }
 
-export function useComments(postId: string | undefined) {
-  return useQuery(["comments", postId], async () => {
-    if (!postId) {
-      throw new Error("post ID is undefined");
-    }
-    const { data } = await api.get(
-      `${SERVER_ADDRESS}${API_VERSION}/comments/${postId}`,
-      {
-        params: { sort: JSON.stringify({ createdAt: -1 }) },
-      }
-    );
-    return data;
-  });
+interface getCommentCountParams {
+  postId: string;
 }
+
+export const getComments = requestHandler<
+  getCommentCountParams,
+  CommentResponse[]
+>((params) =>
+  api.get(SERVER_ADDRESS + API_VERSION + `/comments/${params?.postId}`, {
+    params: { sort: JSON.stringify({ createdAt: -1 }) },
+  })
+);
 
 export const getCommentsCount = requestHandler<{ postId: string }, number>(
   (params) => {
@@ -45,6 +41,13 @@ export const getCommentsCount = requestHandler<{ postId: string }, number>(
       SERVER_ADDRESS + API_VERSION + `/comments/count/${params.postId}`
     );
   }
+);
+
+export const getCommentsByParentId = requestHandler<
+  { parentId: string },
+  CommentResponse[]
+>((params) =>
+  api.get(SERVER_ADDRESS + API_VERSION + `/comments/parent/${params?.parentId}`)
 );
 
 export const createComment = requestHandler<

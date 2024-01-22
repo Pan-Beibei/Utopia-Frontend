@@ -9,7 +9,11 @@ const StyledReplyList = styled(BaseColumnFlex)`
   width: 100%;
 `;
 
-function CommentReplyList() {
+interface ReplyListProps {
+  repliesCount: number;
+}
+
+function CommentReplyList({ repliesCount }: ReplyListProps) {
   const { handleExpandMore } = useCommentContext(); //replys
 
   return (
@@ -17,7 +21,10 @@ function CommentReplyList() {
       {/* {replys.map((reply: ReplyProps, index) => (
         <CommentReply {...reply} key={index} />
       ))} */}
-      <ExpandMoreButton num={5} handleExpandMore={handleExpandMore} />
+      <ExpandMoreButton
+        num={repliesCount}
+        handleExpandMore={handleExpandMore}
+      />
     </StyledReplyList>
   );
 }
