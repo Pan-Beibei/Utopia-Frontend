@@ -6,7 +6,7 @@ import Pagination from "../../components/Pagination";
 import { getPostsCount } from "../../services/api/post";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { RootState } from "../../store/store";
+import { RootState } from "../../store";
 import { usePosts } from "../../hooks/usePostsHooks";
 
 const StyledContainer = styled(BaseColumnFlex)`

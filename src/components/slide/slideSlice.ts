@@ -1,5 +1,5 @@
 import { createSlice, createSelector } from "@reduxjs/toolkit"; //
-import { RootState } from "../../store/store";
+import { RootState } from "../../store";
 
 export type SlideIndexType = "one" | "two" | "three" | "five";
 

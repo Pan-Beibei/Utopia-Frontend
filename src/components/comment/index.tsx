@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { BaseColumnFlex } from "../../styles/BaseStyles";
 import ReplyButton from "./CommentReplyButton";
 import ReplyInputBox from "./CommentReplyInputBox";
-import { ReplyProps } from "./CommentReply";
+
 import {
   StyledFlexForHeader,
   StyledFlexForMainContent,
@@ -16,9 +16,8 @@ import { CommentResponse } from "../../services/api/comment";
 import { timeAgo } from "../../utils/ConversionTime";
 
 type ContextType = {
-  handleExpandMore: () => void;
   handleReply: (repliedUserName: string) => void;
-  replys: Array<ReplyProps>;
+  commentParentId: string;
 };
 
 interface CommentProps {
@@ -39,10 +38,6 @@ const StyledComment = styled(BaseColumnFlex)`
   width: 100%;
 `;
 
-// const StyledColon = styled.span`
-//   font-weight: ${(props) => props.theme.fontWeight.bold};
-// `;
-
 const StyledReplyInputBoxContainer = styled.div`
   width: 100%;
   margin-top: 1rem;
@@ -52,13 +47,7 @@ const StyledReplyInputBoxContainer = styled.div`
 function Comment({ postId, children, data }: CommentProps) {
   const [showReplyInputBox, setShowReplyInputBox] = useState(false);
   const [repliedUserName, setRepliedUserName] = useState("");
-  // useCommentsByParentId(data.id);
-
-  console.log("Comment", data);
-
-  function handleExpandMore() {
-    console.log("expandMore");
-  }
+  const [commentParentId] = useState(data.id);
 
   function handleReply(repliedName: string) {
     console.log(repliedName);
@@ -66,9 +55,9 @@ function Comment({ postId, children, data }: CommentProps) {
     setShowReplyInputBox((isShow) => !isShow);
     setRepliedUserName(repliedName);
   }
-  const replys = [];
+
   return (
-    <CommentContext.Provider value={{ handleExpandMore, handleReply, replys }}>
+    <CommentContext.Provider value={{ commentParentId, handleReply }}>
       <StyledComment>
         <StyledFlexForHeader>
           <StyledUserName>{data.author.username}</StyledUserName>

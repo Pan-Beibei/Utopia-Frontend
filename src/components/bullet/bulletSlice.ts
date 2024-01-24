@@ -1,6 +1,6 @@
 // import { useMemo } from "react";
 import { createSlice } from "@reduxjs/toolkit"; //createSelector
-import { RootState } from "../../store/store";
+import { RootState } from "../../store";
 import { generateBulletStyle } from "../../utils/generateBulletStyle";
 import { FixedLengthArray } from "../../store/types";
 

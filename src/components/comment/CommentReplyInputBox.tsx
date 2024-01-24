@@ -6,6 +6,8 @@ import { BaseFlex } from "../../styles/BaseStyles";
 import { createComment } from "../../services/api/comment";
 import { useFetchUser } from "../../hooks/useFetchUser";
 import toast from "react-hot-toast";
+import { addComment } from "../../services/state/commentSlice";
+import { useDispatch } from "react-redux";
 
 const StyledContainer = styled(BaseFlex)`
   position: relative;
@@ -44,6 +46,7 @@ function CommentReplyInputBox({
   const [showPicker, setShowPicker] = useState(false);
   const { user } = useFetchUser();
   const theme = useTheme();
+  const dispatch = useDispatch();
 
   const placeholderText = `回复 @${repliedUserName}`;
 
@@ -53,12 +56,10 @@ function CommentReplyInputBox({
       return;
     }
     console.log("publish");
+    //这里parentId为空，代表回复的是顶级评论，评论只嵌套一级
+    //顶级评论下面只有一级
     if (!parentId) parentId = replyToId;
 
-    // console.log("parentId:", parentId);
-    // console.log("replyToId:", replyToId);
-
-    // return;
     createComment({
       content: inputContent,
       postId,
@@ -66,10 +67,11 @@ function CommentReplyInputBox({
       replyToId,
     })
       .then((res) => {
-        console.log(res);
         if (res.code !== "success") {
+          toast.error("发布评论失败!!!");
           return;
         }
+        dispatch(addComment(res.data));
         toast.success("评论已发布");
         setInputContent("");
       })

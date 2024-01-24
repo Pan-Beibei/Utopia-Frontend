@@ -6,7 +6,7 @@ import {
   previousSlide,
   getSlideIndexByName,
 } from "./slideSlice";
-import store from "../../store/store";
+import store from "../../store";
 
 const StyleSlideContainer = styled.div`
   padding: 2rem 0;

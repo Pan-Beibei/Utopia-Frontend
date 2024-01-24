@@ -11,7 +11,7 @@ import RegisterForm from "./RegisterForm";
 import LoginForm from "./LoginForm";
 import { AuthFieldsProps } from "./LoginCommon";
 import { loginUser, registerUser, AuthFunc } from "../../services/api/auth";
-import store from "../../store/store";
+import store from "../../store";
 import { setUser } from "../../services/state/userSlice";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
 

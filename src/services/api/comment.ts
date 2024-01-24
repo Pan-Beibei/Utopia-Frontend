@@ -14,7 +14,7 @@ export interface CommentResponse {
   author: { id: string; username: string }; //评论作者
   content: string; //评论内容
   parent: string; //父评论Id
-  replyTo: string; // 回复目标Id
+  replyTo: { id: string; author: { id: string; username: string } }; // 回复目标
   createdAt: string; //评论创建时间
   repliesCount: number; //子评论数量
 }
@@ -47,7 +47,12 @@ export const getCommentsByParentId = requestHandler<
   { parentId: string },
   CommentResponse[]
 >((params) =>
-  api.get(SERVER_ADDRESS + API_VERSION + `/comments/parent/${params?.parentId}`)
+  api.get(
+    SERVER_ADDRESS + API_VERSION + `/comments/parent/${params?.parentId}`,
+    {
+      params: { sort: JSON.stringify({ createdAt: -1 }), page: 1, limit: 10 },
+    }
+  )
 );
 
 export const createComment = requestHandler<

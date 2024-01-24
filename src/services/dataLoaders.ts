@@ -1,4 +1,4 @@
-import store from "../store/store";
+import store from "../store";
 import { getDrinks } from "./api/home";
 import { setDrinks } from "./state/homePageSlice";
 

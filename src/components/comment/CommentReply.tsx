@@ -9,6 +9,7 @@ import {
   StyledCommentContent,
 } from "./Common";
 import ReplyButton from "./CommentReplyButton";
+import { timeAgo } from "../../utils/ConversionTime";
 
 const StyledReply = styled(BaseColumnFlex)`
   gap: 0.3rem;
@@ -21,35 +22,44 @@ const StyledFlexForMainLeft = styled(BaseFlex)`
 `;
 
 export interface ReplyProps {
-  replyUserName: string;
-  replyDate: string;
-  replyContent: string;
-  repliedUserName: string;
+  athor: { id: string; username: string };
+  date: string;
+  content: string;
+  repliedUser: { id: string; author: { id: string; username: string } };
+  commentParentId: string;
 }
 
 function CommentReply({
-  replyUserName,
-  replyDate,
-  replyContent,
-  repliedUserName,
+  athor,
+  date,
+  content,
+  repliedUser,
+  commentParentId,
 }: ReplyProps) {
   const { handleReply } = useCommentContext();
 
   return (
     <StyledReply>
       <StyledFlexForHeader>
-        <StyledUserName>{replyUserName}</StyledUserName>
-        <StyledDate>{"回复了"}</StyledDate>
-        <StyledUserName>{repliedUserName}</StyledUserName>
-        <StyledDate>{replyDate}</StyledDate>
+        <StyledUserName>{athor.username}</StyledUserName>
+        {repliedUser.id === commentParentId ? null : (
+          <>
+            <StyledDate>{"回复了"}</StyledDate>
+            <StyledUserName>{repliedUser.author.username}</StyledUserName>
+          </>
+        )}
+
+        <StyledDate>{timeAgo(date)}</StyledDate>
       </StyledFlexForHeader>
 
       <StyledFlexForMainContent>
         <StyledFlexForMainLeft>
-          <StyledCommentContent>{replyContent}</StyledCommentContent>
+          <StyledCommentContent>{content}</StyledCommentContent>
         </StyledFlexForMainLeft>
 
-        <ReplyButton handleReply={() => handleReply(repliedUserName)} />
+        <ReplyButton
+          handleReply={() => handleReply(repliedUser.author.username)}
+        />
       </StyledFlexForMainContent>
     </StyledReply>
   );
