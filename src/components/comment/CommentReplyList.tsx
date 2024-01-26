@@ -1,11 +1,16 @@
 import styled from "styled-components";
 import { BaseColumnFlex } from "../../styles/BaseStyles";
 import ExpandMoreButton from "../ui/ExpandButton";
-import { fetchComments, getReplies } from "../../services/state/commentSlice";
+import {
+  fetchComments,
+  getReplies,
+  collapseReplies,
+} from "../../services/state/commentSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../store";
 import { useCommentContext } from "./Common";
 import CommentReply from "./CommentReply";
+import { CommentResponse } from "../../services/api/comment";
 
 const StyledReplyList = styled(BaseColumnFlex)`
   gap: 1rem;
@@ -17,6 +22,27 @@ interface ReplyListProps {
   repliesCount: number;
 }
 
+const CommentReplyListComponent = ({
+  comments,
+  commentParentId,
+}: {
+  comments: CommentResponse[];
+  commentParentId: string;
+}) => (
+  <>
+    {comments.map((comment: CommentResponse) => (
+      <CommentReply
+        commentParentId={commentParentId}
+        author={comment.author}
+        content={comment.content}
+        repliedUser={comment.replyTo}
+        date={comment.createdAt}
+        key={comment.id}
+      />
+    ))}
+  </>
+);
+
 function CommentReplyList({ repliesCount }: ReplyListProps) {
   const dispatch = useDispatch<AppDispatch>();
   const { commentParentId } = useCommentContext(); //replys
@@ -25,30 +51,58 @@ function CommentReplyList({ repliesCount }: ReplyListProps) {
   );
 
   function handleExpandMore() {
-    console.log("expandMore");
-    dispatch(fetchComments(commentParentId));
+    const fetchParams = {
+      parentId: commentParentId,
+      cursor: "",
+      pageSize: 3,
+    };
+
+    if (commentState) {
+      fetchParams.cursor = commentState.cursor;
+    }
+    console.log("expandMore", fetchParams);
+    dispatch(fetchComments(fetchParams));
   }
 
-  console.log("commentState:", commentState);
+  function handleCollapseAll() {
+    dispatch(collapseReplies(commentParentId));
+  }
+
+  console.log("commentState:", commentParentId, commentState);
+  if (commentState === undefined || !commentState.isRepliesVisible)
+    return (
+      <StyledReplyList>
+        <ExpandMoreButton
+          num={repliesCount}
+          handleExpandMore={handleExpandMore}
+        />
+      </StyledReplyList>
+    );
 
   return (
     <StyledReplyList>
-      {commentState === undefined || !commentState.isRepliesVisible ? (
+      <CommentReplyListComponent
+        comments={commentState.comments}
+        commentParentId={commentParentId}
+      />
+      {commentState.hasFetchedAllReplies ? (
+        // 收起全部
+        <ExpandMoreButton
+          isAllExpanded={true}
+          handleCollapseAll={handleCollapseAll}
+        />
+      ) : commentState.hasNewReply ? (
+        // 展开{}回复
         <ExpandMoreButton
           num={repliesCount}
           handleExpandMore={handleExpandMore}
         />
       ) : (
-        commentState.comments.map((comment) => (
-          <CommentReply
-            commentParentId={commentParentId}
-            athor={comment.author}
-            content={comment.content}
-            repliedUser={comment.replyTo}
-            date={comment.createdAt}
-            key={comment.id}
-          />
-        ))
+        // 展开更多回复
+        <ExpandMoreButton
+          isExpanded={true}
+          handleExpandMore={handleExpandMore}
+        />
       )}
     </StyledReplyList>
   );

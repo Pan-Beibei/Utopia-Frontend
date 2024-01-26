@@ -22,7 +22,7 @@ const StyledFlexForMainLeft = styled(BaseFlex)`
 `;
 
 export interface ReplyProps {
-  athor: { id: string; username: string };
+  author: { id: string; username: string };
   date: string;
   content: string;
   repliedUser: { id: string; author: { id: string; username: string } };
@@ -30,7 +30,7 @@ export interface ReplyProps {
 }
 
 function CommentReply({
-  athor,
+  author,
   date,
   content,
   repliedUser,
@@ -41,7 +41,7 @@ function CommentReply({
   return (
     <StyledReply>
       <StyledFlexForHeader>
-        <StyledUserName>{athor.username}</StyledUserName>
+        <StyledUserName>{author.username}</StyledUserName>
         {repliedUser.id === commentParentId ? null : (
           <>
             <StyledDate>{"回复了"}</StyledDate>

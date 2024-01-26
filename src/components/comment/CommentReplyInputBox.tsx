@@ -6,7 +6,7 @@ import { BaseFlex } from "../../styles/BaseStyles";
 import { createComment } from "../../services/api/comment";
 import { useFetchUser } from "../../hooks/useFetchUser";
 import toast from "react-hot-toast";
-import { addComment } from "../../services/state/commentSlice";
+import { addNewReply } from "../../services/state/commentSlice";
 import { useDispatch } from "react-redux";
 
 const StyledContainer = styled(BaseFlex)`
@@ -71,7 +71,7 @@ function CommentReplyInputBox({
           toast.error("发布评论失败!!!");
           return;
         }
-        dispatch(addComment(res.data));
+        dispatch(addNewReply(res.data));
         toast.success("评论已发布");
         setInputContent("");
       })

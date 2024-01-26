@@ -23,6 +23,12 @@ interface getCommentCountParams {
   postId: string;
 }
 
+interface getCommentsByParentIdParams {
+  parentId: string;
+  cursor: string;
+  pageSize: number;
+}
+
 export const getComments = requestHandler<
   getCommentCountParams,
   CommentResponse[]
@@ -44,16 +50,24 @@ export const getCommentsCount = requestHandler<{ postId: string }, number>(
 );
 
 export const getCommentsByParentId = requestHandler<
-  { parentId: string },
-  CommentResponse[]
->((params) =>
-  api.get(
-    SERVER_ADDRESS + API_VERSION + `/comments/parent/${params?.parentId}`,
+  getCommentsByParentIdParams,
+  { comments: CommentResponse[]; hasMore: boolean }
+>((params) => {
+  if (!params || !params.parentId || !params.pageSize) {
+    throw new Error("params is required");
+  }
+
+  return api.get(
+    SERVER_ADDRESS + API_VERSION + `/comments/parent/${params.parentId}`,
     {
-      params: { sort: JSON.stringify({ createdAt: -1 }), page: 1, limit: 10 },
+      params: {
+        sort: JSON.stringify({ createdAt: -1 }),
+        cursor: params.cursor,
+        limit: params.pageSize,
+      },
     }
-  )
-);
+  );
+});
 
 export const createComment = requestHandler<
   createCommentParams,

@@ -6,6 +6,10 @@ import { getCommentsByParentId } from "../api/comment";
 export interface CommentState {
   comments: CommentResponse[];
   isRepliesVisible: boolean;
+  hasNewReply: boolean;
+  hasFetchedAllReplies: boolean;
+  cursor: string;
+  pageSize: number;
 }
 
 interface StateProps {
@@ -17,19 +21,20 @@ const initialState: StateProps = {};
 // 创建异步 thunk action
 export const fetchComments = createAsyncThunk(
   "comment/fetchComments",
-  async (parentId: string, { getState }) => {
-    const state = getState() as { comment: StateProps };
-    if (state.comment[parentId]) {
-      // 如果已经存在对应 parentId 的数据，直接返回这些数据
-      console.log("已存在：", state.comment[parentId].comments);
+  async ({
+    parentId,
+    cursor,
+    pageSize,
+  }: {
+    parentId: string;
+    cursor: string;
+    pageSize: number;
+  }) => {
+    const data = await getCommentsByParentId({ parentId, cursor, pageSize });
 
-      return state.comment[parentId].comments;
-    } else {
-      // 如果不存在对应 parentId 的数据，发送请求获取数据
-      const data = await getCommentsByParentId({ parentId });
+    console.log("createAsyncThunk", data);
 
-      return data.code === "success" ? data.data : [];
-    }
+    return data.code === "success" ? data.data : null;
   }
 );
 
@@ -37,13 +42,36 @@ const userSlice = createSlice({
   name: "comment",
   initialState,
   reducers: {
-    addComment(state, action) {
+    collapseReplies: (state, action) => {
+      const commentId = action.payload;
+      const comment = state[commentId];
+      if (comment) {
+        comment.isRepliesVisible = false;
+        // 重置状态
+        comment.cursor = "";
+        comment.pageSize = 3;
+        comment.hasFetchedAllReplies = false;
+        comment.comments = [];
+      }
+    },
+    addNewReply(state, action) {
       // console.log(state.comments);
 
-      console.log("addComment", action.payload);
-      if (state[action.payload.parent]) {
-        state[action.payload.parent].comments.push(action.payload);
+      console.log("addNewReply", action.payload);
+      //如果不存在就创建一个，这里解决未展开更多时，直接评论的问题
+      if (!state[action.payload.parent]) {
+        state[action.payload.parent] = {
+          comments: [],
+          isRepliesVisible: true,
+          hasNewReply: true,
+          hasFetchedAllReplies: false,
+          cursor: "",
+          pageSize: 3,
+        };
       }
+
+      //存在就直接添加，临时存放一下，后面拉取数据的时候会覆盖
+      state[action.payload.parent].comments.push(action.payload);
     },
     hideReplies(state, action) {
       if (state[action.payload]) {
@@ -53,19 +81,52 @@ const userSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(fetchComments.fulfilled, (state, action) => {
-      state[action.meta.arg] = {
-        comments: action.payload,
-        isRepliesVisible: true,
+      // 如果已经有评论，那么将新的评论添加到已有的评论中
+      // 否则，创建一个新的评论列表
+      const commentId = action.meta.arg.parentId;
+      const payload = action.payload as {
+        comments: CommentResponse[];
+        hasMore: boolean;
       };
+
+      console.log("fetchComments", payload);
+
+      if (state[commentId]) {
+        // 使用 Set 来去重
+        const existingCommentIds = new Set(
+          state[commentId].comments.map((comment) => comment.id)
+        );
+        const newComments = payload.comments.filter(
+          (comment) => !existingCommentIds.has(comment.id)
+        );
+        state[commentId].comments = [
+          ...state[commentId].comments,
+          ...newComments,
+        ];
+        state[commentId].isRepliesVisible = true;
+      } else {
+        state[commentId] = {
+          comments: payload.comments,
+          isRepliesVisible: true,
+          hasNewReply: false,
+          hasFetchedAllReplies: false,
+          cursor: "",
+          pageSize: action.meta.arg.pageSize,
+        };
+      }
+      state[commentId].hasFetchedAllReplies = !payload.hasMore;
+      //如果还有更多，那么page+1
+      if (!state[commentId].hasFetchedAllReplies) {
+        const len = state[commentId].comments.length;
+        state[commentId].cursor = state[commentId].comments[len - 1].id;
+      }
     });
   },
 });
 
-export const { addComment } = userSlice.actions;
+export const { addNewReply, collapseReplies } = userSlice.actions;
 
 export default userSlice.reducer;
-
-export const getUser = (state: RootState) => state.user.user;
 
 export const getReplies = (
   state: RootState,

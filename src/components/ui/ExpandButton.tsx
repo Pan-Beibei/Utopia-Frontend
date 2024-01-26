@@ -8,18 +8,30 @@ const StyledExpandButton = styled.span`
   align-self: flex-start;
 `;
 
-function ExpandMoreButton({
+function ExpandCollapseButton({
   num,
+  isExpanded = false,
+  isAllExpanded = false,
   handleExpandMore,
+  handleCollapseAll,
 }: {
-  num: number;
-  handleExpandMore: () => void;
+  num?: number;
+  isExpanded?: boolean;
+  isAllExpanded?: boolean;
+  handleExpandMore?: () => void;
+  handleCollapseAll?: () => void;
 }) {
   return (
-    <StyledExpandButton onClick={handleExpandMore}>
-      展开{num}条回复
+    <StyledExpandButton
+      onClick={isAllExpanded ? handleCollapseAll : handleExpandMore}
+    >
+      {isAllExpanded
+        ? "收起全部"
+        : isExpanded
+        ? "展开更多"
+        : `展开${num}条回复`}
     </StyledExpandButton>
   );
 }
 
-export default ExpandMoreButton;
+export default ExpandCollapseButton;
