@@ -145,6 +145,9 @@ function Pagination({
   postsPerPage,
   buttonsToShow,
 }: PaginationProps) {
+  const totalPages = Math.ceil(postCount / postsPerPage);
+  const pagesToShow = Math.min(totalPages, buttonsToShow);
+
   function previousPage() {
     const pageCount = Math.max(currentPage - 1, 1);
     if (pageCount === currentPage) {
@@ -175,8 +178,8 @@ function Pagination({
         previousPage,
         nextPage,
         setCurrentPage,
-        pageCount: Math.ceil(postCount / postsPerPage),
-        buttonsToShow,
+        pageCount: totalPages,
+        buttonsToShow: pagesToShow,
       }}
     >
       <StyledContainer>{children}</StyledContainer>

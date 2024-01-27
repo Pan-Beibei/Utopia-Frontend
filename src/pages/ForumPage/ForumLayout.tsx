@@ -3,11 +3,10 @@ import SearchPosts from "./SearchPosts";
 import { BaseFlex, BaseColumnFlex } from "../../styles/BaseStyles";
 import PostList from "../../components/Post/PostList";
 import Pagination from "../../components/Pagination";
-import { getPostsCount } from "../../services/api/post";
-import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
 import { usePosts } from "../../hooks/usePostsHooks";
+import { useState } from "react";
 
 const StyledContainer = styled(BaseColumnFlex)`
   padding: 2rem 1rem;
@@ -38,10 +37,10 @@ const StyledFlex = styled(BaseFlex)`
 
 interface ForumLayoutProps {
   setShowCreatePost: () => void;
+  postsCount: number;
 }
 
-function ForumLayout({ setShowCreatePost }: ForumLayoutProps) {
-  const [postCount, setPostCount] = useState(0);
+function ForumLayout({ setShowCreatePost, postsCount }: ForumLayoutProps) {
   const [currentPage, setCurrentPage] = useState(1);
   const postsPerPage = useSelector(
     (state: RootState) => state.global.itemsPerPage
@@ -49,21 +48,6 @@ function ForumLayout({ setShowCreatePost }: ForumLayoutProps) {
   const buttonsToShow = useSelector(
     (state: RootState) => state.global.paginationButtons
   );
-
-  useEffect(() => {
-    getPostsCount()
-      .then((res) => {
-        console.log(res);
-        if (res.code !== "success") {
-          console.log(res);
-          return;
-        }
-        setPostCount(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
 
   const { isLoading, error, data: posts } = usePosts(currentPage, postsPerPage);
   console.log(isLoading, error, posts);
@@ -78,9 +62,9 @@ function ForumLayout({ setShowCreatePost }: ForumLayoutProps) {
         <StyledPostButton onClick={setShowCreatePost}>发帖</StyledPostButton>
       </StyledFlex>
       <PostList posts={posts} />
-      {postCount > 0 && (
+      {postsCount > 0 && (
         <Pagination
-          postCount={postCount}
+          postCount={postsCount}
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}
           postsPerPage={postsPerPage}

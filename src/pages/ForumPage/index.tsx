@@ -4,6 +4,7 @@ import { BaseColumnFlex } from "../../styles/BaseStyles";
 import ForumIntroduction from "./ForumIntroduction";
 import ForumLayout from "./ForumLayout";
 import CreatePost from "./CreatePost";
+import { useLoaderData } from "react-router-dom";
 
 const StyledContainer = styled(BaseColumnFlex)`
   padding-top: 7.6rem;
@@ -13,6 +14,7 @@ const StyledContainer = styled(BaseColumnFlex)`
 
 function ForumPage() {
   const [showCreatePost, setShowCreatePost] = useState(false);
+  const postsCount = useLoaderData() as number;
 
   return (
     <StyledContainer>
@@ -24,6 +26,7 @@ function ForumPage() {
       ) : (
         <ForumLayout
           setShowCreatePost={() => setShowCreatePost((show) => !show)}
+          postsCount={postsCount}
         />
       )}
     </StyledContainer>
