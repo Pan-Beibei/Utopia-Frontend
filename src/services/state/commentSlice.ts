@@ -5,6 +5,7 @@ import { getCommentsByParentId } from "../api/comment";
 
 export interface CommentState {
   comments: CommentResponse[];
+  repliesCount: number;
   isRepliesVisible: boolean;
   hasNewReply: boolean;
   hasFetchedAllReplies: boolean;
@@ -42,7 +43,30 @@ const userSlice = createSlice({
   name: "comment",
   initialState,
   reducers: {
-    collapseReplies: (state, action) => {
+    initCommentState(state, action) {
+      //初始化，在顶级评论下，创建一个回复列表
+      action.payload.forEach((comment: CommentResponse) => {
+        const { id, repliesCount } = comment;
+        if (!state[id]) {
+          state[id] = {
+            comments: [],
+            repliesCount,
+            isRepliesVisible: false,
+            hasNewReply: false,
+            hasFetchedAllReplies: false,
+            cursor: "",
+            pageSize: 3,
+          };
+        }
+      });
+    },
+
+    updateRepliesCount(state, action) {
+      //更新评论数
+      const { commentId, count } = action.payload;
+      state[commentId].repliesCount = count;
+    },
+    collapseReplies(state, action) {
       const commentId = action.payload;
       const comment = state[commentId];
       if (comment) {
@@ -55,27 +79,15 @@ const userSlice = createSlice({
       }
     },
     addNewReply(state, action) {
-      // console.log(state.comments);
-
       console.log("addNewReply", action.payload);
-      //如果不存在就创建一个，这里解决未展开更多时，直接评论的问题
-      if (!state[action.payload.parent]) {
-        state[action.payload.parent] = {
-          comments: [],
-          isRepliesVisible: true,
-          hasNewReply: true,
-          hasFetchedAllReplies: false,
-          cursor: "",
-          pageSize: 3,
-        };
-      }
 
-      //存在就直接添加，临时存放一下，后面拉取数据的时候会覆盖
+      //如果存在就直接添加，改变状态
+      state[action.payload.parent].repliesCount += 1;
+      state[action.payload.parent].hasNewReply = true;
+      state[action.payload.parent].isRepliesVisible = true;
       state[action.payload.parent].comments.push(action.payload);
-    },
-    hideReplies(state, action) {
-      if (state[action.payload]) {
-        state[action.payload].isRepliesVisible = false;
+      if (state[action.payload.parent].repliesCount === 1) {
+        state[action.payload.parent].hasFetchedAllReplies = true;
       }
     },
   },
@@ -104,15 +116,8 @@ const userSlice = createSlice({
           ...newComments,
         ];
         state[commentId].isRepliesVisible = true;
-      } else {
-        state[commentId] = {
-          comments: payload.comments,
-          isRepliesVisible: true,
-          hasNewReply: false,
-          hasFetchedAllReplies: false,
-          cursor: "",
-          pageSize: action.meta.arg.pageSize,
-        };
+        //重置
+        state[commentId].hasNewReply = false;
       }
       state[commentId].hasFetchedAllReplies = !payload.hasMore;
       //如果还有更多，那么page+1
@@ -124,7 +129,8 @@ const userSlice = createSlice({
   },
 });
 
-export const { addNewReply, collapseReplies } = userSlice.actions;
+export const { initCommentState, addNewReply, collapseReplies } =
+  userSlice.actions;
 
 export default userSlice.reducer;
 

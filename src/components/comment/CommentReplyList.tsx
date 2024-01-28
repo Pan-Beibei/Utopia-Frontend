@@ -18,10 +18,6 @@ const StyledReplyList = styled(BaseColumnFlex)`
   width: 100%;
 `;
 
-interface ReplyListProps {
-  repliesCount: number;
-}
-
 const CommentReplyListComponent = ({
   comments,
   commentParentId,
@@ -43,12 +39,19 @@ const CommentReplyListComponent = ({
   </>
 );
 
-function CommentReplyList({ repliesCount }: ReplyListProps) {
+function CommentReplyList() {
   const dispatch = useDispatch<AppDispatch>();
-  const { commentParentId } = useCommentContext(); //replys
+  const { commentParentId } = useCommentContext();
   const commentState = useSelector((state: RootState) =>
     getReplies(state, commentParentId)
   );
+
+  if (!commentState) {
+    throw new Error("commentState is undefined");
+  }
+  if (commentState.repliesCount === 0) {
+    return null;
+  }
 
   function handleExpandMore() {
     const fetchParams = {
@@ -69,11 +72,11 @@ function CommentReplyList({ repliesCount }: ReplyListProps) {
   }
 
   console.log("commentState:", commentParentId, commentState);
-  if (commentState === undefined || !commentState.isRepliesVisible)
+  if (!commentState.isRepliesVisible)
     return (
       <StyledReplyList>
         <ExpandMoreButton
-          num={repliesCount}
+          num={commentState.repliesCount}
           handleExpandMore={handleExpandMore}
         />
       </StyledReplyList>
@@ -91,16 +94,16 @@ function CommentReplyList({ repliesCount }: ReplyListProps) {
           isAllExpanded={true}
           handleCollapseAll={handleCollapseAll}
         />
-      ) : commentState.hasNewReply ? (
-        // 展开{}回复
-        <ExpandMoreButton
-          num={repliesCount}
-          handleExpandMore={handleExpandMore}
-        />
-      ) : (
+      ) : commentState.isRepliesVisible ? (
         // 展开更多回复
         <ExpandMoreButton
           isExpanded={true}
+          handleExpandMore={handleExpandMore}
+        />
+      ) : (
+        // 展开{}回复
+        <ExpandMoreButton
+          num={commentState.repliesCount}
           handleExpandMore={handleExpandMore}
         />
       )}
