@@ -1,8 +1,10 @@
 import React, { useContext } from "react";
-import Brightness4Icon from "@mui/icons-material/Brightness4";
-import Brightness7Icon from "@mui/icons-material/Brightness7";
+import styled from "styled-components";
 import { warmTheme } from "../../themes/themes";
-import { IconButton } from "@mui/material";
+
+const StyledLightBtn = styled.button`
+  background-color: black;
+`;
 
 export const ThemeContext = React.createContext({
   toggleTheme: () => {},
@@ -13,9 +15,13 @@ function SwitchThemeButton() {
   const { toggleTheme, theme } = useContext(ThemeContext);
 
   return (
-    <IconButton color="inherit" onClick={toggleTheme}>
-      {warmTheme === theme ? <Brightness7Icon /> : <Brightness4Icon />}
-    </IconButton>
+    <StyledLightBtn color="inherit" onClick={toggleTheme}>
+      {warmTheme === theme ? (
+        <StyledLightBtn>亮</StyledLightBtn>
+      ) : (
+        <StyledLightBtn>暗</StyledLightBtn>
+      )}
+    </StyledLightBtn>
   );
 }
 

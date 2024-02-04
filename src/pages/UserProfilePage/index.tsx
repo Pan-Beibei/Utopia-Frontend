@@ -6,6 +6,8 @@ import UserBasicInfo from "./UserBasicInfo";
 import { UserViewType, UserViewEnum } from "./UserProfileCommon";
 import { BaseColumnFlex } from "../../styles/BaseStyles";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
+import { clearUser } from "../../services/state/userSlice";
+import { useDispatch } from "react-redux";
 
 const StyledUserProfilePage = styled.div`
   padding: 7.6rem 2rem;
@@ -39,6 +41,7 @@ function UserProfilePage() {
   );
   const navigate = useNavigate();
   const { removeItem } = useLocalStorage("token");
+  const dispatch = useDispatch();
 
   function handleViewTypeChange(viewType: UserViewType) {
     setViewType(viewType);
@@ -46,6 +49,7 @@ function UserProfilePage() {
 
   function handleLogout() {
     removeItem();
+    dispatch(clearUser);
     navigate("/");
   }
 

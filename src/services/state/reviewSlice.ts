@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"; //
-import { RootState } from "../../store";
+// import { RootState } from "../../store";
 
 interface RecviewProps {
   review: string;
@@ -31,7 +31,7 @@ export const { init, addReview } = userSlice.actions;
 
 export default userSlice.reducer;
 
-export const getReviews = (state: RootState) => state.review.reviews;
+// export const getReviews = (state: RootState) => state.review.reviews;
 
 // export const getSlideIndexByName = createSelector(
 //   [getSlideIndex, (_, ikey) => ikey],

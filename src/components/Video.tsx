@@ -1,51 +1,30 @@
-import { Box, styled } from "@mui/system";
-import {
-  useState,
-  memo,
-  DetailedHTMLProps,
-  VideoHTMLAttributes,
-  ImgHTMLAttributes,
-} from "react";
+import styled from "styled-components";
+import { useState, memo } from "react";
 
-interface PlaceholderImageProps
-  extends DetailedHTMLProps<
-    ImgHTMLAttributes<HTMLImageElement>,
-    HTMLImageElement
-  > {
-  isvideoLoaded: boolean;
-}
-interface VideoElementProps
-  extends DetailedHTMLProps<
-    VideoHTMLAttributes<HTMLVideoElement>,
-    HTMLVideoElement
-  > {}
+const VideoContainer = styled.div`
+  position: relative;
+  width: 100%;
+  height: 100%;
+`;
 
-const VideoContainer = styled(Box)({
-  position: "relative",
-  width: "100%",
-  height: "100%",
-});
+const PlaceholderImage = styled.img<{ $isvideoLoaded: boolean }>`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  display: ${(props) => (props.$isvideoLoaded ? "none" : "block")};
+`;
 
-const PlaceholderImage = styled(Box, {
-  shouldForwardProp: (prop) => prop !== "isvideoLoaded",
-})<PlaceholderImageProps>(({ isvideoLoaded }) => ({
-  position: "absolute",
-  top: 0,
-  left: 0,
-  width: "100vw",
-  height: "100vh",
-  objectFit: "cover",
-  display: isvideoLoaded ? "none" : "block",
-}));
-
-const VideoElement = styled(Box)<VideoElementProps>(() => ({
-  position: "absolute",
-  top: 0,
-  left: 0,
-  width: "100vw",
-  height: "100vh",
-  objectFit: "cover",
-}));
+const VideoElement = styled.video`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+`;
 
 const Video = memo(function Video() {
   const [isvideoLoaded, setIsVideoLoaded] = useState(false);
@@ -57,13 +36,11 @@ const Video = memo(function Video() {
   return (
     <VideoContainer>
       <PlaceholderImage
-        component="img"
         src="/video/hero-placehoder.webp"
         alt="video placeholder"
-        isvideoLoaded={isvideoLoaded}
+        $isvideoLoaded={isvideoLoaded}
       />
       <VideoElement
-        component="video"
         onLoadedData={handleLoadedData}
         muted
         autoPlay={true}

@@ -1,35 +1,36 @@
-import { ReactNode, useEffect, useRef, useState, forwardRef } from "react";
-import { Box } from "@mui/system";
+import { useEffect, useRef, useState } from "react";
+import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import Bullet from "./Bullet";
-import { BulletProps, getBullets, removeBullet } from "./bulletSlice";
+import {
+  BulletProps,
+  getBullets,
+  removeBullet,
+} from "../../services/state/bulletSlice";
 
-const StyledBulletContainer = forwardRef<
-  HTMLDivElement,
-  { children?: ReactNode }
->((props, ref) => (
-  <Box
-    {...props}
-    ref={ref}
-    sx={{
-      height: "100%",
-      width: "100%",
-      backgroundColor: "transparent",
-      position: "absolute",
-      overflow: "hidden",
-    }}
-  >
-    {props.children}
-  </Box>
-));
+const StyledBulletContainer = styled.div`
+  height: 100%;
+  width: 100%;
+  background-color: transparent;
+  position: absolute;
+  overflow: hidden;
+`;
 
 function BulletShow() {
   const bullets = useSelector(getBullets);
   const [data, setData] = useState<BulletProps[]>([]);
-  const containerRef = useRef<HTMLDivElement | null>(null);
+  // const containerRef = useRef<HTMLDivElement | null>(null);
   const bulletIdsRef = useRef<Set<string>>(new Set());
   const [initialized, setInitialized] = useState(false);
   const dispatch = useDispatch();
+
+  // if (bullets.length === 0) {
+  //   return null;
+  // }
+  // const newBullets: BulletProps[] = bullets.slice(0, 5).map((bullet, i) => {
+  //   bulletIdsRef.current.add(bullet.id);
+  //   return { ...bullet, track: i + 1 };
+  // });
 
   //只做初始化使用
   useEffect(() => {
@@ -39,7 +40,7 @@ function BulletShow() {
         return { ...bullet, track: i + 1 };
       });
 
-      setData(newBullets); // 取出前10条弹幕数据
+      setData(newBullets); // 取出前5条弹幕数据
       setInitialized(true); // 设置已经初始化过
       // console.log("InitBullets: ", newBullets);
     }
@@ -74,7 +75,7 @@ function BulletShow() {
   };
 
   return (
-    <StyledBulletContainer ref={containerRef}>
+    <StyledBulletContainer>
       {data.map((el) => {
         return (
           <Bullet bulletProps={el} key={el.id} animationend={animationend} />

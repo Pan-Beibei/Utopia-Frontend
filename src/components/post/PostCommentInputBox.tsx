@@ -1,12 +1,12 @@
 import { useState } from "react";
 import styled, { useTheme } from "styled-components";
+import toast from "react-hot-toast";
+import { useMutation, useQueryClient } from "react-query";
 import { BaseFlex } from "../../styles/BaseStyles";
 import EmojiPicker from "../EmojiPicker";
 import EmojiTextInput from "../EmojiTextInput";
 import { createComment } from "../../services/api/comment";
 import { useFetchUser } from "../../hooks/useFetchUser";
-import toast from "react-hot-toast";
-import { useMutation, useQueryClient } from "react-query";
 
 const StyledContainer = styled(BaseFlex)`
   justify-content: space-between;

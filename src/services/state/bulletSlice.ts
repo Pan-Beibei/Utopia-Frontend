@@ -1,7 +1,6 @@
 // import { useMemo } from "react";
 import { createSlice } from "@reduxjs/toolkit"; //createSelector
 import { RootState } from "../../store";
-import { generateBulletStyle } from "../../utils/generateBulletStyle";
 import { FixedLengthArray } from "../../store/types";
 
 export enum BulletStatusType {
@@ -13,20 +12,15 @@ export enum BulletStatusType {
 
 export interface BulletProps {
   id: string;
-  text: string;
-  fontSize: number;
-  fontColor: string;
-  speed: number;
+  msg: string;
   track: number;
 }
 
 export interface ServerBulletProps {
-  _id: string;
-  userId: string;
-  bulletText: string;
-  bulletCreateAt: string;
+  id: string;
+  msg: string;
 }
-const NUM_TRACKS = 5 as const; // 定义轨道数量
+const NUM_TRACKS = 5; // 定义轨道数量
 interface StateProps {
   bullets: Array<BulletProps>;
   tracks: FixedLengthArray<boolean, typeof NUM_TRACKS>;
@@ -53,39 +47,17 @@ const bulletSlice = createSlice({
 
       //No new data return
       if (newBullets.length === 0) return;
-
-      const arr = generateBulletStyle(newBullets);
-
-      state.bullets.push(...arr);
+      state.bullets.push(...newBullets);
     },
     addBullet(state, action) {
-      const bull: ServerBulletProps = {
-        _id: action.payload._id,
-        bulletText: action.payload.msg,
-        userId: "",
-        bulletCreateAt: "",
-      };
-      const arr = generateBulletStyle([bull]);
-      state.bullets.unshift(...arr);
+      console.log("addBullet", action.payload);
+
+      state.bullets.unshift(action.payload);
     },
     removeBullet(state, action) {
       const index = state.bullets.findIndex((el) => el.id === action.payload);
       if (index !== -1) {
         state.bullets.splice(index, 1);
-      }
-    },
-    removeBullets(state, action) {
-      //保存到删除数组，等待删除
-      const arr = [];
-      for (let i = 0; i < action.payload.length; i++) {
-        arr.push(action.payload[i].id);
-      }
-
-      const removeBulletsSet = new Set(arr);
-      if (removeBulletsSet.size > 0) {
-        state.bullets = state.bullets.filter(
-          (el) => !removeBulletsSet.has(el.id)
-        );
       }
     },
     releaseTrack(state, action) {
@@ -101,7 +73,6 @@ export const {
   initBullet,
   removeBullet,
   addBullet,
-  removeBullets,
   releaseTrack,
   occupyTrack,
 } = bulletSlice.actions;

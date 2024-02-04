@@ -1,14 +1,13 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { Socket } from "socket.io-client";
-// import { useSelector } from "react-redux";
-
+import toast from "react-hot-toast";
 import { MsgType } from "../../config";
-// import { getUserId } from "../../services/state/userSlice";
 import PrimaryButton from "../ui/PrimaryButton";
 import { ButtonTypes } from "../../enum/ButtonTypes";
 import EmojiPicker from "../EmojiPicker";
 import EmojiTextInput from "../EmojiTextInput";
+import { useFetchUser } from "../../hooks/useFetchUser";
 
 const StyledBulletInputContainer = styled.div`
   position: relative;
@@ -36,19 +35,27 @@ interface BulletInputTextProps {
 function BulletInputBox({ socket }: BulletInputTextProps) {
   const [inputContent, setInputContent] = useState("");
   const [showPicker, setShowPicker] = useState(false);
-  // const userId = useSelector(getUserId);
+  const { user } = useFetchUser();
 
   function handleSendClick() {
-    if (inputContent.length > 3) {
-      if (socket.current) {
-        socket.current.emit(MsgType.SEND_BULLET, {
-          id: "userId",
-          msg: inputContent,
-        });
-        setInputContent("");
-      } else {
-        console.log("send-bullet: ", inputContent, "socket: ", socket.current);
-      }
+    if (!user) {
+      toast.error("请先登录");
+      return;
+    }
+    const content = inputContent.trim();
+    if (content.length === 0) {
+      toast.error("请输入弹幕内容");
+      return;
+    }
+
+    if (socket.current) {
+      socket.current.emit(MsgType.SEND_BULLET, {
+        id: user.id,
+        msg: content,
+      });
+      setInputContent("");
+    } else {
+      console.error("send-bullet: ", content, "socket: ", socket.current);
     }
   }
 

@@ -4,7 +4,6 @@ import Logo from "../ui/Logo";
 import NavLinks from "./NavLinks";
 import { BaseFlex } from "../../styles/BaseStyles";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
-// import SwitchThemeButton from "../../themes/ThemeContext";
 
 const StyledNarbar = styled.nav`
   display: flex;

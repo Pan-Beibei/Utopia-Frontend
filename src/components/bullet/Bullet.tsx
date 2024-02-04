@@ -1,11 +1,8 @@
 import { useEffect, useRef, memo, useCallback } from "react";
 import styled, { css } from "styled-components";
-import { BulletProps } from "./bulletSlice";
+import { BulletProps } from "../../services/state/bulletSlice";
 
 interface BulletStyleProps {
-  $fontSize: number;
-  $fontColor: string;
-  $speed: number;
   $from: string;
   $to: string;
   $posY: number;
@@ -30,7 +27,7 @@ const StyledBullet = styled.div<BulletStyleProps>`
     color: ${(props) => props.theme.colors.white};
     top: ${props.$posY}px;
 
-    animation: rightToLeft ${props.$speed}s linear;
+    animation: rightToLeft 15s linear;
     animation-fill-mode: forwards;
 
     @keyframes rightToLeft {
@@ -45,12 +42,15 @@ interface BulletComProps {
   animationend: (id: string, track: number) => void;
 }
 
+const fromA = `from { transform: translateX(${window.innerWidth}px); }`;
+const toA = `to { transform: translateX(-100%); }`;
+
 const Bullet = memo(function Bullet({
   bulletProps,
   animationend,
 }: BulletComProps) {
   const bulletRef = useRef(null);
-  const { id, fontSize, fontColor, speed, track, text } = bulletProps;
+  const { id, msg, track } = bulletProps;
 
   const handleAnimationEnd = useCallback(() => {
     // console.log("animation end: ", id);
@@ -69,16 +69,8 @@ const Bullet = memo(function Bullet({
   }, [handleAnimationEnd]);
 
   return (
-    <StyledBullet
-      $fontSize={fontSize}
-      $fontColor={fontColor}
-      $speed={speed}
-      $from={`from { transform: translateX(${window.innerWidth}px); }`}
-      $to={`to { transform: translateX(-100%); }`}
-      $posY={track * 30}
-      ref={bulletRef}
-    >
-      {text}
+    <StyledBullet $from={fromA} $to={toA} $posY={track * 30} ref={bulletRef}>
+      {msg}
     </StyledBullet>
   );
 });

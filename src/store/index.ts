@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import BulletSlice from "../components/bullet/bulletSlice";
+import BulletSlice from "../services/state/bulletSlice";
 import userSlice from "../services/state/userSlice";
 import homePageSlice from "../services/state/homePageSlice";
 import activityPageSlice from "../services/state/activityPageSlice";

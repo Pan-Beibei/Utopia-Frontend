@@ -17,16 +17,15 @@ const userSlice = createSlice({
     setUser(state, action) {
       state.user = action.payload;
     },
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    clearUser(state, _action) {
+      state.user = null;
+    },
   },
 });
 
-export const { setUser } = userSlice.actions;
+export const { setUser, clearUser } = userSlice.actions;
 
 export default userSlice.reducer;
 
 export const getUser = (state: RootState) => state.user.user;
-
-// export const getSlideIndexByName = createSelector(
-//   [getSlideIndex, (_, ikey) => ikey],
-//   (slideIndex, ikey: string) => slideIndex[ikey as SlideIndexType]
-// );
