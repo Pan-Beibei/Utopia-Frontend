@@ -53,19 +53,16 @@ const Bullet = memo(function Bullet({
   const { id, msg, track } = bulletProps;
 
   const handleAnimationEnd = useCallback(() => {
-    // console.log("animation end: ", id);
     animationend(id, track);
   }, [id, track, animationend]);
 
   useEffect(() => {
-    if (!bulletRef.current) return;
-    const element = bulletRef.current as Element;
-    if (element) {
-      element.addEventListener("animationend", handleAnimationEnd);
-      return () => {
-        element.removeEventListener("animationend", handleAnimationEnd);
-      };
-    }
+    const element = bulletRef.current as Element | null;
+    if (!element) return;
+    element.addEventListener("animationend", handleAnimationEnd);
+    return () => {
+      element.removeEventListener("animationend", handleAnimationEnd);
+    };
   }, [handleAnimationEnd]);
 
   return (

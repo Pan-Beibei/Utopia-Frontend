@@ -16,10 +16,6 @@ export interface BulletProps {
   track: number;
 }
 
-export interface ServerBulletProps {
-  id: string;
-  msg: string;
-}
 const NUM_TRACKS = 5; // 定义轨道数量
 interface StateProps {
   bullets: Array<BulletProps>;
@@ -37,7 +33,7 @@ const bulletSlice = createSlice({
   name: "bullet",
   initialState,
   reducers: {
-    initBullet(state, action) {
+    setBullets(state, action) {
       const newBullets = [];
       for (let i = 0; i < action.payload.length; i++) {
         if (idSet.has(action.payload[i]._id)) continue;
@@ -70,7 +66,7 @@ const bulletSlice = createSlice({
 });
 
 export const {
-  initBullet,
+  setBullets,
   removeBullet,
   addBullet,
   releaseTrack,

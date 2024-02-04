@@ -1,21 +1,29 @@
 import store from "../store";
 import { getDrinks } from "./api/home";
-import { setDrinks } from "./state/homePageSlice";
 import { getPostsCount } from "./api/post";
+import { getBullets } from "./api/bullet";
+import { setDrinks } from "./state/homePageSlice";
+import { setBullets } from "./state/bulletSlice";
 
 export async function hoemLoader() {
-  getDrinks()
-    .then((res) => {
-      if (res.code === "success") {
-        console.log(res);
-        store.dispatch(setDrinks(res.data));
-      } else {
-        console.error(res.error);
-      }
-    })
-    .catch((err) => {
-      console.error(err);
-    });
+  try {
+    const [drinks, bullets] = await Promise.all([getDrinks(), getBullets()]);
+    if (drinks.code === "success") {
+      console.log(drinks);
+      store.dispatch(setDrinks(drinks.data));
+    } else {
+      console.error(drinks.error);
+    }
+
+    if (bullets.code === "success") {
+      console.log(bullets);
+      store.dispatch(setBullets(bullets.data));
+    } else {
+      console.error(bullets.error);
+    }
+  } catch (err) {
+    console.error(err);
+  }
   return null;
 }
 
