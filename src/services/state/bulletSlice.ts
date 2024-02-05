@@ -13,6 +13,7 @@ export enum BulletStatusType {
 export interface BulletProps {
   id: string;
   msg: string;
+  speed: number;
   track: number;
 }
 
@@ -38,7 +39,7 @@ const bulletSlice = createSlice({
       for (let i = 0; i < action.payload.length; i++) {
         if (idSet.has(action.payload[i]._id)) continue;
         idSet.add(action.payload[i]._id);
-        newBullets.push(action.payload[i]);
+        newBullets.push({ ...action.payload[i], id: action.payload[i]._id });
       }
 
       //No new data return
@@ -48,13 +49,10 @@ const bulletSlice = createSlice({
     addBullet(state, action) {
       console.log("addBullet", action.payload);
 
-      state.bullets.unshift(action.payload);
+      state.bullets.unshift({ ...action.payload, id: action.payload._id });
     },
     removeBullet(state, action) {
-      const index = state.bullets.findIndex((el) => el.id === action.payload);
-      if (index !== -1) {
-        state.bullets.splice(index, 1);
-      }
+      state.bullets = state.bullets.filter((el) => el.id !== action.payload);
     },
     releaseTrack(state, action) {
       state.tracks[action.payload] = false;

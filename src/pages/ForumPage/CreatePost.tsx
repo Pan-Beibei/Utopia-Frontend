@@ -3,7 +3,7 @@ import { EditorState } from "lexical";
 import styled from "styled-components";
 import { toast } from "react-hot-toast";
 import { App as Editor } from "beibei-lexical-editor";
-import TagList from "../../components/tag/TagList";
+import TagList from "../../components/TagList";
 import { BaseFlex } from "../../styles/BaseStyles";
 import { createPost } from "../../services/api/post";
 

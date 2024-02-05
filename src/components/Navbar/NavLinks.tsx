@@ -3,14 +3,7 @@ import { useState, createContext, useContext } from "react";
 import { NavLink } from "react-router-dom";
 import { BaseColumnFlex } from "../../styles/BaseStyles";
 
-type FlexDirectionType = "row" | "row-reverse" | "column" | "column-reverse";
-
-type StyledNavLinksProps = {
-  direction?: FlexDirectionType;
-  children?: React.ReactNode;
-};
-
-const StyledNavLinks = styled.ul<StyledNavLinksProps>`
+const StyledNavLinks = styled.ul`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -139,9 +132,7 @@ function Links() {
         <img src="/icons/home.svg" alt="home" />
       </StyledNavLink>
       <StyledNavLink to="/forum-page">68克情报处</StyledNavLink>
-      <StyledNavLink to="/activity-info">最近活动</StyledNavLink>
-      {/* <StyledNavLink to="/hotel-info">民宿房间</StyledNavLink> */}
-      {/* <StyledNavLink to="/user-profile-page">我的主页</StyledNavLink> */}
+      <StyledNavLink to="/activity-page">最近活动</StyledNavLink>
     </StyledNavLinks>
   );
 }

@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect, Suspense } from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ThemeProvider } from "styled-components";
@@ -55,7 +55,9 @@ function App() {
         <GlobalStyles />
         <ThemeProvider theme={theme}>
           <ThemeContext.Provider value={contextValue}>
-            <RouterProvider router={router} />
+            <Suspense fallback={<div>Loading...</div>}>
+              <RouterProvider router={router} />
+            </Suspense>
           </ThemeContext.Provider>
         </ThemeProvider>
       </QueryClientProvider>

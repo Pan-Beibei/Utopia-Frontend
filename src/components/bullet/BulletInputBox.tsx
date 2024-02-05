@@ -1,13 +1,14 @@
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import styled from "styled-components";
 import { Socket } from "socket.io-client";
 import toast from "react-hot-toast";
 import { MsgType } from "../../config";
 import PrimaryButton from "../ui/PrimaryButton";
 import { ButtonTypes } from "../../enum/ButtonTypes";
-import EmojiPicker from "../EmojiPicker";
+// import EmojiPicker from "../EmojiPicker";
 import EmojiTextInput from "../EmojiTextInput";
 import { useFetchUser } from "../../hooks/useFetchUser";
+import LazyEmojiPicker from "../../lazyComponents/LazyEmojiPicker";
 
 const StyledBulletInputContainer = styled.div`
   position: relative;
@@ -53,7 +54,9 @@ function BulletInputBox({ socket }: BulletInputTextProps) {
         id: user.id,
         msg: content,
       });
+
       setInputContent("");
+      toast.success("弹幕已发送");
     } else {
       console.error("send-bullet: ", content, "socket: ", socket.current);
     }
@@ -63,7 +66,10 @@ function BulletInputBox({ socket }: BulletInputTextProps) {
     <StyledBulletInputContainer>
       {showPicker && (
         <StyledEmojiContainer>
-          <EmojiPicker setInputContent={setInputContent} />
+          {/* <EmojiPicker setInputContent={setInputContent} /> */}
+          <Suspense fallback={<div>Loading...</div>}>
+            <LazyEmojiPicker setInputContent={setInputContent} />
+          </Suspense>
         </StyledEmojiContainer>
       )}
       <StyledFlex>

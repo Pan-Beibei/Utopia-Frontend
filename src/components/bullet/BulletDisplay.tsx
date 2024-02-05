@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect, useMemo, useCallback } from "react";
+import { useRef, useState, useEffect } from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import Bullet from ".";
@@ -16,6 +16,10 @@ const StyledBulletContainer = styled.div`
   overflow: hidden;
 `;
 
+function rondomSpeed() {
+  return 12 + Math.random() * 5;
+}
+
 function BulletDisplay() {
   const bullets = useSelector(getBullets);
   const [data, setData] = useState<BulletProps[]>([]);
@@ -28,7 +32,8 @@ function BulletDisplay() {
     if (!initialized && bullets.length > 0) {
       const newBullets: BulletProps[] = bullets.slice(0, 5).map((bullet, i) => {
         bulletIdsRef.current.add(bullet.id);
-        return { ...bullet, track: i + 1 };
+
+        return { ...bullet, track: i + 1, speed: rondomSpeed() };
       });
 
       setData(newBullets); // 取出前5条弹幕数据
@@ -36,43 +41,46 @@ function BulletDisplay() {
     }
   }, [bullets, initialized]);
 
-  const animationend = useCallback(
-    (id: string, track: number) => {
-      // 从bullets中删除已经播放完的弹幕
-      dispatch(removeBullet(id));
+  const animationend = (id: string, track: number) => {
+    // 从bullets中删除已经播放完的弹幕
+    dispatch(removeBullet(id));
 
-      // 从bullets中获取新的弹幕数据下标
-      let index = 0;
-      for (index = 0; index < bullets.length; index++) {
-        if (!bulletIdsRef.current.has(bullets[index].id)) {
-          bulletIdsRef.current.add(bullets[index].id);
-          break;
-        }
-      }
+    // 从bullets中获取新的弹幕数据下标
+    const newBullet = bullets.find(
+      (bullet) => !bulletIdsRef.current.has(bullet.id)
+    );
+    if (newBullet) {
+      console.log("new bullet: ", newBullet.msg);
+      bulletIdsRef.current.add(newBullet.id);
+    }
 
-      const newBullet = bullets[index];
+    console.log("new bullet: ", newBullet);
 
-      if (newBullet) {
-        setData((prevData) => [
-          ...prevData.filter((bullet) => bullet.id !== id),
-          { ...newBullet, track },
-        ]);
-      } else {
-        setData((prevData) => prevData.filter((bullet) => bullet.id !== id));
-      }
-    },
-    [dispatch, bullets]
-  );
+    if (newBullet) {
+      setData((prevData) => [
+        ...prevData.filter((bullet) => bullet.id !== id),
+        { ...newBullet, track, speed: rondomSpeed() },
+      ]);
+    } else {
+      setData((prevData) => prevData.filter((bullet) => bullet.id !== id));
+    }
+  };
 
-  const renderedBullets = useMemo(
-    () =>
-      data.map((el) => (
+  // const renderedBullets = useMemo(
+  //   () =>
+  //     data.map((el) => (
+  //       <Bullet bulletProps={el} key={el.id} animationend={animationend} />
+  //     )),
+  //   [data, animationend]
+  // );
+
+  return (
+    <StyledBulletContainer>
+      {data.map((el) => (
         <Bullet bulletProps={el} key={el.id} animationend={animationend} />
-      )),
-    [data, animationend]
+      ))}
+    </StyledBulletContainer>
   );
-
-  return <StyledBulletContainer>{renderedBullets}</StyledBulletContainer>;
 }
 
 export default BulletDisplay;

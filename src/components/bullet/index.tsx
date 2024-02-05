@@ -51,7 +51,7 @@ const Bullet = memo(function Bullet({
   animationend,
 }: BulletComProps) {
   const bulletRef = useRef(null);
-  const { id, msg, track } = bulletProps;
+  const { id, msg, track, speed } = bulletProps;
 
   const handleAnimationEnd = useCallback(() => {
     animationend(id, track);
@@ -65,8 +65,6 @@ const Bullet = memo(function Bullet({
       element.removeEventListener("animationend", handleAnimationEnd);
     };
   }, [handleAnimationEnd]);
-
-  const speed = 12 + Math.random() * 5;
 
   return (
     <StyledBullet

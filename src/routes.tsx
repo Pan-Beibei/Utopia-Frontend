@@ -1,11 +1,12 @@
 import AppLayout from "./components/AppLayout";
-import AccommodationPage from "./pages/AccommodationPage";
-import ActivityPage from "./pages/ActivityPage";
 import HomePage from "./pages/HomePage";
-import LoginPage from "./pages/LoginPage";
-import ForumPage from "./pages/ForumPage";
-import PostDetail from "./components/Post/PostDetail";
-import UserProfilePage from "./pages/UserProfilePage";
+
+import LazyForumPage from "./lazyComponents/LazyForumPage";
+import LazyPostPage from "./lazyComponents/LazyPostPage";
+import LazyUserProfilePage from "./lazyComponents/LazyUserProfilePage";
+import LazyLoginPage from "./lazyComponents/LazyLoginPage";
+import LazyActivityPage from "./lazyComponents/LazyActivityPage";
+
 import {
   hoemLoader,
   activityLoader,
@@ -23,30 +24,26 @@ export const routes = [
         loader: hoemLoader,
       },
       {
-        path: "hotel-info",
-        element: <AccommodationPage />,
-      },
-      {
-        path: "activity-info",
-        element: <ActivityPage />,
+        path: "activity-page",
+        element: <LazyActivityPage />,
         loader: activityLoader,
       },
       {
         path: "forum-page",
-        element: <ForumPage />,
+        element: <LazyForumPage />,
         loader: forumLoader,
       },
       {
         path: "post-detail/:postId",
-        element: <PostDetail />,
+        element: <LazyPostPage />,
       },
       {
         path: "user-profile-page",
-        element: <UserProfilePage />,
+        element: <LazyUserProfilePage />,
       },
       {
         path: "login-page",
-        element: <LoginPage />,
+        element: <LazyLoginPage />,
       },
     ],
   },
