@@ -5,6 +5,7 @@ import { BulletProps } from "../../services/state/bulletSlice";
 interface BulletStyleProps {
   $from: string;
   $to: string;
+  $speed: number;
   $posY: number;
 }
 
@@ -27,7 +28,7 @@ const StyledBullet = styled.div<BulletStyleProps>`
     color: ${(props) => props.theme.colors.white};
     top: ${props.$posY}px;
 
-    animation: rightToLeft 15s linear;
+    animation: rightToLeft ${props.$speed}s linear;
     animation-fill-mode: forwards;
 
     @keyframes rightToLeft {
@@ -65,8 +66,16 @@ const Bullet = memo(function Bullet({
     };
   }, [handleAnimationEnd]);
 
+  const speed = 12 + Math.random() * 5;
+
   return (
-    <StyledBullet $from={fromA} $to={toA} $posY={track * 30} ref={bulletRef}>
+    <StyledBullet
+      $from={fromA}
+      $to={toA}
+      $posY={track * 30}
+      $speed={speed}
+      ref={bulletRef}
+    >
       {msg}
     </StyledBullet>
   );

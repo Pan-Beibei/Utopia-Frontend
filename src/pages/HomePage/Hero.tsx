@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Video from "../../components/Video";
-import BulletShow from "../../components/bullet/BulletShow";
-import BulletInputBox from "../../components/bullet/BulletInputBox";
+import BulletDisplay from "../../components/Bullet/BulletDisplay";
+import BulletInputBox from "../../components/Bullet/BulletInputBox";
 import { useSocket } from "../../hooks/useSocket";
 
 const StyledHero = styled.section`
@@ -43,7 +43,7 @@ function Hero() {
   return (
     <StyledHero>
       <StyledBulletContainer>
-        <BulletShow />
+        <BulletDisplay />
         <StyledInputContainer>
           <BulletInputBox socket={socketRef} />
         </StyledInputContainer>

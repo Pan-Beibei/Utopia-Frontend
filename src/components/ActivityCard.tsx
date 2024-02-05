@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { formatDateTime } from "../utils/ConversionTime";
 import { BaseColumnFlex } from "../styles/BaseStyles";
-import FoodCard from "./ProductCard";
+// import FoodCard from "./ProductCard";
 import SectionTitle from "./ui/SectionTitle";
 
 const StyledContainer = styled(BaseColumnFlex)`
@@ -108,11 +108,11 @@ function ActivityCard({ imgUrl, title, content, date }: ActivityCardProps) {
       <SectionTitle>Photo Record</SectionTitle>
 
       <StyledFoodsListContainer>
-        {Array(8)
+        {/* {Array(8)
           .fill(null)
           .map((_, index) => (
             <FoodCard key={index} width="15rem" height="15rem" imgUrl="" />
-          ))}
+          ))} */}
       </StyledFoodsListContainer>
     </StyledContainer>
   );

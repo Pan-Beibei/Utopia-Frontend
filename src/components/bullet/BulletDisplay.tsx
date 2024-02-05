@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect, useMemo, useCallback } from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
-import Bullet from "./Bullet";
+import Bullet from ".";
 import {
   BulletProps,
   getBullets,
@@ -16,7 +16,7 @@ const StyledBulletContainer = styled.div`
   overflow: hidden;
 `;
 
-function BulletShow() {
+function BulletDisplay() {
   const bullets = useSelector(getBullets);
   const [data, setData] = useState<BulletProps[]>([]);
   const [initialized, setInitialized] = useState(false);
@@ -33,7 +33,6 @@ function BulletShow() {
 
       setData(newBullets); // 取出前5条弹幕数据
       setInitialized(true); // 设置已经初始化过
-      // console.log("InitBullets: ", newBullets);
     }
   }, [bullets, initialized]);
 
@@ -76,4 +75,4 @@ function BulletShow() {
   return <StyledBulletContainer>{renderedBullets}</StyledBulletContainer>;
 }
 
-export default BulletShow;
+export default BulletDisplay;
