@@ -16,7 +16,7 @@
     "@reduxjs/toolkit": "^1.9.7",
     "axios": "^1.6.5",
     "babel-plugin-styled-components": "^2.1.4",
-    "beibei-lexical-editor": "file:../lexical-editor/beibei-lexical-editor-0.0.1.tgz",
+    "beibei-lexical-editor": "file:./beibei-lexical-editor-0.0.1.tgz",
     "emoji-mart": "^5.5.2",
     "lexical": "^0.12.5",
     "react": "^18.2.0",

@@ -66,14 +66,6 @@ function BulletDisplay() {
     }
   };
 
-  // const renderedBullets = useMemo(
-  //   () =>
-  //     data.map((el) => (
-  //       <Bullet bulletProps={el} key={el.id} animationend={animationend} />
-  //     )),
-  //   [data, animationend]
-  // );
-
   return (
     <StyledBulletContainer>
       {data.map((el) => (

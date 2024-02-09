@@ -49,7 +49,7 @@ function UserProfilePage() {
 
   function handleLogout() {
     removeItem();
-    dispatch(clearUser);
+    dispatch(clearUser(null));
     navigate("/");
   }
 

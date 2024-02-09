@@ -45,7 +45,7 @@ const StyledTop = styled(BaseColumnFlex)``;
 const MemoizedEditor = React.memo(Editor);
 
 function PostDetail() {
-  const { postId } = useParams();
+  const { postId } = useParams<{ postId: string }>();
 
   const { isError, isLoading, data: post } = usePost(postId);
 

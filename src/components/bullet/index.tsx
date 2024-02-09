@@ -26,7 +26,7 @@ const StyledBullet = styled.div<BulletStyleProps>`
   ${(props) => css`
     font-size: ${(props) => props.theme.fontSize.medium};
     color: ${(props) => props.theme.colors.white};
-    top: ${props.$posY}px;
+    top: ${props.$posY + 250}px;
 
     animation: rightToLeft ${props.$speed}s linear;
     animation-fill-mode: forwards;
@@ -70,7 +70,7 @@ const Bullet = memo(function Bullet({
     <StyledBullet
       $from={fromA}
       $to={toA}
-      $posY={track * 30}
+      $posY={track * 40}
       $speed={speed}
       ref={bulletRef}
     >
