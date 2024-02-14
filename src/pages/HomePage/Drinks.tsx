@@ -73,9 +73,7 @@ function Drinks() {
 
   console.log(drinks);
 
-  if (Object.keys(drinks).length === 0) return null;
-
-  console.log(drinks[DrinkEnum.DRINK_MENU]);
+  if (Object.keys(drinks).length === 0) return <div>饮料数据错误！！</div>;
 
   return (
     <section>
@@ -88,7 +86,7 @@ function Drinks() {
               alt="drink list"
             />
             <StyledContent>
-              {JSON.parse(drinks[DrinkEnum.DRINK_MENU][0].description)[0].src}
+              {JSON.parse(drinks[DrinkEnum.DRINK_MENU][0].description)[0]?.src}
             </StyledContent>
           </div>
         </StyledFlex>
@@ -104,7 +102,7 @@ function Drinks() {
                   key={index}
                   name={drink.name}
                   price={drink.price}
-                  description={JSON.parse(drink.description)[0].src}
+                  description={JSON.parse(drink.description)[0]?.src}
                   imgUrl={drink.pictures[0]}
                 />
               );
@@ -123,7 +121,7 @@ function Drinks() {
                   key={index}
                   name={drink.name}
                   price={drink.price}
-                  description={JSON.parse(drink.description)[0].src}
+                  description={JSON.parse(drink.description)[0]?.src}
                   imgUrl={drink.pictures[0]}
                 />
               );
@@ -142,7 +140,7 @@ function Drinks() {
                   key={index}
                   name={drink.name}
                   price={drink.price}
-                  description={JSON.parse(drink.description)[0].src}
+                  description={JSON.parse(drink.description)[0]?.src}
                   imgUrl={drink.pictures[0]}
                 />
               );
@@ -161,7 +159,7 @@ function Drinks() {
                   key={index}
                   name={drink.name}
                   price={drink.price}
-                  description={JSON.parse(drink.description)[0].src}
+                  description={JSON.parse(drink.description)[0]?.src}
                   imgUrl={drink.pictures[0]}
                 />
               );
@@ -172,7 +170,7 @@ function Drinks() {
                   key={index}
                   name={drink.name}
                   price={drink.price}
-                  description={JSON.parse(drink.description)[0].src}
+                  description={JSON.parse(drink.description)[0]?.src}
                   imgUrl={drink.pictures[0]}
                 >
                   <StyledIcon src="/icons/greenplumwine.svg" alt="" />
@@ -186,7 +184,7 @@ function Drinks() {
                   key={index}
                   name={drink.name}
                   price={drink.price}
-                  description={JSON.parse(drink.description)[0].src}
+                  description={JSON.parse(drink.description)[0]?.src}
                   imgUrl={drink.pictures[0]}
                 >
                   <StyledIcon src="/icons/noodles.svg" alt="" />

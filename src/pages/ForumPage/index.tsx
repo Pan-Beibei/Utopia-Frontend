@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { BaseColumnFlex } from "../../styles/BaseStyles";
 import ForumIntroduction from "./ForumIntroduction";
 import ForumLayout from "./ForumLayout";
-import CreatePost from "./CreatePost";
+import CreatePost from "../../components/Post/PostCreate";
 import { useLoaderData } from "react-router-dom";
 
 const StyledContainer = styled(BaseColumnFlex)`
