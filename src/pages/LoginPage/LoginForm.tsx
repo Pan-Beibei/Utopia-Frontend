@@ -9,7 +9,8 @@ function LoginForm({ register, getValues }: AuthFormProps) {
   return (
     <StyledLoginForm>
       {authFieldsConfig
-        .slice(0, 2)
+        .filter(({ id }) => id === "password" || id === "phone")
+        .sort(({ id: idA }) => (idA === "phone" ? -1 : 1))
         .map(({ id, validation, placeholder }, index) => (
           <StyledLoginInput
             {...register(id, validation(getValues))}

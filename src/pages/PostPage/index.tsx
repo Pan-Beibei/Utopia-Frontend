@@ -6,8 +6,9 @@ import PostDetailNavigationButtons from "../../components/Post/PostDetailNavigat
 import PostCommentInputBox from "../../components/Post/PostCommentInputBox";
 import PostCommentList from "../../components/Comment/CommentList";
 import { App as Editor } from "beibei-lexical-editor";
-import { formatDateToChinese } from "../../utils/ConversionTime";
+import { formatDateToChinese } from "../../utils/conversionTime";
 import { usePost } from "../../hooks/usePostsHooks";
+import { getUserName } from "../../utils/helper";
 
 const StyledContainer = styled(BaseColumnFlex)`
   padding-top: 7.6rem;
@@ -66,7 +67,7 @@ function PostDetail() {
       <StyledTop>
         <StyledTitle>{post.title}</StyledTitle>
         <StyledFlexForPostDetails>
-          <p>{post.author.username}</p>
+          <p>{getUserName(post.author)}</p>
           <p>{formatDateToChinese(post.createdAt)}</p>
         </StyledFlexForPostDetails>
       </StyledTop>

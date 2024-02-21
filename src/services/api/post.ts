@@ -1,4 +1,5 @@
 import { SERVER_ADDRESS, API_VERSION } from "../../config";
+import { User } from "../../types";
 import { requestHandler } from "../../utils/requestHandler";
 import api from "./api";
 
@@ -13,7 +14,7 @@ export interface PostResponse {
   title: string;
   content: string;
   tags: Array<string>;
-  author: { username: string };
+  author: User;
   createdAt: string;
   commentsCount: number;
 }

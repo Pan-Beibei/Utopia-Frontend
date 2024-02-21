@@ -34,12 +34,12 @@ function ProfileViewControls({
       >
         个人信息
       </StyledButton>
-      <StyledButton
+      {/* <StyledButton
         $selected={viewType === UserViewEnum.APPOINTMENTS}
         onClick={() => handleViewTypeChange(UserViewEnum.APPOINTMENTS)}
       >
         我的预约
-      </StyledButton>
+      </StyledButton> */}
     </StyledProfileViewControls>
   );
 }

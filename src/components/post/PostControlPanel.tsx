@@ -27,7 +27,11 @@ interface PostControlPanelProps {
 
 function PostControlPanel({ setShowCreatePost }: PostControlPanelProps) {
   const { user } = useFetchUser();
-  const isAdmin = user?.roles.includes("admin");
+
+  let isAdmin = false;
+  if (user) {
+    isAdmin = user.roles.includes("admin");
+  }
 
   return (
     <StyledContainer>

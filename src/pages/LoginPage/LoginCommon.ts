@@ -20,6 +20,7 @@ export const StyledLoginForm = styled.div`
 `;
 
 export const StyledLoginInput = styled.input`
+  min-width: 20rem;
   width: 100%;
   padding: 0.8rem 1.6rem;
   background-color: transparent;
@@ -30,34 +31,30 @@ export const StyledLoginInput = styled.input`
   }
 `;
 
-export const StyledGetVerificationCodeButton = styled.button`
-  padding: 0.5rem 1.6rem;
-  background-color: ${(props) => props.theme.colors.primary};
-  color: ${(props) => props.theme.colors.white};
-  border: none;
-  border-radius: ${(props) => props.theme.borderRadius};
-  position: absolute;
-  right: 0;
-  bottom: 0;
-`;
-
 export interface AuthFieldsProps {
   username: string;
   password: string;
   passwordConfirm: string;
+  gender: string;
+  birthday: string;
   phone: string;
   verificationCode: string;
 }
 
-type AuthFieldConfig = {
+export type AuthFieldConfigProps = {
   id: keyof AuthFieldsProps;
-  placeholder: string;
+  type: string;
+  label: string;
+  options?: string[];
+  placeholder?: string;
   validation: (getValues: () => AuthFieldsProps) => RegisterOptions;
 };
 
-export const authFieldsConfig: AuthFieldConfig[] = [
+export const authFieldsConfig: AuthFieldConfigProps[] = [
   {
     id: "username",
+    type: "text",
+    label: "用户名",
     placeholder: "请输入用户名...",
     validation: () => ({
       required: "This field is required",
@@ -69,6 +66,8 @@ export const authFieldsConfig: AuthFieldConfig[] = [
   },
   {
     id: "password",
+    type: "text",
+    label: "密码",
     placeholder: "请输入密码...",
     validation: () => ({
       required: "This field is required",
@@ -84,6 +83,8 @@ export const authFieldsConfig: AuthFieldConfig[] = [
   },
   {
     id: "passwordConfirm",
+    type: "text",
+    label: "确认密码",
     placeholder: "请再次输入密码确认...",
     validation: (getValues) => ({
       required: "This field is required",
@@ -91,7 +92,31 @@ export const authFieldsConfig: AuthFieldConfig[] = [
     }),
   },
   {
+    id: "gender",
+    type: "radio",
+    label: "性别",
+    options: ["0", "1"],
+    validation: () => ({
+      required: "This field is required",
+    }),
+  },
+  {
+    id: "birthday",
+    type: "text",
+    label: "生日",
+    placeholder: "例:1990-02-03",
+    validation: () => ({
+      required: "This field is required",
+      pattern: {
+        value: /^\d{4}-\d{2}-\d{2}$/,
+        message: "生日格式不正确",
+      },
+    }),
+  },
+  {
     id: "phone",
+    type: "text",
+    label: "手机号",
     placeholder: "请输入手机号...",
     validation: () => ({
       required: "This field is required",
@@ -103,6 +128,8 @@ export const authFieldsConfig: AuthFieldConfig[] = [
   },
   {
     id: "verificationCode",
+    type: "text",
+    label: "验证码",
     placeholder: "请输入验证码...",
     validation: () => ({
       required: "This field is required",

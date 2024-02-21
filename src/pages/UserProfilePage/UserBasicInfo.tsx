@@ -24,6 +24,12 @@ function UserBasicInfo() {
     <StyledContainer>
       <StyledTitle>基本信息</StyledTitle>
       <InputBox title="用户名" placeholder={user.username} disabled={true} />
+      <InputBox title="生日" placeholder={user.birthday} disabled={true} />
+      <InputBox
+        title="性别"
+        placeholder={user.gender === "0" ? "女" : "男"}
+        disabled={true}
+      />
       <InputBox title="电话" placeholder={user.phone} disabled={true} />
     </StyledContainer>
   );

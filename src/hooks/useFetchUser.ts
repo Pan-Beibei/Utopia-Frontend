@@ -21,6 +21,8 @@ export function useFetchUser() {
     getMe()
       .then((res) => {
         if (res.code === "success") {
+          console.log("fetch user success", res);
+
           dispatch(setUser(res.data));
         } else {
           console.error(res.error);

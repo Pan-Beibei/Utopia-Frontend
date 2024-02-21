@@ -9,7 +9,7 @@ import {
   StyledCommentContent,
 } from "./Common";
 import ReplyButton from "./CommentReplyButton";
-import { timeAgo } from "../../utils/ConversionTime";
+import { timeAgo } from "../../utils/conversionTime";
 
 const StyledReply = styled(BaseColumnFlex)`
   gap: 0.3rem;

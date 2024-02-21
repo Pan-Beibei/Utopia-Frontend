@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { BaseColumnFlex } from "../../styles/BaseStyles";
 import ReplyButton from "./CommentReplyButton";
 import ReplyInputBox from "./CommentReplyInputBox";
+import { getUserName } from "../../utils/helper";
 
 import {
   StyledFlexForHeader,
@@ -13,7 +14,7 @@ import {
 } from "./Common";
 import CommentReplyList from "./CommentReplyList";
 import { CommentResponse } from "../../services/api/comment";
-import { timeAgo } from "../../utils/ConversionTime";
+import { timeAgo } from "../../utils/conversionTime";
 
 type ContextType = {
   handleReply: (repliedUserName: string) => void;
@@ -60,12 +61,14 @@ function Comment({ postId, children, data }: CommentProps) {
     <CommentContext.Provider value={{ commentParentId, handleReply }}>
       <StyledComment>
         <StyledFlexForHeader>
-          <StyledUserName>{data.author.username}</StyledUserName>
+          <StyledUserName>{getUserName(data.author)}</StyledUserName>
           <StyledDate>{timeAgo(data.createdAt)}</StyledDate>
         </StyledFlexForHeader>
         <StyledFlexForMainContent>
           <StyledCommentContent>{data.content}</StyledCommentContent>
-          <ReplyButton handleReply={() => handleReply(data.author.username)} />
+          <ReplyButton
+            handleReply={() => handleReply(getUserName(data.author))}
+          />
         </StyledFlexForMainContent>
         {children}
         {showReplyInputBox && (

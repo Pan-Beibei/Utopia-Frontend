@@ -1,4 +1,5 @@
 import { SERVER_ADDRESS, API_VERSION } from "../../config";
+import { User } from "../../types";
 import { requestHandler } from "../../utils/requestHandler";
 import api from "./api";
 
@@ -11,7 +12,7 @@ interface createCommentParams {
 
 export interface CommentResponse {
   id: string; //评论Id
-  author: { id: string; username: string }; //评论作者
+  author: User; //评论作者
   content: string; //评论内容
   parent: string; //父评论Id
   replyTo: { id: string; author: { id: string; username: string } }; // 回复目标

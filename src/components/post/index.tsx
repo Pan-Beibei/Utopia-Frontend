@@ -2,7 +2,8 @@ import styled from "styled-components";
 import { BaseColumnFlex, BaseFlex } from "../../styles/BaseStyles";
 import { PostResponse } from "../../services/api/post";
 import { postTags } from "../../types";
-import { formatDateToChinese } from "../../utils/ConversionTime";
+import { formatDateToChinese } from "../../utils/conversionTime";
+import { getUserName } from "../../utils/helper";
 
 const StyledContainer = styled(BaseColumnFlex)`
   align-items: flex-start;
@@ -78,7 +79,7 @@ function Post({ post }: { post: PostResponse }) {
 
       {/* <StyledText>{post.content}</StyledText> */}
       <StyledFlexForPostDetails>
-        <span>{post.author.username}</span>
+        <span>{getUserName(post.author)}</span>
         <StyledFlexForCommentsAndTime>
           <span>{post.commentsCount}条评论</span>
           <span>{formatDateToChinese(post.createdAt)}</span>

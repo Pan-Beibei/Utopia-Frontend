@@ -94,6 +94,12 @@ img {
   max-width: 100%;
 }
 
+input[type='radio'] {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
 /***************
  *  Third-party animation
  * *******************/

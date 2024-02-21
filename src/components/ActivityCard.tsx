@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { formatDateTime } from "../utils/ConversionTime";
+import { formatDateTime } from "../utils/conversionTime";
 import { BaseColumnFlex } from "../styles/BaseStyles";
 // import FoodCard from "./ProductCard";
 import SectionTitle from "./ui/SectionTitle";
