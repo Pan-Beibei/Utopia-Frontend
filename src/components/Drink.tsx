@@ -13,9 +13,11 @@ const StyledForNameAndPrice = styled(BaseFlex)`
 `;
 
 const StyledImg = styled.img`
-  width: 100%;
-  height: 100%;
   border-radius: 0.8rem;
+  @media (min-width: ${(props) => props.theme.breakpoints.tablet}) {
+    // width: 15rem;
+    // height: 15rem;
+  }
 `;
 
 const StyledDescription = styled.div`

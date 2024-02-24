@@ -12,7 +12,7 @@ const PlaceholderImage = styled.img<{ $isvideoLoaded: boolean }>`
   top: 0;
   left: 0;
   width: 100vw;
-  height: 100vh;
+  height: 90vh;
   object-fit: cover;
   display: ${(props) => (props.$isvideoLoaded ? "none" : "block")};
 `;
@@ -22,7 +22,7 @@ const VideoElement = styled.video`
   top: 0;
   left: 0;
   width: 100vw;
-  height: 100vh;
+  height: 95vh;
   object-fit: cover;
 `;
 

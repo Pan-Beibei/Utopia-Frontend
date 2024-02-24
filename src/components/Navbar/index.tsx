@@ -20,6 +20,9 @@ const StyledNarbar = styled.nav`
 
 const StyledContainer = styled(BaseFlex)`
   gap: 2rem;
+  @media (min-width: ${(props) => props.theme.breakpoints.tablet}) {
+    gap: 4.8rem;
+  }
 `;
 
 const StyledNavMobile = styled.div`
@@ -40,9 +43,12 @@ const StyledLoginButton = styled.button`
   background-color: ${(props) => props.theme.colors.primary};
   border: none;
   border-radius: ${(props) => props.theme.borderRadius};
-  padding: 0.4rem 0.6rem;
-  font-size: ${(props) => props.theme.fontSize.small};
+  padding: 0.6rem 0.8rem;
+  font-size: ${(props) => props.theme.fontSize.medium};
   font-weight: ${(props) => props.theme.fontWeight.bold};
+  @media (min-width: ${(props) => props.theme.breakpoints.tablet}) {
+    padding: 1.2rem 1.6rem;
+  }
 `;
 
 function Narbar() {

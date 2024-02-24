@@ -31,7 +31,7 @@ const warmTheme = {
     secondary: "#CC995A",
     primary: "#B05F25",
     white: "#FFFFFF",
-    gray500: "rgba(142, 142, 142, 0.64)",
+    gray500: "rgba(62, 58, 58, 0.8)",
     gray400: "rgba(104, 104, 104, 0.6)",
     gray300: "rgba(240, 240, 240, 1)",
   },

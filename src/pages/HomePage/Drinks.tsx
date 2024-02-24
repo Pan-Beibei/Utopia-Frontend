@@ -2,9 +2,10 @@ import styled from "styled-components";
 import { useSelector } from "react-redux";
 import { getDrinks } from "../../services/state/homePageSlice";
 import SectionTitleProps from "../../components/ui/SectionTitle";
-import { BaseColumnFlex, BaseFlex } from "../../styles/BaseStyles";
-import { DrinkEnum } from "../../types";
+import { BaseColumnFlex } from "../../styles/BaseStyles";
+import { DrinkEnum, DrinkType } from "../../types";
 import Drink from "../../components/Drink";
+import DrinkSeries from "../../components/DrinkSeries";
 
 const StyledContainer = styled(BaseColumnFlex)`
   padding: 0 2rem;
@@ -12,191 +13,121 @@ const StyledContainer = styled(BaseColumnFlex)`
   @media (min-width: ${(props) => props.theme.breakpoints.desktop}) {
     align-items: flex-start;
     gap: 5rem;
+    padding: 0 5rem;
   }
 `;
-
-const StyledFlex = styled(BaseColumnFlex)`
+const StyledDrinkMenuGroup = styled(BaseColumnFlex)`
   gap: 2rem;
-  @media (min-width: ${(props) => props.theme.breakpoints.tablet}) {
+  @media (min-width: ${(props) => props.theme.breakpoints.desktop}) {
     align-items: start;
     flex-direction: row;
+    gap: 5rem;
   }
 `;
-
-const StyledContent = styled.p`
-  margin-top: 1rem;
-  padding: 0 1rem;
-  font-size: ${(props) => props.theme.fontSize.large};
-  font-weight: ${(props) => props.theme.fontWeight.bold};
-  letter-spacing: 0.8px;
-  border-radius: 0.8rem;
-  background-color: ${(props) => props.theme.colors.white};
-  color: ${(props) => props.theme.colors.text};
-`;
-
 const StyledDrinksListImg = styled.img`
-  width: 100%;
-  height: 100%;
   border-radius: 0.8rem;
-`;
-
-const StyledSeries = styled(BaseColumnFlex)`
-  gap: 1rem;
   @media (min-width: ${(props) => props.theme.breakpoints.tablet}) {
-    align-items: flex-start;
+    max-width: 52.8rem;
+    max-height: 60.5rem;
   }
 `;
 
-const StyledDrinksList = styled.div`
+const StyledDrinksReviewList = styled.div`
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  row-gap: 3rem;
+  grid-template-columns: repeat(1, 1fr);
+  row-gap: 2rem;
   column-gap: 2rem;
-  @media (min-width: ${(props) => props.theme.breakpoints.tablet}) {
-    grid-template-columns: repeat(3, 1fr);
+  @media (min-width: ${(props) => props.theme.breakpoints.desktop}) {
+    grid-template-columns: repeat(2, 1fr);
   }
 `;
 
-const StyledSeriesTitle = styled(BaseFlex)`
-  gap: 1rem;
+const StyledDrinksReview = styled.div`
+  background-color: ${(props) => props.theme.colors.white};
+  border-radius: 0.8rem;
   font-size: ${(props) => props.theme.fontSize.large};
   font-weight: ${(props) => props.theme.fontWeight.bold};
+  padding: 2.4rem;
 `;
 
-const StyledIcon = styled.img`
-  width: 2.6rem;
-  height: 2.6rem;
-`;
+const DrinkList = ({ drinks }: { drinks: DrinkType[] }) => {
+  return (
+    <>
+      {drinks.map((drink: DrinkType) => (
+        <Drink
+          key={drink.name}
+          name={drink.name}
+          price={drink.price}
+          description={JSON.parse(drink.description)[0]?.src}
+          imgUrl={drink.pictures[0]}
+        />
+      ))}
+    </>
+  );
+};
 
 function Drinks() {
   const drinks = useSelector(getDrinks);
 
-  console.log(drinks);
-
   if (Object.keys(drinks).length === 0) return <div>饮料数据错误！！</div>;
+
+  const drinkMenuImg = drinks[DrinkEnum.DRINK_MENU][0].pictures[0];
+  const drinkMenuText = JSON.parse(drinks[DrinkEnum.DRINK_MENU][0].description);
+  if (drinkMenuImg === undefined || drinkMenuText === undefined)
+    return <div>酒水单错误！！</div>;
+
+  const blackcoffee = drinks[DrinkEnum.BLACK_COFFEE];
+  if (blackcoffee === undefined) return <div>黑咖啡错误！！</div>;
+
+  const whitecoffee = drinks[DrinkEnum.WHITE_COFFEE];
+  if (whitecoffee === undefined) return <div>白咖啡错误！！</div>;
+
+  const greenplumwine = drinks[DrinkEnum.GREEN_PLUM_WINE];
+  if (greenplumwine === undefined) return <div>青梅酒错误！！</div>;
+
+  const sweetwater = drinks[DrinkEnum.SWEET_WATER];
+  if (sweetwater === undefined) return <div>小甜水错误！！</div>;
 
   return (
     <section>
       <StyledContainer>
         <SectionTitleProps>Drink Menu</SectionTitleProps>
-        <StyledFlex>
-          <div>
-            <StyledDrinksListImg
-              src={drinks[DrinkEnum.DRINK_MENU][0].pictures[0]}
-              alt="drink list"
-            />
-            <StyledContent>
-              {JSON.parse(drinks[DrinkEnum.DRINK_MENU][0].description)[0]?.src}
-            </StyledContent>
-          </div>
-        </StyledFlex>
-        <StyledSeries>
-          <StyledSeriesTitle>
-            <StyledIcon src="/icons/blackcoffee.svg" alt="" />
-            <span>黑咖啡系列</span>
-          </StyledSeriesTitle>
-          <StyledDrinksList>
-            {drinks[DrinkEnum.BLACK_COFFEE].map((drink, index) => {
-              return (
-                <Drink
-                  key={index}
-                  name={drink.name}
-                  price={drink.price}
-                  description={JSON.parse(drink.description)[0]?.src}
-                  imgUrl={drink.pictures[0]}
-                />
-              );
+        <StyledDrinkMenuGroup>
+          <StyledDrinksListImg src={drinkMenuImg} alt="drink list" />
+          <StyledDrinksReviewList>
+            {drinkMenuText.map(({ src }: { src: string }, index: number) => {
+              return <StyledDrinksReview key={index}>{src}</StyledDrinksReview>;
             })}
-          </StyledDrinksList>
-        </StyledSeries>
-        <StyledSeries>
-          <StyledSeriesTitle>
-            <StyledIcon src="/icons/whitecoffee.svg" alt="" />
-            <span>白咖啡系列</span>
-          </StyledSeriesTitle>
-          <StyledDrinksList>
-            {drinks[DrinkEnum.WHITE_COFFEE].map((drink, index) => {
-              return (
-                <Drink
-                  key={index}
-                  name={drink.name}
-                  price={drink.price}
-                  description={JSON.parse(drink.description)[0]?.src}
-                  imgUrl={drink.pictures[0]}
-                />
-              );
-            })}
-          </StyledDrinksList>
-        </StyledSeries>
-        <StyledSeries>
-          <StyledSeriesTitle>
-            <StyledIcon src="/icons/greenplumwine.svg" alt="" />
-            <span>青梅酒特调系列</span>
-          </StyledSeriesTitle>
-          <StyledDrinksList>
-            {drinks[DrinkEnum.GREEN_PLUM_WINE].map((drink, index) => {
-              return (
-                <Drink
-                  key={index}
-                  name={drink.name}
-                  price={drink.price}
-                  description={JSON.parse(drink.description)[0]?.src}
-                  imgUrl={drink.pictures[0]}
-                />
-              );
-            })}
-          </StyledDrinksList>
-        </StyledSeries>
-        <StyledSeries>
-          <StyledSeriesTitle>
-            <StyledIcon src="/icons/greenplumwine.svg" alt="" />
-            <span>再见小甜水系列</span>
-          </StyledSeriesTitle>
-          <StyledDrinksList>
-            {drinks[DrinkEnum.SWEET_WATER].map((drink, index) => {
-              return (
-                <Drink
-                  key={index}
-                  name={drink.name}
-                  price={drink.price}
-                  description={JSON.parse(drink.description)[0]?.src}
-                  imgUrl={drink.pictures[0]}
-                />
-              );
-            })}
-            {drinks[DrinkEnum.OTHER_WATER].map((drink, index) => {
-              return (
-                <Drink
-                  key={index}
-                  name={drink.name}
-                  price={drink.price}
-                  description={JSON.parse(drink.description)[0]?.src}
-                  imgUrl={drink.pictures[0]}
-                >
-                  <StyledIcon src="/icons/greenplumwine.svg" alt="" />
-                  <span>懂的都懂</span>
-                </Drink>
-              );
-            })}
-            {drinks[DrinkEnum.NOODLES].map((drink, index) => {
-              return (
-                <Drink
-                  key={index}
-                  name={drink.name}
-                  price={drink.price}
-                  description={JSON.parse(drink.description)[0]?.src}
-                  imgUrl={drink.pictures[0]}
-                >
-                  <StyledIcon src="/icons/noodles.svg" alt="" />
-                  <span>葱油面</span>
-                </Drink>
-              );
-            })}
-          </StyledDrinksList>
-        </StyledSeries>
-        <StyledSeries>
-          <StyledDrinksList></StyledDrinksList>
-        </StyledSeries>
+          </StyledDrinksReviewList>
+        </StyledDrinkMenuGroup>
+        <DrinkSeries seriesName="黑咖啡系列" iconUrl="/icons/blackcoffee.svg">
+          <DrinkList drinks={blackcoffee} />
+        </DrinkSeries>
+
+        <DrinkSeries seriesName="白咖啡系列" iconUrl="/icons/whitecoffee.svg">
+          <DrinkList drinks={whitecoffee} />
+        </DrinkSeries>
+
+        <DrinkSeries
+          seriesName="青梅酒特调系列"
+          iconUrl="/icons/greenplumwine.svg"
+        >
+          <DrinkList drinks={greenplumwine} />
+        </DrinkSeries>
+
+        <DrinkSeries
+          seriesName="再见小甜水系列"
+          iconUrl="/icons/sweetwater.svg"
+        >
+          <DrinkList drinks={sweetwater} />
+        </DrinkSeries>
+
+        <DrinkSeries seriesName="懂的都懂" iconUrl="/icons/otherwater.svg">
+          <DrinkList drinks={drinks[DrinkEnum.OTHER_WATER]} />
+        </DrinkSeries>
+        <DrinkSeries seriesName="葱油面" iconUrl="/icons/noodles.svg">
+          <DrinkList drinks={drinks[DrinkEnum.NOODLES]} />
+        </DrinkSeries>
       </StyledContainer>
     </section>
   );

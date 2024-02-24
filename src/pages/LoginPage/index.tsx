@@ -44,6 +44,8 @@ function LoginPage() {
     data: AuthFieldsProps,
     errorMessage: string
   ) {
+    console.log("handleAuth called", data);
+
     authFunc(data)
       .then((res) => {
         if (res.code === "success") {

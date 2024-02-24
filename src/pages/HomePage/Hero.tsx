@@ -19,7 +19,7 @@ const StyledBulletContainer = styled.div`
   width: 100%;
   background-color: transparent;
   position: absolute;
-  top: 10rem;
+  top: 0;
   overflow: hidden;
   z-index: 2;
 `;
@@ -34,7 +34,7 @@ const VideoContainer = styled.div`
 const StyledInputContainer = styled.div`
   position: absolute;
   width: 100%;
-  bottom: 11rem;
+  bottom: 7rem;
 `;
 
 function Hero() {

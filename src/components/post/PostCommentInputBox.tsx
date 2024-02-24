@@ -78,7 +78,7 @@ function PostCommentInputBox({ postId }: PostCommentInputBoxProps) {
         showPicker={showPicker}
         setShowPicker={setShowPicker}
         backgroundColor={theme.colors.gray300}
-        fontColor="#A09A9E"
+        fontColor={theme.colors.black}
         placeholder="评论..."
       />
       <StyledPulishButton onClick={handlePublish}>

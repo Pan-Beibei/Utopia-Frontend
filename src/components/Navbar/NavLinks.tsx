@@ -10,13 +10,13 @@ const StyledNavLinks = styled.ul`
   gap: 1rem;
   @media (min-width: ${(props) => props.theme.breakpoints.tablet}) {
     flex-direction: row;
-    gap: 2rem;
+    gap: 4.8rem;
   }
 `;
 
 const StyledNavLink = styled(NavLink)`
   text-transform: uppercase;
-  font-size: ${(props) => props.theme.fontSize.small};
+  font-size: ${(props) => props.theme.fontSize.medium};
   font-weight: ${(props) => props.theme.fontWeight.bold};
   letter-spacing: 0.2rem;
 

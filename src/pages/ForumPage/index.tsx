@@ -10,6 +10,8 @@ const StyledContainer = styled(BaseColumnFlex)`
   padding-top: 7.6rem;
   gap: 2rem;
   border-radius: 0.8rem;
+  max-width: 1200px;
+  margin: 0 auto;
 `;
 
 function ForumPage() {

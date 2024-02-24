@@ -81,6 +81,8 @@ function CommentReplyInputBox({
       });
   }
 
+  console.log(theme.colors.black);
+
   return (
     <StyledContainer>
       {showPicker && (
@@ -95,7 +97,7 @@ function CommentReplyInputBox({
         setShowPicker={setShowPicker}
         placeholder={placeholderText}
         backgroundColor="transparent"
-        fontColor={theme.colors.gray400}
+        fontColor={theme.colors.black}
         border="1px solid rgba(142, 142, 142, 0.6)"
       />
       <StyledPulishButton onClick={handlePublish}>发布</StyledPulishButton>
