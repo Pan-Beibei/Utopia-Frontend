@@ -1,5 +1,5 @@
 import styled from "styled-components";
-
+import { useState } from "react";
 import { BaseColumnFlex } from "../../styles/BaseStyles";
 import PostList from "../../components/Post/PostList";
 import Pagination from "../../components/Pagination";
@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../store";
 import { usePosts } from "../../hooks/usePostsHooks";
 import PostControlPanel from "../../components/Post/PostControlPanel";
-import { useState } from "react";
+import { getSearch } from "../../services/state/ForumSlice";
 
 const StyledContainer = styled(BaseColumnFlex)`
   padding: 2rem 1rem;
@@ -19,11 +19,10 @@ const StyledContainer = styled(BaseColumnFlex)`
 `;
 
 interface ForumLayoutProps {
-  setShowCreatePost: () => void;
   postsCount: number;
 }
 
-function ForumLayout({ setShowCreatePost, postsCount }: ForumLayoutProps) {
+function ForumLayout({ postsCount }: ForumLayoutProps) {
   const [currentPage, setCurrentPage] = useState(1);
   const postsPerPage = useSelector(
     (state: RootState) => state.global.itemsPerPage
@@ -32,21 +31,27 @@ function ForumLayout({ setShowCreatePost, postsCount }: ForumLayoutProps) {
     (state: RootState) => state.global.paginationButtons
   );
 
-  const { isLoading, error, data: posts } = usePosts(currentPage, postsPerPage);
+  const filter = useSelector(getSearch);
+
+  const {
+    isLoading,
+    error,
+    data: posts,
+  } = usePosts(currentPage, postsPerPage, filter);
   console.log(isLoading, error, posts);
   if (isLoading) return <div>loading...</div>;
   if (error) return <div>error</div>;
   if (posts === undefined || posts.length === 0)
     return (
       <StyledContainer>
-        <PostControlPanel setShowCreatePost={setShowCreatePost} />
+        <PostControlPanel />
         <div>暂无帖子</div>
       </StyledContainer>
     );
 
   return (
     <StyledContainer>
-      <PostControlPanel setShowCreatePost={setShowCreatePost} />
+      <PostControlPanel />
       <PostList posts={posts} />
       <Pagination
         postCount={postsCount}

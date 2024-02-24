@@ -1,10 +1,11 @@
-import { useState } from "react";
 import styled from "styled-components";
+import { useLoaderData } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { BaseColumnFlex } from "../../styles/BaseStyles";
 import ForumIntroduction from "./ForumIntroduction";
 import ForumLayout from "./ForumLayout";
 import CreatePost from "../../components/Post/PostCreate";
-import { useLoaderData } from "react-router-dom";
+import { getIsCreatePostVisible } from "../../services/state/ForumSlice";
 
 const StyledContainer = styled(BaseColumnFlex)`
   padding-top: 7.6rem;
@@ -15,21 +16,17 @@ const StyledContainer = styled(BaseColumnFlex)`
 `;
 
 function ForumPage() {
-  const [showCreatePost, setShowCreatePost] = useState(false);
+  const isCreatePostVisible = useSelector(getIsCreatePostVisible);
+
   const postsCount = useLoaderData() as number;
 
   return (
     <StyledContainer>
       <ForumIntroduction />
-      {showCreatePost ? (
-        <CreatePost
-          setShowCreatePost={() => setShowCreatePost((show) => !show)}
-        />
+      {isCreatePostVisible ? (
+        <CreatePost />
       ) : (
-        <ForumLayout
-          setShowCreatePost={() => setShowCreatePost((show) => !show)}
-          postsCount={postsCount}
-        />
+        <ForumLayout postsCount={postsCount} />
       )}
     </StyledContainer>
   );

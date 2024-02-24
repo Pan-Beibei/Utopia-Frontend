@@ -1,7 +1,9 @@
 import styled from "styled-components";
+import { useDispatch } from "react-redux";
 import PostSearch from "./PostSearch";
 import { BaseFlex } from "../../styles/BaseStyles";
 import { useFetchUser } from "../../hooks/useFetchUser";
+import { setIsCreatePostVisible } from "../../services/state/ForumSlice";
 
 const StyledPostButton = styled.button`
   padding: 1.2rem 1.6rem;
@@ -21,12 +23,9 @@ const StyledContainer = styled(BaseFlex)`
   gap: 1rem;
 `;
 
-interface PostControlPanelProps {
-  setShowCreatePost: () => void;
-}
-
-function PostControlPanel({ setShowCreatePost }: PostControlPanelProps) {
+function PostControlPanel() {
   const { user } = useFetchUser();
+  const dispatch = useDispatch();
 
   let isAdmin = false;
   if (user) {
@@ -37,7 +36,11 @@ function PostControlPanel({ setShowCreatePost }: PostControlPanelProps) {
     <StyledContainer>
       <PostSearch />
       {isAdmin && (
-        <StyledPostButton onClick={setShowCreatePost}>发帖</StyledPostButton>
+        <StyledPostButton
+          onClick={() => dispatch(setIsCreatePostVisible(true))}
+        >
+          发帖
+        </StyledPostButton>
       )}
     </StyledContainer>
   );

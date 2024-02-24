@@ -1,9 +1,9 @@
 import { useQuery } from "react-query";
 import { getPosts, getPost } from "../services/api/post";
 
-export function usePosts(page: number, limit: number) {
-  return useQuery(["posts", page, limit], async () => {
-    const data = await getPosts({ page, limit });
+export function usePosts(page: number, limit: number, filter: string) {
+  return useQuery(["posts", page, limit, filter], async () => {
+    const data = await getPosts({ page, limit, filter });
     return data.code === "success" ? data.data : [];
   });
 }

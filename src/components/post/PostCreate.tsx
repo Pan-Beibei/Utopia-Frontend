@@ -6,6 +6,8 @@ import { App as Editor } from "beibei-lexical-editor";
 import TagList from "../TagList";
 import { BaseFlex } from "../../styles/BaseStyles";
 import { createPost } from "../../services/api/post";
+import { useDispatch } from "react-redux";
+import { setIsCreatePostVisible } from "../../services/state/ForumSlice";
 
 const StyledEditor = styled.div`
   width: 100%;
@@ -45,14 +47,11 @@ const StyledButton = styled.button`
   background-color: ${(props) => props.theme.colors.primary};
 `;
 
-interface CreatePostProps {
-  setShowCreatePost: () => void;
-}
-
-function CreatePost({ setShowCreatePost }: CreatePostProps) {
+function CreatePost() {
   const [editorState, setEditorState] = useState<EditorState | null>(null);
   const [title, setTitle] = useState("");
   const [tags, setTags] = useState<string[]>([]);
+  const dispatch = useDispatch();
 
   function onChange(editorState: EditorState) {
     setEditorState(editorState);
@@ -79,7 +78,7 @@ function CreatePost({ setShowCreatePost }: CreatePostProps) {
     createPost({ title, content: editorStateJSON, tags })
       .then((res) => {
         console.log(res);
-        if (res.code === "success") setShowCreatePost();
+        if (res.code === "success") dispatch(setIsCreatePostVisible(false));
       })
       .catch((err) => {
         console.log(err);
@@ -105,7 +104,9 @@ function CreatePost({ setShowCreatePost }: CreatePostProps) {
       {<Editor onChange={onChange} editable={true} />}
       <TagList tags={tags} handleSelectTag={handleSelectTag} />
       <StyledButtonList>
-        <StyledButton onClick={setShowCreatePost}>取消</StyledButton>
+        <StyledButton onClick={() => dispatch(setIsCreatePostVisible(false))}>
+          取消
+        </StyledButton>
         <StyledButton onClick={handlePublish}>发布</StyledButton>
       </StyledButtonList>
     </StyledEditor>

@@ -22,6 +22,7 @@ export interface PostResponse {
 interface getPostCountParams {
   page: number;
   limit: number;
+  filter: string;
 }
 
 export const getPosts = requestHandler<getPostCountParams, PostResponse[]>(
