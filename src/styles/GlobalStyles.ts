@@ -1,26 +1,6 @@
 import { createGlobalStyle } from "styled-components";
 
 const GlobalStyles = createGlobalStyle`
-@font-face {
-  font-family: 'PingFang SC';
-  src: url('/fonts/PingFang-SC-Light.ttf') format('truetype');
-  font-weight: 300;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'PingFang SC';
-  src: url('/fonts/PingFang-SC-Regular.ttf') format('truetype');
-  font-weight: 400;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'PingFang SC';
-  src: url('/fonts/PingFang-SC-Bold.ttf') format('truetype');
-  font-weight: 600;
-  font-style: normal;
-}
 
 :root {
 
@@ -42,7 +22,7 @@ html {
 }
 
 body {
-  font-family: "PingFang SC", serif;
+  font-family: "MiSans", sans-serif;
 
   transition: color 0.3s, background-color 0.3s;
   min-height: 100vh;

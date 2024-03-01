@@ -1,18 +1,21 @@
-import React from "react";
+import React, { Suspense } from "react";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import { BaseColumnFlex, BaseFlex } from "../../styles/BaseStyles";
 import PostDetailNavigationButtons from "../../components/Post/PostDetailNavigationButtons";
 import PostCommentInputBox from "../../components/Post/PostCommentInputBox";
 import PostCommentList from "../../components/Comment/CommentList";
-import { App as Editor } from "beibei-lexical-editor";
+// import { App as Editor } from "beibei-lexical-editor";
 import { formatDateToChinese } from "../../utils/conversionTime";
 import { usePost } from "../../hooks/usePostsHooks";
 import { getUserName } from "../../utils/helper";
+import LazyEditor from "../../lazyComponents/LazyEditor";
 
 const StyledContainer = styled(BaseColumnFlex)`
   padding-top: 7.6rem;
   background-color: ${({ theme }) => theme.colors.white};
+  max-width: 1200px;
+  margin: 0 auto;
 `;
 
 const StyledPostContainer = styled(BaseColumnFlex)`
@@ -43,7 +46,7 @@ const StyledFlexForPostDetails = styled(BaseFlex)`
 
 const StyledTop = styled(BaseColumnFlex)``;
 
-const MemoizedEditor = React.memo(Editor);
+const MemoizedEditor = React.memo(LazyEditor);
 
 function PostDetail() {
   const { postId } = useParams<{ postId: string }>();
@@ -72,7 +75,13 @@ function PostDetail() {
         </StyledFlexForPostDetails>
       </StyledTop>
 
-      <MemoizedEditor editable={false} stringifiedEditorState={post.content} />
+      <Suspense fallback={<div>Loading editor...</div>}>
+        <MemoizedEditor
+          editable={false}
+          stringifiedEditorState={post.content}
+        />
+      </Suspense>
+
       <StyledPostContainer>
         <StyledCommentContainer>
           <PostCommentInputBox postId={postId} />

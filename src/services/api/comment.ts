@@ -20,8 +20,10 @@ export interface CommentResponse {
   repliesCount: number; //子评论数量
 }
 
-interface getCommentCountParams {
+interface getCommentsParams {
   postId: string;
+  page: number;
+  // limit: number;
 }
 
 interface getCommentsByParentIdParams {
@@ -30,12 +32,28 @@ interface getCommentsByParentIdParams {
   pageSize: number;
 }
 
-export const getComments = requestHandler<
-  getCommentCountParams,
+export async function getComments({ postId, page = 1 }: getCommentsParams) {
+  // 使用页码参数在请求中
+  const response = await fetch(
+    SERVER_ADDRESS +
+      API_VERSION +
+      `/comments/${postId}?sort=${JSON.stringify({
+        createdAt: -1,
+      })}&page=${page}&limit=10`
+  );
+  const data = await response.json();
+  return data;
+}
+
+export const getCommentss = requestHandler<
+  getCommentsParams,
   CommentResponse[]
 >((params) =>
   api.get(SERVER_ADDRESS + API_VERSION + `/comments/${params?.postId}`, {
-    params: { sort: JSON.stringify({ createdAt: -1 }) },
+    params: {
+      sort: JSON.stringify({ createdAt: -1 }),
+      page: params?.page,
+    },
   })
 );
 

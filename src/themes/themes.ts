@@ -21,7 +21,6 @@ const baseTheme = {
     medium: "1.2rem",
     big: "1.6rem",
   },
-  PingFangSC: '"PingFang SC", serif',
 };
 
 const warmTheme = {

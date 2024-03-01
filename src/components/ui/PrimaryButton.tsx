@@ -12,7 +12,6 @@ const StyledPrimaryButton = styled.button<{
   border-radius: ${(props) => props.theme.borderRadius};
   font-size: ${(props) => props.$fontSize};
   padding: ${(props) => props.$padding};
-  font-family: ${(props) => props.theme.PingFangSC};
   border: none;
 `;
 
