@@ -23,7 +23,7 @@ export interface CommentResponse {
 interface getCommentsParams {
   postId: string;
   page: number;
-  // limit: number;
+  limit: number;
 }
 
 interface getCommentsByParentIdParams {
@@ -32,30 +32,24 @@ interface getCommentsByParentIdParams {
   pageSize: number;
 }
 
-export async function getComments({ postId, page = 1 }: getCommentsParams) {
+export async function getComments({
+  postId,
+  page = 1,
+  limit,
+}: getCommentsParams) {
   // 使用页码参数在请求中
   const response = await fetch(
     SERVER_ADDRESS +
       API_VERSION +
       `/comments/${postId}?sort=${JSON.stringify({
         createdAt: -1,
-      })}&page=${page}&limit=10`
+      })}&page=${page}&limit=${limit}`
   );
   const data = await response.json();
-  return data;
-}
+  console.log("data", data);
 
-export const getCommentss = requestHandler<
-  getCommentsParams,
-  CommentResponse[]
->((params) =>
-  api.get(SERVER_ADDRESS + API_VERSION + `/comments/${params?.postId}`, {
-    params: {
-      sort: JSON.stringify({ createdAt: -1 }),
-      page: params?.page,
-    },
-  })
-);
+  return { comments: data, nextPage: page + 1 };
+}
 
 export const getCommentsCount = requestHandler<{ postId: string }, number>(
   (params) => {
@@ -92,3 +86,7 @@ export const createComment = requestHandler<
   createCommentParams,
   { id: string }
 >((params) => api.post(SERVER_ADDRESS + API_VERSION + "/comments", params));
+
+export const deleteComment = requestHandler<{ id: string }, void>((params) =>
+  api.delete(SERVER_ADDRESS + API_VERSION + `/comments/${params?.id}`)
+);

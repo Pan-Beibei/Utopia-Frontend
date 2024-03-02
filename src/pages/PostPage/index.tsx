@@ -5,7 +5,6 @@ import { BaseColumnFlex, BaseFlex } from "../../styles/BaseStyles";
 import PostDetailNavigationButtons from "../../components/Post/PostDetailNavigationButtons";
 import PostCommentInputBox from "../../components/Post/PostCommentInputBox";
 import PostCommentList from "../../components/Comment/CommentList";
-// import { App as Editor } from "beibei-lexical-editor";
 import { formatDateToChinese } from "../../utils/conversionTime";
 import { usePost } from "../../hooks/usePostsHooks";
 import { getUserName } from "../../utils/helper";
@@ -63,10 +62,7 @@ function PostDetail() {
 
   return (
     <StyledContainer>
-      <PostDetailNavigationButtons
-        lastTitle="锥心追月"
-        nextTitle="初级扑街仔"
-      />
+      <PostDetailNavigationButtons />
       <StyledTop>
         <StyledTitle>{post.title}</StyledTitle>
         <StyledFlexForPostDetails>

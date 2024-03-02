@@ -7,9 +7,11 @@ import {
   StyledUserName,
   StyledDate,
   StyledCommentContent,
+  StyledDeleteButton,
 } from "./Common";
-import ReplyButton from "./CommentReplyButton";
+import CommentInteractiveButtons from "./CommentInteractiveButtons";
 import { timeAgo } from "../../utils/conversionTime";
+import { CommentResponse } from "../../services/api/comment";
 
 const StyledReply = styled(BaseColumnFlex)`
   gap: 0.3rem;
@@ -22,43 +24,54 @@ const StyledFlexForMainLeft = styled(BaseFlex)`
 `;
 
 export interface ReplyProps {
-  author: { id: string; username: string };
-  date: string;
-  content: string;
-  repliedUser: { id: string; author: { id: string; username: string } };
+  // author: { id: string; username: string };
+  // date: string;
+  // content: string;
+  // repliedUser: { id: string; author: { id: string; username: string } };
   commentParentId: string;
+  data: CommentResponse;
+  isMe: boolean;
+  handleDelete: (parentId: string, id: string) => void;
 }
 
 function CommentReply({
-  author,
-  date,
-  content,
-  repliedUser,
   commentParentId,
+  data,
+  isMe,
+  handleDelete,
 }: ReplyProps) {
   const { handleReply } = useCommentContext();
 
   return (
     <StyledReply>
       <StyledFlexForHeader>
-        <StyledUserName>{author.username}</StyledUserName>
-        {repliedUser.id === commentParentId ? null : (
+        <StyledUserName>{data.author.username}</StyledUserName>
+        {data.replyTo.id === commentParentId ? null : (
           <>
             <StyledDate>{"回复了"}</StyledDate>
-            <StyledUserName>{repliedUser.author.username}</StyledUserName>
+            <StyledUserName>{data.replyTo.author.username}</StyledUserName>
           </>
         )}
 
-        <StyledDate>{timeAgo(date)}</StyledDate>
+        <StyledDate>{timeAgo(data.createdAt)}</StyledDate>
       </StyledFlexForHeader>
 
       <StyledFlexForMainContent>
         <StyledFlexForMainLeft>
-          <StyledCommentContent>{content}</StyledCommentContent>
+          <StyledCommentContent>
+            {data.content}
+            {isMe && (
+              <StyledDeleteButton
+                onClick={() => handleDelete(commentParentId, data.id)}
+              >
+                删除
+              </StyledDeleteButton>
+            )}
+          </StyledCommentContent>
         </StyledFlexForMainLeft>
 
-        <ReplyButton
-          handleReply={() => handleReply(repliedUser.author.username)}
+        <CommentInteractiveButtons
+          handleReply={() => handleReply(data.replyTo.author.username)}
         />
       </StyledFlexForMainContent>
     </StyledReply>

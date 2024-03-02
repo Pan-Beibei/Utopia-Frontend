@@ -5,13 +5,34 @@ import { useComments } from "../../hooks/useCommentsHook";
 import { initCommentState } from "../../services/state/commentSlice";
 import { useDispatch } from "react-redux";
 import { useInView } from "react-intersection-observer";
-import { useEffect } from "react";
-import { CommentResponse } from "../../services/api/comment";
+import { useEffect, useState } from "react";
+import { CommentResponse, deleteComment } from "../../services/api/comment";
+import toast from "react-hot-toast";
+import { useQueryClient } from "react-query";
+import { useFetchUser } from "../../hooks/useFetchUser";
 
 const StyledContainer = styled(BaseColumnFlex)`
   gap: 1.5rem;
   letter-spacing: 0.07rem;
   width: 100%;
+  justify-content: flex-start;
+
+  overflow: hidden;
+  overflow-y: auto;
+  max-height: 55rem;
+
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Hide scrollbar for Firefox */
+  scrollbar-width: none;
+
+  /* Hide scrollbar for Webkit browsers in WeChat */
+  ::-webkit-scrollbar-track-piece {
+    background-color: transparent;
+  }
 `;
 
 interface CommentListProps {
@@ -21,6 +42,7 @@ interface CommentListProps {
 function CommentList({ postId }: CommentListProps) {
   const { ref, inView } = useInView();
   const dispatch = useDispatch();
+  const { user } = useFetchUser();
 
   const {
     isError,
@@ -30,7 +52,16 @@ function CommentList({ postId }: CommentListProps) {
     hasNextPage,
     isFetchingNextPage,
   } = useComments(postId);
-  const comments = data?.pages.flatMap((page) => page);
+  const [comments, setComments] = useState<CommentResponse[]>([]);
+  const queryClient = useQueryClient();
+
+  useEffect(() => {
+    if (data) {
+      const newComments = data.pages.flatMap((page) => page.comments);
+      setComments(newComments);
+      dispatch(initCommentState(newComments));
+    }
+  }, [data, dispatch]);
 
   useEffect(() => {
     if (inView && hasNextPage) {
@@ -39,19 +70,37 @@ function CommentList({ postId }: CommentListProps) {
     }
   }, [inView, fetchNextPage, hasNextPage]);
 
+  function handleDelete(id: string) {
+    deleteComment({ id })
+      .then((res) => {
+        if (res.code === "success") {
+          toast.success("删除成功");
+          const newComments = comments?.filter((comment) => comment.id !== id);
+          setComments(newComments);
+          queryClient.invalidateQueries(["comments", postId]);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.success("删除失败");
+      });
+  }
+
   if (isLoading) return <div>Loading...</div>;
   if (isError) return <div>Error</div>;
   if (comments === undefined || comments.length === 0)
     return <div>暂无评论</div>;
 
-  dispatch(initCommentState(comments));
-
-  console.log("comments: ", comments);
-
   return (
     <StyledContainer>
       {comments.map((comment: CommentResponse) => (
-        <Comment key={comment.id} data={comment} postId={postId}>
+        <Comment
+          key={comment.id}
+          data={comment}
+          postId={postId}
+          handleDelete={handleDelete}
+          isMe={user?.id === comment.author.id}
+        >
           <Comment.ReplyList />
         </Comment>
       ))}

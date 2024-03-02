@@ -1,4 +1,7 @@
+import { useCallback } from "react";
+import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import styled from "styled-components";
+import toast from "react-hot-toast";
 import { BaseColumnFlex } from "../../styles/BaseStyles";
 import ExpandMoreButton from "../ui/ExpandButton";
 import {
@@ -6,11 +9,13 @@ import {
   getReplies,
   collapseReplies,
 } from "../../services/state/commentSlice";
-import { useDispatch, useSelector } from "react-redux";
+
 import { AppDispatch, RootState } from "../../store";
 import { useCommentContext } from "./Common";
 import CommentReply from "./CommentReply";
-import { CommentResponse } from "../../services/api/comment";
+import { CommentResponse, deleteComment } from "../../services/api/comment";
+import { useFetchUser } from "../../hooks/useFetchUser";
+import { deleteReplay } from "../../services/state/commentSlice";
 
 const StyledReplyList = styled(BaseColumnFlex)`
   gap: 1rem;
@@ -21,19 +26,22 @@ const StyledReplyList = styled(BaseColumnFlex)`
 const CommentReplyListComponent = ({
   comments,
   commentParentId,
+  userId,
+  handleDelete,
 }: {
   comments: CommentResponse[];
   commentParentId: string;
+  userId: string | undefined;
+  handleDelete: (parentId: string, id: string) => void;
 }) => (
   <>
     {comments.map((comment: CommentResponse) => (
       <CommentReply
         commentParentId={commentParentId}
-        author={comment.author}
-        content={comment.content}
-        repliedUser={comment.replyTo}
-        date={comment.createdAt}
+        data={comment}
         key={comment.id}
+        isMe={userId === comment.author.id}
+        handleDelete={handleDelete}
       />
     ))}
   </>
@@ -42,36 +50,57 @@ const CommentReplyListComponent = ({
 function CommentReplyList() {
   const dispatch = useDispatch<AppDispatch>();
   const { commentParentId } = useCommentContext();
-  const commentState = useSelector((state: RootState) =>
-    getReplies(state, commentParentId)
+  const commentState = useSelector(
+    (state: RootState) => getReplies(state, commentParentId),
+    shallowEqual
+  );
+  const { user } = useFetchUser();
+  const commentStateCursor = commentState ? commentState.cursor : "";
+
+  console.log("commentState: ", commentState);
+
+  const handleDelete = useCallback(
+    (parentId: string, id: string) => {
+      deleteComment({ id })
+        .then((res) => {
+          if (res.code === "success") {
+            dispatch(deleteReplay({ parentId, id }));
+
+            toast.success("删除成功");
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+
+          toast.error(`删除失败${err}`);
+        });
+    },
+    [dispatch]
   );
 
-  if (!commentState) {
-    throw new Error("commentState is undefined");
-  }
-  if (commentState.repliesCount === 0) {
-    return null;
-  }
+  const handleCollapseAll = useCallback(() => {
+    dispatch(collapseReplies(commentParentId));
+  }, [commentParentId, dispatch]);
 
-  function handleExpandMore() {
+  const handleExpandMore = useCallback(() => {
     const fetchParams = {
       parentId: commentParentId,
-      cursor: "",
+      cursor: commentStateCursor,
       pageSize: 3,
     };
 
-    if (commentState) {
-      fetchParams.cursor = commentState.cursor;
-    }
-    console.log("expandMore", fetchParams);
+    // console.log("expandMore", fetchParams);
     dispatch(fetchComments(fetchParams));
+  }, [commentParentId, dispatch, commentStateCursor]);
+
+  if (!commentState) {
+    return <>{"commentState is undefined"}</>;
+  }
+  if (commentState.repliesCount === 0) {
+    //没有子评论就不需要渲染更多组件
+    return null;
   }
 
-  function handleCollapseAll() {
-    dispatch(collapseReplies(commentParentId));
-  }
-
-  console.log("commentState:", commentParentId, commentState);
   if (!commentState.isRepliesVisible)
     return (
       <StyledReplyList>
@@ -87,6 +116,8 @@ function CommentReplyList() {
       <CommentReplyListComponent
         comments={commentState.comments}
         commentParentId={commentParentId}
+        userId={user?.id}
+        handleDelete={handleDelete}
       />
       {commentState.hasFetchedAllReplies ? (
         // 收起全部

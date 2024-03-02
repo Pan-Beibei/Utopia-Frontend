@@ -35,3 +35,10 @@ export const StyledDate = styled.span`
 export const StyledCommentContent = styled.p`
   font-weight: ${(props) => props.theme.fontWeight.normal};
 `;
+
+export const StyledDeleteButton = styled.span`
+  color: ${(props) => props.theme.colors.primary};
+  cursor: pointer;
+  font-wight: ${(props) => props.theme.fontWeight.bold};
+  margin-left: 1rem;
+`;

@@ -132,7 +132,7 @@ function Links() {
         <img src="/icons/home.svg" alt="home" />
       </StyledNavLink>
       <StyledNavLink to="/forum-page">68克情报处</StyledNavLink>
-      <StyledNavLink to="/activity-page">最近活动</StyledNavLink>
+      {/* <StyledNavLink to="/activity-page">最近活动</StyledNavLink> */}
     </StyledNavLinks>
   );
 }

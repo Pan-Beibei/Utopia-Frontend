@@ -1,7 +1,7 @@
 import { ReactNode, createContext, useState } from "react";
 import styled from "styled-components";
 import { BaseColumnFlex } from "../../styles/BaseStyles";
-import ReplyButton from "./CommentReplyButton";
+import ReplyButton from "./CommentInteractiveButtons";
 import ReplyInputBox from "./CommentReplyInputBox";
 import { getUserName } from "../../utils/helper";
 
@@ -11,6 +11,7 @@ import {
   StyledUserName,
   StyledDate,
   StyledCommentContent,
+  StyledDeleteButton,
 } from "./Common";
 import CommentReplyList from "./CommentReplyList";
 import { CommentResponse } from "../../services/api/comment";
@@ -25,6 +26,8 @@ interface CommentProps {
   children?: ReactNode;
   postId: string;
   data: CommentResponse;
+  isMe: boolean;
+  handleDelete: (id: string) => void;
 }
 
 export const CommentContext = createContext<ContextType | null>(null);
@@ -45,7 +48,7 @@ const StyledReplyInputBoxContainer = styled.div`
   padding-left: 2rem;
 `;
 
-function Comment({ postId, children, data }: CommentProps) {
+function Comment({ postId, children, data, handleDelete, isMe }: CommentProps) {
   const [showReplyInputBox, setShowReplyInputBox] = useState(false);
   const [repliedUserName, setRepliedUserName] = useState("");
   const [commentParentId] = useState(data.id);
@@ -65,7 +68,14 @@ function Comment({ postId, children, data }: CommentProps) {
           <StyledDate>{timeAgo(data.createdAt)}</StyledDate>
         </StyledFlexForHeader>
         <StyledFlexForMainContent>
-          <StyledCommentContent>{data.content}</StyledCommentContent>
+          <StyledCommentContent>
+            {data.content}
+            {isMe && (
+              <StyledDeleteButton onClick={() => handleDelete(data.id)}>
+                删除
+              </StyledDeleteButton>
+            )}
+          </StyledCommentContent>
           <ReplyButton
             handleReply={() => handleReply(getUserName(data.author))}
           />

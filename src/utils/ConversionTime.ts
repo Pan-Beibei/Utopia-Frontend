@@ -17,7 +17,10 @@ export function convertUTCToBeijingTime(utcTimeStr: string) {
 
 export function timeAgo(time: string): string {
   if (!time) {
+    console.log(time);
+
     throw new Error("Invalid time");
+    return "Invalid time";
   }
 
   const currentTime = new Date();

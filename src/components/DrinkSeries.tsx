@@ -30,6 +30,9 @@ const StyledDrinksList = styled.div`
   @media (min-width: ${(props) => props.theme.breakpoints.tablet}) {
     grid-template-columns: repeat(3, 1fr);
   }
+  @media (min-width: ${(props) => props.theme.breakpoints.desktop}) {
+    grid-template-columns: repeat(4, 1fr);
+  }
 `;
 
 interface DrinkSeriesProps {

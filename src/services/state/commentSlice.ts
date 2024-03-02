@@ -60,11 +60,16 @@ const userSlice = createSlice({
         }
       });
     },
+    deleteReplay(state, action) {
+      //删除评论
+      const { parentId, id } = action.payload;
 
-    updateRepliesCount(state, action) {
-      //更新评论数
-      const { commentId, count } = action.payload;
-      state[commentId].repliesCount = count;
+      if (state[parentId]) {
+        state[parentId].repliesCount -= 1;
+        state[parentId].comments = state[parentId].comments.filter(
+          (comment) => comment.id !== id
+        );
+      }
     },
     collapseReplies(state, action) {
       const commentId = action.payload;
@@ -129,7 +134,7 @@ const userSlice = createSlice({
   },
 });
 
-export const { initCommentState, addNewReply, collapseReplies } =
+export const { initCommentState, addNewReply, collapseReplies, deleteReplay } =
   userSlice.actions;
 
 export default userSlice.reducer;

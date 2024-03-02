@@ -12,7 +12,7 @@ api.interceptors.request.use(
       config.headers.Authorization = `Bearer ${JSON.parse(token)}`;
     }
     // 输出请求信息
-    console.log("Request:", config);
+    // console.log("Request:", config);
 
     return config;
   },

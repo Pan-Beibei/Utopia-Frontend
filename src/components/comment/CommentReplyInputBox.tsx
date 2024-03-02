@@ -81,8 +81,6 @@ function CommentReplyInputBox({
       });
   }
 
-  console.log(theme.colors.black);
-
   return (
     <StyledContainer>
       {showPicker && (

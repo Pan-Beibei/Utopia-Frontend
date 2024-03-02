@@ -72,7 +72,7 @@ function EmojiTextInput({
     setInputContent(e.target.value);
   }
 
-  console.log(fontColor);
+  // console.log(fontColor);
 
   return (
     <StyledInputContainer $bgColor={backgroundColor} $border={border}>
