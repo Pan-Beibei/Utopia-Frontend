@@ -30,6 +30,7 @@ const StyledPulishButton = styled(BaseFlex)`
 `;
 
 interface CommentReplyInputBoxProps {
+  replyInputBoxRef: React.RefObject<HTMLDivElement>;
   postId: string;
   parentId: string;
   replyToId: string;
@@ -41,6 +42,7 @@ function CommentReplyInputBox({
   parentId,
   replyToId,
   repliedUserName,
+  replyInputBoxRef,
 }: CommentReplyInputBoxProps) {
   const [inputContent, setInputContent] = useState("");
   const [showPicker, setShowPicker] = useState(false);
@@ -82,7 +84,7 @@ function CommentReplyInputBox({
   }
 
   return (
-    <StyledContainer>
+    <StyledContainer ref={replyInputBoxRef}>
       {showPicker && (
         <StyledEmojiContainer>
           <EmojiPicker setInputContent={setInputContent} />

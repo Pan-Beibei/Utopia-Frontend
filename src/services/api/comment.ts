@@ -47,8 +47,8 @@ export async function getComments({
   );
   const data = await response.json();
   console.log("data", data);
-
-  return { comments: data, nextPage: page + 1 };
+  const nextPage = data.length < limit ? null : page + 1;
+  return { comments: data, nextPage };
 }
 
 export const getCommentsCount = requestHandler<{ postId: string }, number>(

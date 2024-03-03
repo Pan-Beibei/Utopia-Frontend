@@ -29,11 +29,11 @@ const StyledPulishButton = styled(BaseFlex)`
   min-height: 4rem;
 `;
 
-interface PostCommentInputBoxProps {
+interface PostCommentTopInputBoxPros {
   postId: string;
 }
 
-function PostCommentInputBox({ postId }: PostCommentInputBoxProps) {
+function PostCommentTopInputBox({ postId }: PostCommentTopInputBoxPros) {
   const [inputContent, setInputContent] = useState("");
   const [showPicker, setShowPicker] = useState(false);
   const theme = useTheme();
@@ -88,4 +88,4 @@ function PostCommentInputBox({ postId }: PostCommentInputBoxProps) {
   );
 }
 
-export default PostCommentInputBox;
+export default PostCommentTopInputBox;

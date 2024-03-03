@@ -5,7 +5,7 @@ import { useComments } from "../../hooks/useCommentsHook";
 import { initCommentState } from "../../services/state/commentSlice";
 import { useDispatch } from "react-redux";
 import { useInView } from "react-intersection-observer";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { CommentResponse, deleteComment } from "../../services/api/comment";
 import toast from "react-hot-toast";
 import { useQueryClient } from "react-query";
@@ -57,11 +57,15 @@ function CommentList({ postId }: CommentListProps) {
 
   useEffect(() => {
     if (data) {
+      console.log("newComments", data);
+
       const newComments = data.pages.flatMap((page) => page.comments);
       setComments(newComments);
       dispatch(initCommentState(newComments));
     }
   }, [data, dispatch]);
+
+  console.log("hasNextPage", hasNextPage);
 
   useEffect(() => {
     if (inView && hasNextPage) {
@@ -70,21 +74,26 @@ function CommentList({ postId }: CommentListProps) {
     }
   }, [inView, fetchNextPage, hasNextPage]);
 
-  function handleDelete(id: string) {
-    deleteComment({ id })
-      .then((res) => {
-        if (res.code === "success") {
-          toast.success("删除成功");
-          const newComments = comments?.filter((comment) => comment.id !== id);
-          setComments(newComments);
-          queryClient.invalidateQueries(["comments", postId]);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-        toast.success("删除失败");
-      });
-  }
+  const handleDelete = useCallback(
+    (id: string) => {
+      deleteComment({ id })
+        .then((res) => {
+          if (res.code === "success") {
+            toast.success("删除成功");
+            const newComments = comments?.filter(
+              (comment) => comment.id !== id
+            );
+            setComments(newComments);
+            queryClient.invalidateQueries(["comments", postId]);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          toast.success("删除失败");
+        });
+    },
+    [comments, postId, queryClient]
+  );
 
   if (isLoading) return <div>Loading...</div>;
   if (isError) return <div>Error</div>;
@@ -100,9 +109,7 @@ function CommentList({ postId }: CommentListProps) {
           postId={postId}
           handleDelete={handleDelete}
           isMe={user?.id === comment.author.id}
-        >
-          <Comment.ReplyList />
-        </Comment>
+        ></Comment>
       ))}
       <div ref={ref}>{isFetchingNextPage && "Loading..."}</div>
     </StyledContainer>

@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import { BaseColumnFlex, BaseFlex } from "../../styles/BaseStyles";
 import PostDetailNavigationButtons from "../../components/Post/PostDetailNavigationButtons";
-import PostCommentInputBox from "../../components/Post/PostCommentInputBox";
+import PostCommentTopInputBox from "../../components/Post/PostCommentTopInputBox";
 import PostCommentList from "../../components/Comment/CommentList";
 import { formatDateToChinese } from "../../utils/conversionTime";
 import { usePost } from "../../hooks/usePostsHooks";
@@ -80,7 +80,7 @@ function PostDetail() {
 
       <StyledPostContainer>
         <StyledCommentContainer>
-          <PostCommentInputBox postId={postId} />
+          <PostCommentTopInputBox postId={postId} />
           <PostCommentList postId={postId} />
         </StyledCommentContainer>
       </StyledPostContainer>

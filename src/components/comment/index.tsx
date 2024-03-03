@@ -1,4 +1,4 @@
-import { ReactNode, createContext, useState } from "react";
+import { createContext, memo, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { BaseColumnFlex } from "../../styles/BaseStyles";
 import ReplyButton from "./CommentInteractiveButtons";
@@ -23,7 +23,6 @@ type ContextType = {
 };
 
 interface CommentProps {
-  children?: ReactNode;
   postId: string;
   data: CommentResponse;
   isMe: boolean;
@@ -48,16 +47,34 @@ const StyledReplyInputBoxContainer = styled.div`
   padding-left: 2rem;
 `;
 
-function Comment({ postId, children, data, handleDelete, isMe }: CommentProps) {
+const Comment = memo(({ postId, data, handleDelete, isMe }: CommentProps) => {
   const [showReplyInputBox, setShowReplyInputBox] = useState(false);
   const [repliedUserName, setRepliedUserName] = useState("");
   const [commentParentId] = useState(data.id);
+  const replyInputBoxRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (showReplyInputBox && replyInputBoxRef.current) {
+      replyInputBoxRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "end",
+      });
+    }
+  }, [showReplyInputBox]);
 
   function handleReply(repliedName: string) {
-    console.log(repliedName);
+    if (repliedUserName === "") {
+      setRepliedUserName(repliedName);
+      setShowReplyInputBox((isShow) => !isShow);
+      return;
+    }
+
+    if (repliedName !== repliedUserName) {
+      setRepliedUserName(repliedName);
+      return;
+    }
 
     setShowReplyInputBox((isShow) => !isShow);
-    setRepliedUserName(repliedName);
   }
 
   return (
@@ -80,10 +97,11 @@ function Comment({ postId, children, data, handleDelete, isMe }: CommentProps) {
             handleReply={() => handleReply(getUserName(data.author))}
           />
         </StyledFlexForMainContent>
-        {children}
+        <CommentReplyList /> {/* 评论的回复列表 */}
         {showReplyInputBox && (
           <StyledReplyInputBoxContainer>
             <ReplyInputBox
+              replyInputBoxRef={replyInputBoxRef}
               postId={postId} //帖子的id
               repliedUserName={repliedUserName} //回复目标的用户名
               parentId={data.parent} //父级评论的id(如果回复的评论的父级为空的话，那么该回复的父级也是回复的目标)
@@ -94,8 +112,6 @@ function Comment({ postId, children, data, handleDelete, isMe }: CommentProps) {
       </StyledComment>
     </CommentContext.Provider>
   );
-}
-
-Comment.ReplyList = CommentReplyList;
+});
 
 export default Comment;

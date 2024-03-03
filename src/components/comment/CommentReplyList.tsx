@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, memo } from "react";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import styled from "styled-components";
 import toast from "react-hot-toast";
@@ -47,7 +47,7 @@ const CommentReplyListComponent = ({
   </>
 );
 
-function CommentReplyList() {
+const CommentReplyList = memo(() => {
   const dispatch = useDispatch<AppDispatch>();
   const { commentParentId } = useCommentContext();
   const commentState = useSelector(
@@ -140,6 +140,6 @@ function CommentReplyList() {
       )}
     </StyledReplyList>
   );
-}
+});
 
 export default CommentReplyList;
