@@ -18,7 +18,7 @@ import { CommentResponse } from "../../services/api/comment";
 import { timeAgo } from "../../utils/conversionTime";
 
 type ContextType = {
-  handleReply: (repliedUserName: string) => void;
+  handleReply: (id: string, name: string) => void;
   commentParentId: string;
 };
 
@@ -49,9 +49,9 @@ const StyledReplyInputBoxContainer = styled.div`
 
 const Comment = memo(({ postId, data, handleDelete, isMe }: CommentProps) => {
   const [showReplyInputBox, setShowReplyInputBox] = useState(false);
-  const [repliedUserName, setRepliedUserName] = useState("");
-  const [commentParentId] = useState(data.id);
+  const [replied, setReplied] = useState({ commentId: "", username: "" });
   const replyInputBoxRef = useRef<HTMLDivElement>(null);
+  const commentParentId = data.id;
 
   useEffect(() => {
     if (showReplyInputBox && replyInputBoxRef.current) {
@@ -62,18 +62,8 @@ const Comment = memo(({ postId, data, handleDelete, isMe }: CommentProps) => {
     }
   }, [showReplyInputBox]);
 
-  function handleReply(repliedName: string) {
-    if (repliedUserName === "") {
-      setRepliedUserName(repliedName);
-      setShowReplyInputBox((isShow) => !isShow);
-      return;
-    }
-
-    if (repliedName !== repliedUserName) {
-      setRepliedUserName(repliedName);
-      return;
-    }
-
+  function handleReply(commentId: string, username: string) {
+    setReplied({ commentId, username });
     setShowReplyInputBox((isShow) => !isShow);
   }
 
@@ -94,7 +84,7 @@ const Comment = memo(({ postId, data, handleDelete, isMe }: CommentProps) => {
             )}
           </StyledCommentContent>
           <ReplyButton
-            handleReply={() => handleReply(getUserName(data.author))}
+            handleReply={() => handleReply(data.id, getUserName(data.author))}
           />
         </StyledFlexForMainContent>
         <CommentReplyList /> {/* 评论的回复列表 */}
@@ -103,9 +93,8 @@ const Comment = memo(({ postId, data, handleDelete, isMe }: CommentProps) => {
             <ReplyInputBox
               replyInputBoxRef={replyInputBoxRef}
               postId={postId} //帖子的id
-              repliedUserName={repliedUserName} //回复目标的用户名
-              parentId={data.parent} //父级评论的id(如果回复的评论的父级为空的话，那么该回复的父级也是回复的目标)
-              replyToId={data.id} //回复目标评论的id
+              replied={replied} //回复目标的用户名
+              parentId={commentParentId} //父ID
             />
           </StyledReplyInputBoxContainer>
         )}

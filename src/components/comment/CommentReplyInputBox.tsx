@@ -33,15 +33,13 @@ interface CommentReplyInputBoxProps {
   replyInputBoxRef: React.RefObject<HTMLDivElement>;
   postId: string;
   parentId: string;
-  replyToId: string;
-  repliedUserName: string;
+  replied: { commentId: string; username: string };
 }
 
 function CommentReplyInputBox({
   postId,
   parentId,
-  replyToId,
-  repliedUserName,
+  replied,
   replyInputBoxRef,
 }: CommentReplyInputBoxProps) {
   const [inputContent, setInputContent] = useState("");
@@ -50,7 +48,7 @@ function CommentReplyInputBox({
   const theme = useTheme();
   const dispatch = useDispatch();
 
-  const placeholderText = `回复 @${repliedUserName}`;
+  const placeholderText = `回复 @${replied.username}`;
 
   function handlePublish() {
     if (!user) {
@@ -58,15 +56,13 @@ function CommentReplyInputBox({
       return;
     }
     console.log("publish");
-    //这里parentId为空，代表回复的是顶级评论，评论只嵌套一级
-    //顶级评论下面只有一级
-    if (!parentId) parentId = replyToId;
+    //这里只回复顶级评论，顶级评论下面只有一级
 
     createComment({
       content: inputContent,
       postId,
       parentId,
-      replyToId,
+      replyToId: replied.commentId,
     })
       .then((res) => {
         if (res.code !== "success") {

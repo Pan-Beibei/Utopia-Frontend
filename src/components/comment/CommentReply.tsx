@@ -24,10 +24,6 @@ const StyledFlexForMainLeft = styled(BaseFlex)`
 `;
 
 export interface ReplyProps {
-  // author: { id: string; username: string };
-  // date: string;
-  // content: string;
-  // repliedUser: { id: string; author: { id: string; username: string } };
   commentParentId: string;
   data: CommentResponse;
   isMe: boolean;
@@ -42,16 +38,29 @@ function CommentReply({
 }: ReplyProps) {
   const { handleReply } = useCommentContext();
 
+  console.log("data: ", data, commentParentId);
+
+  let header;
+  if (
+    data.replyTo.id === commentParentId ||
+    data.replyTo.author.id === data.author.id
+    // data.replyTo.author.id ===
+  ) {
+    header = null;
+  } else {
+    header = (
+      <>
+        <StyledDate>{"回复了"}</StyledDate>
+        <StyledUserName>{data.replyTo.author.username}</StyledUserName>
+      </>
+    );
+  }
+
   return (
     <StyledReply>
       <StyledFlexForHeader>
         <StyledUserName>{data.author.username}</StyledUserName>
-        {data.replyTo.id === commentParentId ? null : (
-          <>
-            <StyledDate>{"回复了"}</StyledDate>
-            <StyledUserName>{data.replyTo.author.username}</StyledUserName>
-          </>
-        )}
+        {header}
 
         <StyledDate>{timeAgo(data.createdAt)}</StyledDate>
       </StyledFlexForHeader>
@@ -71,7 +80,7 @@ function CommentReply({
         </StyledFlexForMainLeft>
 
         <CommentInteractiveButtons
-          handleReply={() => handleReply(data.replyTo.author.username)}
+          handleReply={() => handleReply(data.id, data.replyTo.author.username)}
         />
       </StyledFlexForMainContent>
     </StyledReply>
