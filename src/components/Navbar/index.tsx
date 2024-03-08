@@ -1,9 +1,17 @@
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import Logo from "../ui/Logo";
 import NavLinks from "./NavLinks";
 import { BaseFlex } from "../../styles/BaseStyles";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
+import { getUnreadNotificationsCount } from "../../services/api/notification";
+import {
+  getNotificationCount,
+  setNotificationCount,
+} from "../../services/state/userSlice";
+import { useQuery } from "react-query";
 
 const StyledNarbar = styled.nav`
   display: flex;
@@ -51,12 +59,52 @@ const StyledLoginButton = styled.button`
   }
 `;
 
+const StyledHeader = styled.div<{ $count: number }>`
+  position: relative;
+
+  &::after {
+    content: "${(props) => props.$count}";
+    display: ${(props) => (props.$count > 0 ? "flex" : "none")};
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    left: -0.5rem;
+    bottom: 0rem;
+    background-color: red;
+    color: white;
+    padding: 1px 1px;
+    width: 1.5rem;
+    height: 1.5rem;
+    white-space: nowrap;
+    border-radius: 50%;
+    font-size: 0.8rem;
+  }
+`;
+
 function Narbar() {
   const navigate = useNavigate();
   const { getItem } = useLocalStorage("token");
+  const dispatch = useDispatch();
+  const notificationCount = useSelector(getNotificationCount);
 
   const token: string = getItem();
-  console.log(token);
+  const { data, error } = useQuery(
+    "unreadNotificationsCount",
+    () => getUnreadNotificationsCount(),
+    {
+      enabled: !!token,
+      refetchInterval: 60000, // 每60秒重新获取数据
+    }
+  );
+  useEffect(() => {
+    if (data?.code === "success") {
+      console.log("新消息： ", data.data);
+      dispatch(setNotificationCount(data.data));
+    }
+    if (error) {
+      console.log(error);
+    }
+  }, [dispatch, data, error]);
 
   function handleNavigateToUserProfilePage() {
     navigate("/user-profile-page");
@@ -83,11 +131,13 @@ function Narbar() {
           <NavLinks.Links />
         </StyledNavTable>
         {token ? (
-          <img
-            src="/icons/head.svg"
-            alt="Head"
-            onClick={handleNavigateToUserProfilePage}
-          />
+          <StyledHeader $count={notificationCount}>
+            <img
+              src="/icons/head.svg"
+              alt="Head"
+              onClick={handleNavigateToUserProfilePage}
+            />
+          </StyledHeader>
         ) : (
           <StyledLoginButton onClick={handleNavigateToLoginPage}>
             登录

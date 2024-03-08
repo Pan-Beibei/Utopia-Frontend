@@ -31,3 +31,10 @@ export const postTags = [
   { id: "CASUAL_TALK", name: "吐槽划水" },
   { id: "SERIOUS_SUGGESTION", name: "认真建议" },
 ];
+
+export enum NotificationEnum {
+  LIKE = "like",
+  COMMENT = "comment",
+  REPLY = "reply",
+  SYSTEM = "system",
+}

@@ -18,7 +18,7 @@ const StyledContainer = styled(BaseColumnFlex)`
   align-items: flex-start;
   gap: 2rem;
   border-radius: 0.8rem;
-  padding: 7.6rem 2rem;
+  padding: 7.6rem 0rem 2rem 2rem;
 
   background-color: ${({ theme }) => theme.colors.white};
   @media (min-width: ${(props) => props.theme.breakpoints.tablet}) {

@@ -12,7 +12,7 @@ export function convertUTCToBeijingTime(utcTimeStr: string) {
   const day = utcTime.getUTCDate();
   const hours = utcTime.getUTCHours();
   const minutes = utcTime.getUTCMinutes();
-  return year + "-" + month + "-" + day + "   " + hours + ":" + minutes;
+  return year + "年" + month + "月" + day + "日    " + hours + ":" + minutes;
 }
 
 export function timeAgo(time: string): string {

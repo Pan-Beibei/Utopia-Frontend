@@ -1,9 +1,11 @@
 import styled from "styled-components";
 import { BaseColumnFlex, BaseFlex } from "../../styles/BaseStyles";
-import CommentInteractiveButtons from "../Comment/CommentInteractiveButtons";
+// import CommentInteractiveButtons from "../Comment/CommentInteractiveButtons";
+import { NotificationResponse } from "../../services/api/notification";
+import { convertUTCToBeijingTime } from "../../utils/conversionTime";
 
 const StyledNotificationReply = styled(BaseColumnFlex)`
-  padding: 1rem 0;
+  padding: 1rem 3rem;
   align-items: flex-start;
   gap: 0.5rem;
   width: 100%;
@@ -25,28 +27,59 @@ const StyledContent = styled.p`
   font-weight: 400;
 `;
 
+const StyledReplyTo = styled.p`
+  font-size: ${(props) => props.theme.fontSize.small};
+  font-weight: 400;
+  color: ${(props) => props.theme.colors.gray400};
+`;
+
 const StyledDate = styled.p`
   font-size: ${(props) => props.theme.fontSize.small};
   font-weight: 400;
   color: ${(props) => props.theme.colors.gray400};
 `;
 
-function NotificationReply() {
-  function handleReply() {
-    console.log("repliedUserName");
-  }
+const StyledDeleteButton = styled.span`
+  font-size: ${(props) => props.theme.fontSize.small};
+  font-weight: 500;
+  color: ${(props) => props.theme.colors.primary};
+  cursor: pointer;
+`;
+
+interface NotificationReplyProps {
+  notification: NotificationResponse;
+  handleDelete: (id: string) => void;
+}
+
+function NotificationReply({
+  notification,
+  handleDelete,
+}: NotificationReplyProps) {
+  // function handleReply() {
+  //   console.log("repliedUserName");
+  // }
 
   return (
     <StyledNotificationReply>
       <StyledFlexForHeader>
         <StyledTitle>
-          <strong>星光</strong>回复了我的评论
+          <strong>{notification.sendUser.username}</strong>回复了你
         </StyledTitle>
-        <CommentInteractiveButtons handleReply={handleReply} />
+        {/* <CommentInteractiveButtons handleReply={handleReply} /> */}
+        <StyledDeleteButton onClick={() => handleDelete(notification.id)}>
+          删除
+        </StyledDeleteButton>
       </StyledFlexForHeader>
 
-      <StyledContent>你说的是真的吗？那简直太好了！！！</StyledContent>
-      <StyledDate>2022年11月14日 10:34</StyledDate>
+      <StyledContent>{notification.entity.content}</StyledContent>
+      <StyledReplyTo>
+        {notification.entity.replyTo.author.username +
+          ": " +
+          notification.entity.replyTo.content}
+      </StyledReplyTo>
+      <StyledDate>
+        {convertUTCToBeijingTime(notification.entity.createdAt)}
+      </StyledDate>
     </StyledNotificationReply>
   );
 }

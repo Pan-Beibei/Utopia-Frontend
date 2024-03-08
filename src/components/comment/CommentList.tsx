@@ -1,14 +1,14 @@
+import { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
+import { useQueryClient } from "react-query";
+import toast from "react-hot-toast";
+import { useInView } from "react-intersection-observer";
 import { BaseColumnFlex } from "../../styles/BaseStyles";
 import Comment from ".";
 import { useComments } from "../../hooks/useCommentsHook";
 import { initCommentState } from "../../services/state/commentSlice";
 import { useDispatch } from "react-redux";
-import { useInView } from "react-intersection-observer";
-import { useCallback, useEffect, useState } from "react";
 import { CommentResponse, deleteComment } from "../../services/api/comment";
-import toast from "react-hot-toast";
-import { useQueryClient } from "react-query";
 import { useFetchUser } from "../../hooks/useFetchUser";
 
 const StyledContainer = styled(BaseColumnFlex)`
@@ -80,10 +80,7 @@ function CommentList({ postId }: CommentListProps) {
         .then((res) => {
           if (res.code === "success") {
             toast.success("删除成功");
-            const newComments = comments?.filter(
-              (comment) => comment.id !== id
-            );
-            setComments(newComments);
+            setComments((prev) => prev.filter((comment) => comment.id !== id));
             queryClient.invalidateQueries(["comments", postId]);
           }
         })
@@ -92,7 +89,7 @@ function CommentList({ postId }: CommentListProps) {
           toast.success("删除失败");
         });
     },
-    [comments, postId, queryClient]
+    [postId, queryClient]
   );
 
   if (isLoading) return <div>Loading...</div>;

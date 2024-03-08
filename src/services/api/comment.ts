@@ -38,15 +38,17 @@ export async function getComments({
   limit,
 }: getCommentsParams) {
   // 使用页码参数在请求中
-  const response = await fetch(
-    SERVER_ADDRESS +
-      API_VERSION +
-      `/comments/${postId}?sort=${JSON.stringify({
-        createdAt: -1,
-      })}&page=${page}&limit=${limit}`
+  const response = await api.get(
+    SERVER_ADDRESS + API_VERSION + `/comments/${postId}`,
+    {
+      params: {
+        sort: JSON.stringify({ createdAt: -1 }),
+        page: page,
+        limit: limit,
+      },
+    }
   );
-  const data = await response.json();
-  console.log("data", data);
+  const data = response.data;
   const nextPage = data.length < limit ? null : page + 1;
   return { comments: data, nextPage };
 }
