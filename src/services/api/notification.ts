@@ -1,7 +1,6 @@
 import { SERVER_ADDRESS, API_VERSION } from "../../config";
 import { requestHandler } from "../../utils/requestHandler";
 import api from "./api";
-import { NotificationEnum } from "../../types";
 
 interface getUnreadNotificationsParams {
   page: number;
@@ -31,8 +30,8 @@ export const getUnreadNotificationsCount = requestHandler<null, number>(() =>
   api.get(SERVER_ADDRESS + API_VERSION + `/notifications/unread/count`)
 );
 
-export const updateNotificationsStatus = requestHandler<NotificationEnum, null>(
-  () => api.post(SERVER_ADDRESS + API_VERSION + `/notifications/update`)
+export const updateNotificationsStatus = requestHandler<null, null>(() =>
+  api.post(SERVER_ADDRESS + API_VERSION + `/notifications/update`)
 );
 
 export async function getUserNotifications({

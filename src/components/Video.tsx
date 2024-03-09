@@ -12,23 +12,25 @@ const PlaceholderImage = styled.img<{ $isvideoLoaded: boolean }>`
   top: 0;
   left: 0;
   width: 100vw;
-  height: 90vh;
+  height: 95vh;
   object-fit: cover;
   display: ${(props) => (props.$isvideoLoaded ? "none" : "block")};
 `;
 
-const VideoElement = styled.video`
+const VideoElement = styled.video<{ $webkitPlaysinline: boolean }>`
   position: absolute;
   top: 0;
   left: 0;
   width: 100vw;
   height: 95vh;
   object-fit: cover;
+  webkit-playsinline: ${(props) =>
+    props.$webkitPlaysinline ? "true" : "false"};
 `;
 
 const Video = memo(function Video() {
   const [isvideoLoaded, setIsVideoLoaded] = useState(false);
-
+  const isWeChat = /micromessenger/i.test(navigator.userAgent);
   const handleLoadedData = () => {
     setIsVideoLoaded(true);
   };
@@ -36,21 +38,24 @@ const Video = memo(function Video() {
   return (
     <VideoContainer>
       <PlaceholderImage
-        src="/video/hero-placehoder.webp"
+        src="/video/hero.jpg"
         alt="video placeholder"
         $isvideoLoaded={isvideoLoaded}
       />
-      <VideoElement
-        onLoadedData={handleLoadedData}
-        muted
-        autoPlay={true}
-        loop={true}
-        controls={false}
-        playsInline
-        // preload="metadata"
-      >
-        <source src="/video/hero.webm" type="video/webm" />
-      </VideoElement>
+      {!isWeChat && (
+        <VideoElement
+          onLoadedData={handleLoadedData}
+          muted
+          autoPlay={true}
+          loop={true}
+          controls={false}
+          playsInline
+          $webkitPlaysinline={true}
+          // preload="metadata"
+        >
+          <source src="/video/hero.mp4" type="video/mp4" />
+        </VideoElement>
+      )}
     </VideoContainer>
   );
 });

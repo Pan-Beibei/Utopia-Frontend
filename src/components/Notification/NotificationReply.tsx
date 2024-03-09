@@ -3,6 +3,7 @@ import { BaseColumnFlex, BaseFlex } from "../../styles/BaseStyles";
 // import CommentInteractiveButtons from "../Comment/CommentInteractiveButtons";
 import { NotificationResponse } from "../../services/api/notification";
 import { convertUTCToBeijingTime } from "../../utils/conversionTime";
+import { NotificationEnum } from "../../types";
 
 const StyledNotificationReply = styled(BaseColumnFlex)`
   padding: 1rem 3rem;
@@ -51,6 +52,25 @@ interface NotificationReplyProps {
   handleDelete: (id: string) => void;
 }
 
+const getTitle = (type: NotificationEnum, username: string) => {
+  switch (type) {
+    case NotificationEnum.REPLY:
+      return (
+        <StyledTitle>
+          <strong>{username}</strong>回复了你
+        </StyledTitle>
+      );
+    case NotificationEnum.COMMENT:
+      return (
+        <StyledTitle>
+          <strong>{username}</strong>评论了你的帖子
+        </StyledTitle>
+      );
+    default:
+      return "";
+  }
+};
+
 function NotificationReply({
   notification,
   handleDelete,
@@ -61,22 +81,26 @@ function NotificationReply({
 
   return (
     <StyledNotificationReply>
-      <StyledFlexForHeader>
-        <StyledTitle>
-          <strong>{notification.sendUser.username}</strong>回复了你
-        </StyledTitle>
-        {/* <CommentInteractiveButtons handleReply={handleReply} /> */}
-        <StyledDeleteButton onClick={() => handleDelete(notification.id)}>
-          删除
-        </StyledDeleteButton>
-      </StyledFlexForHeader>
+      {(notification.type === NotificationEnum.REPLY ||
+        notification.type === NotificationEnum.COMMENT) && (
+        <StyledFlexForHeader>
+          {getTitle(notification.type, notification.sendUser.username)}
+          <StyledDeleteButton onClick={() => handleDelete(notification.id)}>
+            删除
+          </StyledDeleteButton>
+        </StyledFlexForHeader>
+      )}
 
       <StyledContent>{notification.entity.content}</StyledContent>
-      <StyledReplyTo>
-        {notification.entity.replyTo.author.username +
-          ": " +
-          notification.entity.replyTo.content}
-      </StyledReplyTo>
+
+      {notification.type === NotificationEnum.REPLY && (
+        <StyledReplyTo>
+          {notification.entity.replyTo.author.username +
+            ": " +
+            notification.entity.replyTo.content}
+        </StyledReplyTo>
+      )}
+
       <StyledDate>
         {convertUTCToBeijingTime(notification.entity.createdAt)}
       </StyledDate>

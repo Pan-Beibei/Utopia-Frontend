@@ -25,12 +25,28 @@ interface getPostCountParams {
   filter: string;
 }
 
-export const getPosts = requestHandler<getPostCountParams, PostResponse[]>(
-  (params) =>
-    api.get(SERVER_ADDRESS + API_VERSION + "/posts", {
-      params,
-    })
-);
+// export const getPosts = requestHandler<getPostCountParams, PostResponse[]>(
+//   (params) =>
+//     api.get(SERVER_ADDRESS + API_VERSION + "/posts", {
+//       params,
+//     })
+// );
+
+export async function getPosts({ page, limit, filter }: getPostCountParams) {
+  const response = await api.get(SERVER_ADDRESS + API_VERSION + "/posts", {
+    params: {
+      sort: JSON.stringify({ createdAt: -1 }),
+      page: page,
+      limit: limit,
+      filter: filter,
+    },
+  });
+
+  const data = response.data;
+
+  const nextPage = data.length < limit ? null : page + 1;
+  return { posts: data, nextPage };
+}
 
 export const getPost = requestHandler<{ id: string }, PostResponse>((params) =>
   api.get(`${SERVER_ADDRESS}${API_VERSION}/posts/${params?.id}`)

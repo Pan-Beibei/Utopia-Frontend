@@ -80,7 +80,7 @@ function CommentReply({
         </StyledFlexForMainLeft>
 
         <CommentInteractiveButtons
-          handleReply={() => handleReply(data.id, data.replyTo.author.username)}
+          handleReply={() => handleReply(data.id, data.author.username)}
         />
       </StyledFlexForMainContent>
     </StyledReply>

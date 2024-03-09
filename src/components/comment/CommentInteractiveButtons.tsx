@@ -15,7 +15,7 @@ function CommentInteractiveButtons({
   //在fill属性里填充#B05F25，表示已点赞
   return (
     <BaseFlex>
-      <StyledReplyButton>
+      {/* <StyledReplyButton>
         <svg
           width="24"
           height="24"
@@ -30,7 +30,7 @@ function CommentInteractiveButtons({
           />
         </svg>
         点赞
-      </StyledReplyButton>
+      </StyledReplyButton> */}
       <StyledReplyButton onClick={handleReply}>
         <svg
           width="24"
