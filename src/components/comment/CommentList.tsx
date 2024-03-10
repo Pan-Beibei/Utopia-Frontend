@@ -12,6 +12,7 @@ import { CommentResponse, deleteComment } from "../../services/api/comment";
 import { useFetchUser } from "../../hooks/useFetchUser";
 
 const StyledContainer = styled(BaseColumnFlex)`
+  padding: 0rem 1rem;
   gap: 1.5rem;
   letter-spacing: 0.07rem;
   width: 100%;

@@ -30,17 +30,23 @@ const StyledCommentContainer = styled(BaseColumnFlex)`
 `;
 
 const StyledTitle = styled.h2`
-  font-size: 2rem;
+  font-size: 1.6rem;
   font-weight: ${({ theme }) => theme.fontWeight.bold};
   color: ${({ theme }) => theme.colors.black};
+  @media (min-width: ${(props) => props.theme.breakpoints.desktop}) {
+    font-size: 2rem;
+  }
 `;
 
 const StyledFlexForPostDetails = styled(BaseFlex)`
   gap: 1rem;
   width: 100%;
-  font-size: ${({ theme }) => theme.fontSize.large};
+  font-size: ${({ theme }) => theme.fontSize.medium};
   font-weight: ${({ theme }) => theme.fontWeight.normal};
   color: ${({ theme }) => theme.colors.gray400};
+  @media (min-width: ${(props) => props.theme.breakpoints.desktop}) {
+    font-size: ${({ theme }) => theme.fontSize.large};
+  }
 `;
 
 const StyledTop = styled(BaseColumnFlex)``;

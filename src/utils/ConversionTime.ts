@@ -1,5 +1,4 @@
-//2024-1-15 3:32
-export function convertUTCToBeijingTime(utcTimeStr: string) {
+function getBeijingTimeParts(utcTimeStr: string) {
   // 创建一个Date对象并解析时间字符串
   const utcTime = new Date(utcTimeStr);
 
@@ -12,14 +11,23 @@ export function convertUTCToBeijingTime(utcTimeStr: string) {
   const day = utcTime.getUTCDate();
   const hours = utcTime.getUTCHours();
   const minutes = utcTime.getUTCMinutes();
+
+  return { year, month, day, hours, minutes };
+}
+
+export function convertUTCToBeijingTime(utcTimeStr: string) {
+  const { year, month, day, hours, minutes } = getBeijingTimeParts(utcTimeStr);
   return year + "年" + month + "月" + day + "日    " + hours + ":" + minutes;
+}
+//2024-1-15 3:32
+export function convertUTCToBeijingTimeWithDash(utcTimeStr: string) {
+  const { year, month, day, hours, minutes } = getBeijingTimeParts(utcTimeStr);
+  return `${year}-${month}-${day} ${hours}:${minutes}`;
 }
 
 export function timeAgo(time: string): string {
   if (!time) {
     console.log(time);
-
-    throw new Error("Invalid time");
     return "Invalid time";
   }
 
@@ -43,10 +51,14 @@ export function timeAgo(time: string): string {
     return `${diffInMinutes}分钟前`;
   } else if (diffInHours < 24) {
     return `${diffInHours}小时前`;
+  } else if (diffInHours < 48) {
+    return `昨天${String(pastTime.getHours()).padStart(2, "0")}:${String(
+      pastTime.getMinutes()
+    ).padStart(2, "0")}`;
   } else if (diffInDays < 7) {
     return `${diffInDays}天前`;
   } else {
-    return convertUTCToBeijingTime(time);
+    return convertUTCToBeijingTimeWithDash(time);
   }
 }
 

@@ -33,6 +33,7 @@ export const StyledDate = styled.span`
 `;
 
 export const StyledCommentContent = styled.p`
+  font-size: ${(props) => props.theme.fontSize.medium};
   font-weight: ${(props) => props.theme.fontWeight.normal};
 `;
 

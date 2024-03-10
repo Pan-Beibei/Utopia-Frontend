@@ -4,7 +4,7 @@ import ArrowSvg from "../ui/ArrowSvg";
 import { BaseFlex } from "../../styles/BaseStyles";
 
 const StyledContainer = styled(BaseFlex)`
-  justify-content: space-between;
+  justify-content: flex-start;
   width: 100%;
   padding: 0 2rem;
 `;

@@ -1,21 +1,13 @@
 import { createContext, memo, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { BaseColumnFlex } from "../../styles/BaseStyles";
-import ReplyButton from "./CommentInteractiveButtons";
+import CommentInteractive from "./CommentInteractive";
 import ReplyInputBox from "./CommentReplyInputBox";
 import { getUserName } from "../../utils/helper";
 
-import {
-  StyledFlexForHeader,
-  StyledFlexForMainContent,
-  StyledUserName,
-  StyledDate,
-  StyledCommentContent,
-  StyledDeleteButton,
-} from "./Common";
+import { StyledUserName, StyledCommentContent } from "./Common";
 import CommentReplyList from "./CommentReplyList";
 import { CommentResponse } from "../../services/api/comment";
-import { timeAgo } from "../../utils/conversionTime";
 
 type ContextType = {
   handleReply: (id: string, name: string) => void;
@@ -31,8 +23,8 @@ interface CommentProps {
 
 export const CommentContext = createContext<ContextType | null>(null);
 
-const StyledComment = styled(BaseColumnFlex)`
-  gap: 0.07rem;
+const StyledContainer = styled(BaseColumnFlex)`
+  gap: 1.2rem;
   align-items: flex-start;
   border-bottom: 1px solid ${(props) => props.theme.colors.gray400};
   padding-bottom: 0.8rem;
@@ -43,8 +35,14 @@ const StyledComment = styled(BaseColumnFlex)`
 
 const StyledReplyInputBoxContainer = styled.div`
   width: 100%;
-  margin-top: 1rem;
+  // margin-top: 1rem;
   padding-left: 2rem;
+`;
+
+const StyledTopComment = styled(BaseColumnFlex)`
+  align-items: flex-start;
+  gap: 0.3rem;
+  width: 100%;
 `;
 
 const Comment = memo(({ postId, data, handleDelete, isMe }: CommentProps) => {
@@ -69,24 +67,17 @@ const Comment = memo(({ postId, data, handleDelete, isMe }: CommentProps) => {
 
   return (
     <CommentContext.Provider value={{ commentParentId, handleReply }}>
-      <StyledComment>
-        <StyledFlexForHeader>
+      <StyledContainer>
+        <StyledTopComment>
           <StyledUserName>{getUserName(data.author)}</StyledUserName>
-          <StyledDate>{timeAgo(data.createdAt)}</StyledDate>
-        </StyledFlexForHeader>
-        <StyledFlexForMainContent>
-          <StyledCommentContent>
-            {data.content}
-            {isMe && (
-              <StyledDeleteButton onClick={() => handleDelete(data.id)}>
-                删除
-              </StyledDeleteButton>
-            )}
-          </StyledCommentContent>
-          <ReplyButton
+          <StyledCommentContent>{data.content}</StyledCommentContent>
+          <CommentInteractive
+            isMe={isMe}
+            createdAt={data.createdAt}
             handleReply={() => handleReply(data.id, getUserName(data.author))}
+            handleDelete={() => handleDelete(data.id)}
           />
-        </StyledFlexForMainContent>
+        </StyledTopComment>
         <CommentReplyList /> {/* 评论的回复列表 */}
         {showReplyInputBox && (
           <StyledReplyInputBoxContainer>
@@ -98,7 +89,7 @@ const Comment = memo(({ postId, data, handleDelete, isMe }: CommentProps) => {
             />
           </StyledReplyInputBoxContainer>
         )}
-      </StyledComment>
+      </StyledContainer>
     </CommentContext.Provider>
   );
 });

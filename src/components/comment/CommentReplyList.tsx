@@ -18,7 +18,7 @@ import { useFetchUser } from "../../hooks/useFetchUser";
 import { deleteReplay } from "../../services/state/commentSlice";
 
 const StyledReplyList = styled(BaseColumnFlex)`
-  gap: 1rem;
+  gap: 1.2rem;
   padding-left: 2rem;
   width: 100%;
 `;
