@@ -1,8 +1,7 @@
+import { useState, useEffect, useRef, Suspense } from "react";
 import styled from "styled-components";
 import Hero from "./Hero";
-import Drinks from "./Drinks";
-// import Stories from "./Stories";
-
+import LazyDrinks from "../../lazyComponents/LazyDrinks";
 const StyledHome = styled.div`
   display: flex;
   justify-content: center;
@@ -17,14 +16,49 @@ const StyleFlexColumn = styled.div`
 `;
 
 function HomePage() {
+  const [showDrinks, setShowDrinks] = useState(false);
+  const drinksRef = useRef(null);
+
+  //为了优化首屏加载
+  useEffect(() => {
+    const currentRef = drinksRef.current;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setShowDrinks(true);
+        }
+      },
+      {
+        root: null,
+        rootMargin: "0px",
+        threshold: 0.1,
+      }
+    );
+
+    if (currentRef) {
+      observer.observe(currentRef);
+    }
+
+    return () => {
+      if (currentRef) {
+        observer.unobserve(currentRef);
+      }
+    };
+  }, []);
+
   return (
     <StyledHome>
       <StyleFlexColumn>
         <Hero />
       </StyleFlexColumn>
 
-      <Drinks />
-      {/* <Stories /> */}
+      <div ref={drinksRef}>
+        {showDrinks && (
+          <Suspense fallback={<div>Loading...</div>}>
+            <LazyDrinks />
+          </Suspense>
+        )}
+      </div>
     </StyledHome>
   );
 }

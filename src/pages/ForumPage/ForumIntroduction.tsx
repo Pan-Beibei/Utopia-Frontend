@@ -59,7 +59,7 @@ const StyledFlex = styled(BaseColumnFlex)`
 `;
 
 function ForumIntroduction() {
-  const imgUrl = "/activity/pic-1.jpg";
+  const imgUrl = "/images/chatbg.jpg";
 
   return (
     <StyledTopCard>

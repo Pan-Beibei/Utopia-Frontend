@@ -51,7 +51,6 @@ const Video = memo(function Video() {
           controls={false}
           playsInline
           $webkitPlaysinline={true}
-          // preload="metadata"
         >
           <source src="/video/hero.mp4" type="video/mp4" />
         </VideoElement>

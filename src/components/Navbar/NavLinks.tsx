@@ -16,7 +16,7 @@ const StyledNavLinks = styled.ul`
 
 const StyledNavLink = styled(NavLink)`
   text-transform: uppercase;
-  font-size: ${(props) => props.theme.fontSize.medium};
+  font-size: ${(props) => props.theme.fontSize.small};
   font-weight: ${(props) => props.theme.fontWeight.bold};
   letter-spacing: 0.2rem;
 
@@ -35,11 +35,11 @@ const StyledNavLink = styled(NavLink)`
   }
 `;
 
-const StyledNavBg = styled.div`
-  background-color: ${(props) => props.theme.colors.white};
-  color: ${(props) => props.theme.colors.black};
+const StyledNavBg = styled(BaseColumnFlex)`
+  background-color: ${(props) => props.theme.colors.primary}CC;
+  color: ${(props) => props.theme.colors.white};
   width: 9.3rem;
-  height: 15rem;
+  height: 8rem;
   border-radius: 0 0 0.8rem 0.8rem;
   position: absolute;
   top: 4rem;
