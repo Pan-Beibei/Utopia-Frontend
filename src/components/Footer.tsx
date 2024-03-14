@@ -84,16 +84,16 @@ function Footer() {
       <StyledCard $currentPath={currentPath}>
         <StyledTitle>六元咖啡馆</StyledTitle>
         <StyledCardText>
-          咖啡店的初衷只是想做一杯咖啡，不图收益，简简单单，能够给所有来来往往的人幸福感。能够让所有来大理的人能够暂时停下脚步，不用想太多，只要简单的喝一杯咖啡来缓解一下。
+          我们只是一个普通人，我们总要面对可能此生再也不会赚到非常多钱的事实，但是我们依然需要认清这个世界的真相，并且热爱生活，所以我做了这个咖啡馆，店里的猫猫狗狗男生宿舍里的人，喝咖啡的朋友，院子里的柿子树，我们一起寄居在这个咖啡馆里，相互取暖，温暖着彼此。
         </StyledCardText>
       </StyledCard>
       <StyledContactContainer>
-        <StyledTitle>联系我们</StyledTitle>
+        <StyledTitle>联系馆长</StyledTitle>
         <StyledContactList>
-          <StyledContactItem>小红书: 6元咖啡</StyledContactItem>
-          <StyledContactItem>B站: 6元咖啡</StyledContactItem>
-          <StyledContactItem>抖音: 6元咖啡</StyledContactItem>
-          <StyledContactItem>微信: 6元咖啡</StyledContactItem>
+          <StyledContactItem>小红书: 六元咖啡馆长</StyledContactItem>
+          <StyledContactItem>B站: 953168205</StyledContactItem>
+          <StyledContactItem>抖音: 190627081</StyledContactItem>
+          <StyledContactItem>微信: sixyuancoffee</StyledContactItem>
         </StyledContactList>
       </StyledContactContainer>
     </StyledContainer>

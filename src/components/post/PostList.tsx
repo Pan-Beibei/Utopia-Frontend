@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { usePosts } from "../../hooks/usePostsHooks";
 
-import { getSearch } from "../../services/state/ForumSlice";
+import { getFilter } from "../../services/state/ForumSlice";
 import { PostResponse } from "../../services/api/post";
 import { useInView } from "react-intersection-observer";
 import Post from ".";
@@ -37,7 +37,7 @@ const StyledList = styled.ul`
 function PostList() {
   const navigate = useNavigate();
   const [posts, setPosts] = useState<PostResponse[]>([]);
-  const filter = useSelector(getSearch);
+  const filter = useSelector(getFilter);
   const { ref, inView } = useInView();
 
   const {

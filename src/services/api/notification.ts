@@ -14,6 +14,7 @@ export interface NotificationResponse {
     content: string;
     id: string;
     createdAt: string;
+    post: { id: string; title: string };
     replyTo: {
       author: { id: string; username: string };
       content: string;

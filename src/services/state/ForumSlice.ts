@@ -2,12 +2,12 @@ import { createSlice } from "@reduxjs/toolkit"; //
 import { RootState } from "../../store";
 
 interface StateProps {
-  search: string;
+  filter: string;
   isCreatePostVisible: boolean;
 }
 
 const initialState: StateProps = {
-  search: "",
+  filter: "",
   isCreatePostVisible: false,
 };
 
@@ -15,12 +15,8 @@ const forumSlice = createSlice({
   name: "forum",
   initialState,
   reducers: {
-    setSearch(state, action) {
-      state.search = action.payload;
-    },
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    clearSearch(state, _action) {
-      state.search = "";
+    setFilter(state, action) {
+      state.filter = action.payload;
     },
 
     setIsCreatePostVisible(state, action) {
@@ -29,11 +25,10 @@ const forumSlice = createSlice({
   },
 });
 
-export const { setSearch, clearSearch, setIsCreatePostVisible } =
-  forumSlice.actions;
+export const { setFilter, setIsCreatePostVisible } = forumSlice.actions;
 
 export default forumSlice.reducer;
 
-export const getSearch = (state: RootState) => state.forum.search;
+export const getFilter = (state: RootState) => state.forum.filter;
 export const getIsCreatePostVisible = (state: RootState) =>
   state.forum.isCreatePostVisible;

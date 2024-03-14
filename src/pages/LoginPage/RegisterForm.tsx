@@ -8,7 +8,7 @@ import {
 } from "./LoginCommon";
 
 const StyledGroup = styled.div`
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
   display: flex;
   align-items: end;
   gap: 1rem;
@@ -49,16 +49,16 @@ const StyledBlueRadio = styled.input`
   }
 `;
 
-const StyledGetVerificationCodeButton = styled.button`
-  padding: 0.5rem 1.6rem;
-  background-color: ${(props) => props.theme.colors.primary};
-  color: ${(props) => props.theme.colors.white};
-  border: none;
-  border-radius: ${(props) => props.theme.borderRadius};
-  position: absolute;
-  right: -2rem;
-  bottom: 2.2rem;
-`;
+// const StyledGetVerificationCodeButton = styled.button`
+//   padding: 0.5rem 1.6rem;
+//   background-color: ${(props) => props.theme.colors.primary};
+//   color: ${(props) => props.theme.colors.white};
+//   border: none;
+//   border-radius: ${(props) => props.theme.borderRadius};
+//   position: absolute;
+//   right: -2rem;
+//   bottom: 2.2rem;
+// `;
 
 function InputField({
   fieldConfig,
@@ -112,9 +112,9 @@ function RegisterForm(authForm: AuthFormProps) {
           <InputField fieldConfig={fieldConfig} authForm={authForm} />
         </StyledGroup>
       ))}
-      <StyledGetVerificationCodeButton>
+      {/* <StyledGetVerificationCodeButton>
         获取验证码
-      </StyledGetVerificationCodeButton>
+      </StyledGetVerificationCodeButton> */}
     </StyledLoginForm>
   );
 }

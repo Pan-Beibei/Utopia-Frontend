@@ -4,6 +4,7 @@ import { BaseColumnFlex, BaseFlex } from "../../styles/BaseStyles";
 import { NotificationResponse } from "../../services/api/notification";
 import { convertUTCToBeijingTime } from "../../utils/conversionTime";
 import { NotificationEnum } from "../../types";
+import { useFetchUser } from "../../hooks/useFetchUser";
 
 const StyledNotificationReply = styled(BaseColumnFlex)`
   padding: 1rem 3rem;
@@ -47,23 +48,47 @@ const StyledDeleteButton = styled.span`
   cursor: pointer;
 `;
 
+const StyledPostTitle = styled.p`
+  display: inline-block;
+  font-weight: 500;
+  color: ${(props) => props.theme.colors.primary};
+`;
+
 interface NotificationReplyProps {
   notification: NotificationResponse;
   handleDelete: (id: string) => void;
 }
 
-const getTitle = (type: NotificationEnum, username: string) => {
+const getTitle = (
+  type: NotificationEnum,
+  username: string,
+  title: string,
+  isReplyMe: boolean
+) => {
   switch (type) {
     case NotificationEnum.REPLY:
       return (
         <StyledTitle>
-          <strong>{username}</strong>回复了你
+          {isReplyMe ? (
+            <>
+              <strong>{username}</strong>在
+              <StyledPostTitle>{title}</StyledPostTitle>中回复了你
+            </>
+          ) : (
+            <>
+              <strong>{username}</strong>在
+              <StyledPostTitle>{title}</StyledPostTitle>
+              下进行了回复
+            </>
+          )}
         </StyledTitle>
       );
     case NotificationEnum.COMMENT:
       return (
         <StyledTitle>
-          <strong>{username}</strong>评论了你的帖子
+          <strong>{username}</strong>在
+          <StyledPostTitle>{title}</StyledPostTitle>
+          下发表了评论
         </StyledTitle>
       );
     default:
@@ -75,16 +100,19 @@ function NotificationReply({
   notification,
   handleDelete,
 }: NotificationReplyProps) {
-  // function handleReply() {
-  //   console.log("repliedUserName");
-  // }
+  const { user } = useFetchUser();
 
   return (
     <StyledNotificationReply>
       {(notification.type === NotificationEnum.REPLY ||
         notification.type === NotificationEnum.COMMENT) && (
         <StyledFlexForHeader>
-          {getTitle(notification.type, notification.sendUser.username)}
+          {getTitle(
+            notification.type,
+            notification.sendUser.username,
+            notification.entity.post.title,
+            notification.entity.replyTo?.author.id === user?.id
+          )}
           <StyledDeleteButton onClick={() => handleDelete(notification.id)}>
             删除
           </StyledDeleteButton>

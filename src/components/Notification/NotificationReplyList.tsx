@@ -112,6 +112,10 @@ function NotificationReplyList() {
   if (isError) return <div>error</div>;
   if (isLoading) return <div>loading...</div>;
 
+  if (notifications.length === 0) {
+    return <h3>暂无消息通知，快和大家互动吧！！！</h3>;
+  }
+
   return (
     <StyledContainer>
       {notifications.map((notification, index) => {

@@ -10,7 +10,7 @@ import LazyActivityPage from "./lazyComponents/LazyActivityPage";
 import {
   hoemLoader,
   activityLoader,
-  forumLoader,
+  // forumLoader,
 } from "./services/dataLoaders";
 
 export const routes = [
@@ -31,7 +31,7 @@ export const routes = [
       {
         path: "forum-page",
         element: <LazyForumPage />,
-        loader: forumLoader,
+        // loader: forumLoader,
       },
       {
         path: "post-detail/:postId",

@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import { BaseFlex } from "../../styles/BaseStyles";
-import { setSearch } from "../../services/state/ForumSlice";
+import { getFilter, setFilter } from "../../services/state/ForumSlice";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const StyledContainer = styled(BaseFlex)`
   flex-grow: 1;
@@ -43,8 +43,9 @@ const StyledImg = styled.img`
 
 function SearchPosts() {
   const dispatch = useDispatch();
+  const filter = useSelector(getFilter);
 
-  const [inputSearch, setInputSearch] = useState("");
+  const [inputSearch, setInputSearch] = useState(filter);
 
   function handleSearch(e: React.ChangeEvent<HTMLInputElement>) {
     setInputSearch(e.target.value);
@@ -53,12 +54,18 @@ function SearchPosts() {
   function handleSearchButton() {
     //当前只能搜索标题
     const search = inputSearch.trim();
+
+    //如果搜索内容为空，并且过滤器也为空，则直接返回
     if (search.length === 0) {
+      if (filter.length !== 0) {
+        dispatch(setFilter(""));
+      }
       return;
     }
+
     //搜索所有涵盖输入内容的帖子
     dispatch(
-      setSearch(JSON.stringify({ title: { $regex: search, $options: "i" } }))
+      setFilter(JSON.stringify({ title: { $regex: search, $options: "i" } }))
     );
   }
 

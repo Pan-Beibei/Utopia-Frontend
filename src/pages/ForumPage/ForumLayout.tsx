@@ -14,13 +14,11 @@ const StyledContainer = styled(BaseColumnFlex)`
   background-color: ${(props) => props.theme.colors.white};
 `;
 
-interface ForumLayoutProps {
-  postsCount: number;
-}
+// interface ForumLayoutProps {
+//   postsCount: number;
+// }
 
-function ForumLayout({ postsCount }: ForumLayoutProps) {
-  console.log("postsCount: ", postsCount);
-
+function ForumLayout() {
   return (
     <StyledContainer>
       <PostControlPanel />

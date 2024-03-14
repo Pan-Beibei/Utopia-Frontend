@@ -45,7 +45,7 @@ function LoginPage() {
     errorMessage: string
   ) {
     console.log("handleAuth called", data);
-
+    data.verificationCode = "123456"; //临时填充
     authFunc(data)
       .then((res) => {
         if (res.code === "success") {

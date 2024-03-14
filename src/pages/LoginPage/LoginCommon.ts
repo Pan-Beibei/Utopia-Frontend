@@ -59,8 +59,8 @@ export const authFieldsConfig: AuthFieldConfigProps[] = [
     validation: () => ({
       required: "This field is required",
       minLength: {
-        value: 3,
-        message: "用户名请至少输入3个字符",
+        value: 2,
+        message: "用户名请至少输入2个字符",
       },
     }),
   },
@@ -108,7 +108,7 @@ export const authFieldsConfig: AuthFieldConfigProps[] = [
     validation: () => ({
       required: "This field is required",
       pattern: {
-        value: /^\d{4}-\d{2}-\d{2}$/,
+        value: /^\d{4}(-\d{2}-\d{2}|\d{4})$/,
         message: "生日格式不正确",
       },
     }),
@@ -126,19 +126,19 @@ export const authFieldsConfig: AuthFieldConfigProps[] = [
       },
     }),
   },
-  {
-    id: "verificationCode",
-    type: "text",
-    label: "验证码",
-    placeholder: "请输入验证码...",
-    validation: () => ({
-      required: "This field is required",
-      pattern: {
-        value: /^\d{6}$/,
-        message: "验证码必须是6位数字",
-      },
-    }),
-  },
+  // {
+  //   id: "verificationCode",
+  //   type: "text",
+  //   label: "验证码",
+  //   placeholder: "请输入验证码...",
+  //   validation: () => ({
+  //     required: "This field is required",
+  //     pattern: {
+  //       value: /^\d{6}$/,
+  //       message: "验证码必须是6位数字",
+  //     },
+  //   }),
+  // },
 ];
 
 export interface AuthFormProps {

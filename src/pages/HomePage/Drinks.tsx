@@ -50,7 +50,13 @@ const StyledDrinksReview = styled.div`
   padding: 2.4rem;
 `;
 
+function replaceIPWithLocalhost(url: string) {
+  return url.replace("8.138.107.174", "localhost:3000");
+}
+
 const DrinkList = ({ drinks }: { drinks: DrinkType[] }) => {
+  drinks.forEach((drink) => console.log(drink.pictures[0]));
+
   return (
     <>
       {drinks.map((drink: DrinkType) => (
@@ -59,7 +65,7 @@ const DrinkList = ({ drinks }: { drinks: DrinkType[] }) => {
           name={drink.name}
           price={drink.price}
           description={JSON.parse(drink.description)[0]?.src}
-          imgUrl={drink.pictures[0]}
+          imgUrl={replaceIPWithLocalhost(drink.pictures[0])}
         />
       ))}
     </>

@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { useLoaderData } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { BaseColumnFlex } from "../../styles/BaseStyles";
 import ForumIntroduction from "./ForumIntroduction";
@@ -18,16 +17,10 @@ const StyledContainer = styled(BaseColumnFlex)`
 function ForumPage() {
   const isCreatePostVisible = useSelector(getIsCreatePostVisible);
 
-  const postsCount = useLoaderData() as number;
-
   return (
     <StyledContainer>
       <ForumIntroduction />
-      {isCreatePostVisible ? (
-        <CreatePost />
-      ) : (
-        <ForumLayout postsCount={postsCount} />
-      )}
+      {isCreatePostVisible ? <CreatePost /> : <ForumLayout />}
     </StyledContainer>
   );
 }

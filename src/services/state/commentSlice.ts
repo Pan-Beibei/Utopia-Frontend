@@ -123,6 +123,10 @@ const userSlice = createSlice({
         state[commentId].isRepliesVisible = true;
         //重置
         state[commentId].hasNewReply = false;
+
+        //其他用户评论，这个数据只需要在前端计算
+        if (state[commentId].comments.length > state[commentId].repliesCount)
+          state[commentId].repliesCount = state[commentId].comments.length;
       }
       state[commentId].hasFetchedAllReplies = !payload.hasMore;
       //如果还有更多，那么page+1

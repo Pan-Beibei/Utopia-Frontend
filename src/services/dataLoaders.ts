@@ -1,6 +1,6 @@
 import store from "../store";
 import { getDrinks } from "./api/home";
-import { getPostsCount } from "./api/post";
+// import { getPostsCount } from "./api/post";
 import { getBullets } from "./api/bullet";
 import { setDrinks } from "./state/homePageSlice";
 import { setBullets } from "./state/bulletSlice";
@@ -32,17 +32,17 @@ export async function activityLoader() {
   return null;
 }
 
-export async function forumLoader() {
-  try {
-    const res = await getPostsCount();
-    console.log(res);
-    if (res.code !== "success") {
-      console.log(res);
-      return null;
-    }
-    return res.data;
-  } catch (err) {
-    console.log(err);
-    return null;
-  }
-}
+// export async function forumLoader() {
+//   try {
+//     const res = await getPostsCount();
+//     console.log(res);
+//     if (res.code !== "success") {
+//       console.log(res);
+//       return null;
+//     }
+//     return res.data;
+//   } catch (err) {
+//     console.log(err);
+//     return null;
+//   }
+// }

@@ -71,7 +71,7 @@ function ForumIntroduction() {
       <StyledFlex>
         <StyledTitleTablet>68克情报处</StyledTitleTablet>
         <StyledTopCardText>
-          简单介绍一下可以发布的内容，以及创办这个论坛的初衷今安徽省东部根据会议王国是不KFC今后工作卡聚会的改编成客户给本文首发的常客计划
+          年轻就是更容易沉沦自由意志，你说你理性，克制，少说话，不爱留言和辩论，而我说你老了。偶尔的放纵，口无遮拦的在这个情报处写下点什么吧！
         </StyledTopCardText>
       </StyledFlex>
     </StyledTopCard>

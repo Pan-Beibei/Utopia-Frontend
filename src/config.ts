@@ -12,4 +12,7 @@ export const SERVER_ADDRESS = "http://localhost:3000";
 
 //生产环境
 // export const SERVER_ADDRESS = "http://8.138.107.174";
+
+//生产环境
+// export const SERVER_ADDRESS = "https://beibeitest.site";
 export const API_VERSION = "/api/v1";
