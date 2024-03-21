@@ -4,7 +4,7 @@ import {
   SuccessResponse,
   ErrorResponse,
 } from "../../utils/requestHandler";
-import { AuthFieldsProps } from "../../pages/LoginPage/LoginCommon";
+import { AuthFieldsProps } from "@/pages/LoginPage/LoginCommon";
 import { User } from "../../types";
 import { SERVER_ADDRESS, API_VERSION } from "../../config";
 

@@ -9,6 +9,7 @@ import { formatDateToChinese } from "../../utils/conversionTime";
 import { usePost } from "../../hooks/usePostsHooks";
 import { getUserName } from "../../utils/helper";
 import LazyEditor from "../../lazyComponents/LazyEditor";
+import { StyledLoading } from "@/components/ui/Loading";
 
 const StyledContainer = styled(BaseColumnFlex)`
   padding-top: 7.6rem;
@@ -58,7 +59,7 @@ function PostDetail() {
 
   const { isError, isLoading, data: post } = usePost(postId);
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <StyledLoading>Loading...</StyledLoading>;
   if (isError) return <div>Error</div>;
 
   if (postId === undefined || post === undefined)
@@ -77,7 +78,7 @@ function PostDetail() {
         </StyledFlexForPostDetails>
       </StyledTop>
 
-      <Suspense fallback={<div>Loading editor...</div>}>
+      <Suspense fallback={<StyledLoading>Loading editor...</StyledLoading>}>
         <MemoizedEditor
           editable={false}
           stringifiedEditorState={post.content}

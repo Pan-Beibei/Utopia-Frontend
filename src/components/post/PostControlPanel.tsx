@@ -27,15 +27,15 @@ function PostControlPanel() {
   const { user } = useFetchUser();
   const dispatch = useDispatch();
 
-  let isAdmin = false;
+  let isShow = false;
   if (user) {
-    isAdmin = user.roles.includes("admin");
+    isShow = user.roles.includes("admin") || user.roles.includes("vip_user");
   }
 
   return (
     <StyledContainer>
       <PostSearch />
-      {isAdmin && (
+      {isShow && (
         <StyledPostButton
           onClick={() => dispatch(setIsCreatePostVisible(true))}
         >

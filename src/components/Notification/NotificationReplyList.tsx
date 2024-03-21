@@ -17,6 +17,7 @@ import {
   getNotificationCount,
   resetNotificationCount,
 } from "../../services/state/userSlice";
+import { StyledLoading } from "@/components/ui/Loading";
 
 const StyledContainer = styled(BaseColumnFlex)`
   align-items: flex-start;
@@ -127,7 +128,9 @@ function NotificationReplyList() {
           />
         );
       })}
-      <div ref={ref}>{isFetchingNextPage && "Loading..."}</div>
+      <StyledLoading ref={ref}>
+        {isFetchingNextPage && "Loading..."}
+      </StyledLoading>
     </StyledContainer>
   );
 }

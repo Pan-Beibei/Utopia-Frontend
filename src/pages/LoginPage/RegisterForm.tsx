@@ -97,13 +97,14 @@ function InputField({
       id={id}
       placeholder={placeholder}
       type={type}
+      data-testid={id}
     />
   );
 }
 
 function RegisterForm(authForm: AuthFormProps) {
   return (
-    <StyledLoginForm>
+    <StyledLoginForm data-testid="RegisterForm">
       {authFieldsConfig.map((fieldConfig) => (
         <StyledGroup key={fieldConfig.id}>
           <StyledLabel htmlFor={fieldConfig.id}>

@@ -6,10 +6,12 @@ import { useInView } from "react-intersection-observer";
 import { BaseColumnFlex } from "../../styles/BaseStyles";
 import Comment from ".";
 import { useComments } from "../../hooks/useCommentsHook";
-import { initCommentState } from "../../services/state/commentSlice";
+// import { initCommentState } from "../../services/state/commentSlice";
+import { initCommentState } from "@/services/state/commentSlice";
 import { useDispatch } from "react-redux";
 import { CommentResponse, deleteComment } from "../../services/api/comment";
 import { useFetchUser } from "../../hooks/useFetchUser";
+import { StyledLoading } from "@/components/ui/Loading";
 
 const StyledContainer = styled(BaseColumnFlex)`
   padding: 0rem 1rem;
@@ -93,7 +95,7 @@ function CommentList({ postId }: CommentListProps) {
     [postId, queryClient]
   );
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <StyledLoading>Loading...</StyledLoading>;
   if (isError) return <div>Error</div>;
   if (comments === undefined || comments.length === 0)
     return <div>暂无评论</div>;
@@ -109,7 +111,9 @@ function CommentList({ postId }: CommentListProps) {
           isMe={user?.id === comment.author.id}
         ></Comment>
       ))}
-      <div ref={ref}>{isFetchingNextPage && "Loading..."}</div>
+      <StyledLoading ref={ref}>
+        {isFetchingNextPage && "Loading..."}
+      </StyledLoading>
     </StyledContainer>
   );
 }

@@ -1,5 +1,7 @@
-function Loading() {
-  return <div>Loading...</div>;
-}
+import styled from "styled-components";
 
-export default Loading;
+export const StyledLoading = styled.div`
+  font-size: 2.5rem;
+  text-align: center;
+  color: black;
+`;

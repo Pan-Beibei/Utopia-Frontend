@@ -11,12 +11,13 @@ function LoginForm({ register, getValues }: AuthFormProps) {
     .sort(({ id: idA }) => (idA === "phone" ? -1 : 1));
 
   return (
-    <StyledLoginForm>
+    <StyledLoginForm data-testid="LoginForm">
       {authFields.map(({ id, validation, placeholder }, index) => (
         <StyledLoginInput
           {...register(id, validation(getValues))}
           placeholder={placeholder}
           key={index}
+          data-testid={id}
         />
       ))}
     </StyledLoginForm>

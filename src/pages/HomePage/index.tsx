@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, Suspense } from "react";
 import styled from "styled-components";
 import Hero from "./Hero";
 import LazyDrinks from "../../lazyComponents/LazyDrinks";
+import { StyledLoading } from "@/components/ui/Loading";
 const StyledHome = styled.div`
   display: flex;
   justify-content: center;
@@ -54,7 +55,7 @@ function HomePage() {
 
       <div ref={drinksRef}>
         {showDrinks && (
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense fallback={<StyledLoading>Loading...</StyledLoading>}>
             <LazyDrinks />
           </Suspense>
         )}

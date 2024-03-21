@@ -94,12 +94,18 @@ function Drinks() {
   const sweetwater = drinks[DrinkEnum.SWEET_WATER];
   if (sweetwater === undefined) return <div>小甜水错误！！</div>;
 
+  const beer = drinks[DrinkEnum.BEER];
+  if (beer === undefined) return <div>啤酒错误！！</div>;
+
   return (
     <section>
       <StyledContainer>
         <SectionTitleProps>Drink Menu</SectionTitleProps>
         <StyledDrinkMenuGroup>
-          <StyledDrinksListImg src={drinkMenuImg} alt="drink list" />
+          <StyledDrinksListImg
+            src={replaceIPWithLocalhost(drinkMenuImg)}
+            alt="drink list"
+          />
           <StyledDrinksReviewList>
             {drinkMenuText.map(({ src }: { src: string }, index: number) => {
               return <StyledDrinksReview key={index}>{src}</StyledDrinksReview>;
@@ -127,7 +133,9 @@ function Drinks() {
         >
           <DrinkList drinks={sweetwater} />
         </DrinkSeries>
-
+        <DrinkSeries seriesName="精酿啤酒系列" iconUrl="/icons/otherwater.svg">
+          <DrinkList drinks={beer} />
+        </DrinkSeries>
         <DrinkSeries seriesName="懂的都懂" iconUrl="/icons/otherwater.svg">
           <DrinkList drinks={drinks[DrinkEnum.OTHER_WATER]} />
         </DrinkSeries>

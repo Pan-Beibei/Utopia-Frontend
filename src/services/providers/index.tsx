@@ -1,5 +1,4 @@
 import { useState, useMemo, useEffect, Suspense } from "react";
-import styled from "styled-components";
 import { ThemeProvider } from "styled-components";
 import { useDispatch } from "react-redux";
 import { QueryClient, QueryClientProvider } from "react-query";
@@ -8,13 +7,7 @@ import { baseTheme, warmTheme } from "../../themes/themes";
 import { ThemeContext } from "./ThemeContext";
 import GlobalStyles from "../../styles/GlobalStyles";
 import { setItemsPerPage, setPaginationButtons } from "../state/globalSlice";
-
-const StyledLoading = styled.div`
-  width: 100%;
-  text-align: center;
-  font-size: 5rem;
-  font-weight: 700;
-`;
+import { StyledLoading } from "@/components/ui/Loading";
 
 interface ProvidersProps {
   children: React.ReactNode;

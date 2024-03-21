@@ -23,6 +23,7 @@ export enum DrinkEnum {
   SWEET_WATER = "SWEET_WATER",
   OTHER_WATER = "OTHER_WATER",
   NOODLES = "NOODLES",
+  BEER = "BEER",
 }
 
 export const postTags = [

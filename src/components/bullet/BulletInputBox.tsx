@@ -8,7 +8,8 @@ import { ButtonTypes } from "../../enum/ButtonTypes";
 // import EmojiPicker from "../EmojiPicker";
 import EmojiTextInput from "../EmojiTextInput";
 import { useFetchUser } from "../../hooks/useFetchUser";
-import LazyEmojiPicker from "../../lazyComponents/LazyEmojiPicker";
+import LazyEmojiPicker from "@/lazyComponents/LazyEmojiPicker";
+import { StyledLoading } from "@/components/ui/Loading";
 
 const StyledBulletInputContainer = styled.div`
   position: relative;
@@ -67,7 +68,7 @@ function BulletInputBox({ socket }: BulletInputTextProps) {
       {showPicker && (
         <StyledEmojiContainer>
           {/* <EmojiPicker setInputContent={setInputContent} /> */}
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense fallback={<StyledLoading>Loading...</StyledLoading>}>
             <LazyEmojiPicker setInputContent={setInputContent} />
           </Suspense>
         </StyledEmojiContainer>

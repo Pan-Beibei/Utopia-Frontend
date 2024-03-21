@@ -1,13 +1,14 @@
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { useInView } from "react-intersection-observer";
 import { usePosts } from "../../hooks/usePostsHooks";
-
 import { getFilter } from "../../services/state/ForumSlice";
 import { PostResponse } from "../../services/api/post";
-import { useInView } from "react-intersection-observer";
+
 import Post from ".";
-import { useNavigate } from "react-router-dom";
+import { StyledLoading } from "@/components/ui/Loading";
 
 const StyledList = styled.ul`
   padding: 0 1rem;
@@ -84,7 +85,9 @@ function PostList() {
       {posts.map((data) => {
         return <Post post={data} key={data.id} />;
       })}
-      <div ref={ref}>{isFetchingNextPage && "Loading..."}</div>
+      <StyledLoading ref={ref}>
+        {isFetchingNextPage && "Loading..."}
+      </StyledLoading>
     </StyledList>
   );
 }
