@@ -35,7 +35,6 @@ const StyledContainer = styled(BaseColumnFlex)`
 
 const StyledReplyInputBoxContainer = styled.div`
   width: 100%;
-  // margin-top: 1rem;
   padding-left: 2rem;
 `;
 
@@ -55,7 +54,7 @@ const Comment = memo(({ postId, data, handleDelete, isMe }: CommentProps) => {
     if (showReplyInputBox && replyInputBoxRef.current) {
       replyInputBoxRef.current.scrollIntoView({
         behavior: "smooth",
-        block: "end",
+        block: "center",
       });
     }
   }, [showReplyInputBox]);

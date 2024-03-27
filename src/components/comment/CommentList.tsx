@@ -23,6 +23,7 @@ const StyledContainer = styled(BaseColumnFlex)`
   overflow: hidden;
   overflow-y: auto;
   max-height: 55rem;
+  min-height: 25rem;
 
   /* Hide scrollbar for Chrome, Safari and Opera */
   ::-webkit-scrollbar {
@@ -97,8 +98,7 @@ function CommentList({ postId }: CommentListProps) {
 
   if (isLoading) return <StyledLoading>Loading...</StyledLoading>;
   if (isError) return <div>Error</div>;
-  if (comments === undefined || comments.length === 0)
-    return <div>暂无评论</div>;
+  if (comments.length === 0) return <div>暂无评论</div>;
 
   return (
     <StyledContainer>

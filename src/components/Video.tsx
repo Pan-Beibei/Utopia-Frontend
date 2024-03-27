@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { useState, memo } from "react";
 
 const VideoContainer = styled.div`
@@ -7,30 +7,31 @@ const VideoContainer = styled.div`
   height: 100%;
 `;
 
-const PlaceholderImage = styled.img<{ $isvideoLoaded: boolean }>`
+const sharedStyles = css`
   position: absolute;
   top: 0;
   left: 0;
   width: 100vw;
   height: 95vh;
   object-fit: cover;
+`;
+
+const PlaceholderImage = styled.img<{ $isvideoLoaded: boolean }>`
+  ${sharedStyles}
   display: ${(props) => (props.$isvideoLoaded ? "none" : "block")};
 `;
 
 const VideoElement = styled.video<{ $webkitPlaysinline: boolean }>`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 95vh;
-  object-fit: cover;
+  ${sharedStyles}
   webkit-playsinline: ${(props) =>
     props.$webkitPlaysinline ? "true" : "false"};
 `;
 
 const Video = memo(function Video() {
-  const [isvideoLoaded, setIsVideoLoaded] = useState(false);
+  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
+  // const [isImageLoaded, setIsImageLoaded] = useState(false);
   const isWeChat = /micromessenger/i.test(navigator.userAgent);
+
   const handleLoadedData = () => {
     setIsVideoLoaded(true);
   };
@@ -38,10 +39,12 @@ const Video = memo(function Video() {
   return (
     <VideoContainer>
       <PlaceholderImage
+        srcSet="/video/hero.webp 480w, /video/hero.webp 800w, /video/hero.jpg 1200w"
+        sizes="(max-width: 600px) 480px, (max-width: 900px) 800px, 1200px"
         src="/video/hero.jpg"
-        alt="video placeholder"
-        $isvideoLoaded={isvideoLoaded}
+        $isvideoLoaded={isVideoLoaded}
       />
+
       {!isWeChat && (
         <VideoElement
           onLoadedData={handleLoadedData}

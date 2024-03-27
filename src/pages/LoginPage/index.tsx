@@ -44,7 +44,7 @@ function LoginPage() {
     data: AuthFieldsProps,
     errorMessage: string
   ) {
-    console.log("handleAuth called", data);
+    // console.log("handleAuth called", data);
     data.verificationCode = "123456"; //临时填充
     authFunc(data)
       .then((res) => {
@@ -65,7 +65,7 @@ function LoginPage() {
   }
 
   function onSubmit(data: AuthFieldsProps) {
-    console.log("onSubmit called", data);
+    // console.log("onSubmit called", data);
 
     if (isLogin) {
       handleAuth(loginUser, data, "用户名或密码错误");

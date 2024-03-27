@@ -49,6 +49,7 @@ function PostList() {
     hasNextPage,
     isFetchingNextPage,
   } = usePosts(filter);
+  console.log("data: ", data);
 
   useEffect(() => {
     if (data) {

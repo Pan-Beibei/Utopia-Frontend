@@ -11,13 +11,15 @@ import { useDispatch } from "react-redux";
 
 const StyledContainer = styled(BaseFlex)`
   position: relative;
+
   gap: 1rem;
   width: 100%;
 `;
 
 const StyledEmojiContainer = styled.div`
   position: absolute;
-  bottom: 5rem;
+  z-index: 9999;
+  top: 5rem;
   left: 0rem;
 `;
 
@@ -81,11 +83,6 @@ function CommentReplyInputBox({
 
   return (
     <StyledContainer ref={replyInputBoxRef}>
-      {showPicker && (
-        <StyledEmojiContainer>
-          <EmojiPicker setInputContent={setInputContent} />
-        </StyledEmojiContainer>
-      )}
       <EmojiTextInput
         inputContent={inputContent}
         setInputContent={setInputContent}
@@ -97,6 +94,11 @@ function CommentReplyInputBox({
         border="1px solid rgba(142, 142, 142, 0.6)"
       />
       <StyledPulishButton onClick={handlePublish}>发布</StyledPulishButton>
+      {showPicker && (
+        <StyledEmojiContainer>
+          <EmojiPicker setInputContent={setInputContent} />
+        </StyledEmojiContainer>
+      )}
     </StyledContainer>
   );
 }

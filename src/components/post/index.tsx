@@ -4,6 +4,7 @@ import { PostResponse } from "../../services/api/post";
 import { postTags } from "../../types";
 import { formatDateToChinese } from "../../utils/conversionTime";
 import { getUserName } from "../../utils/helper";
+// import { useNavigate } from "react-router-dom";
 
 const StyledContainer = styled(BaseColumnFlex)`
   align-items: flex-start;
