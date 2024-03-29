@@ -11,6 +11,7 @@ import store from "@/store/index.ts";
 import { Provider } from "react-redux";
 import Providers from "@/services/providers";
 import user from "@testing-library/user-event";
+import { getCommentsByParentId } from "@/services/api/comment";
 
 jest.mock("@/hooks/useCommentsHook", () => {
   const { comments } = jest.requireActual("../data/comments");
@@ -32,12 +33,7 @@ jest.mock("@/hooks/useCommentsHook", () => {
 });
 
 jest.mock("@/services/api/comment", () => ({
-  getCommentsByParentId: jest.fn(() =>
-    Promise.resolve({
-      data: { comments: replies, hasMore: false },
-      code: "success",
-    })
-  ),
+  getCommentsByParentId: jest.fn(),
 }));
 
 test("should correctly render CommentList component with expected number of comments", async () => {
@@ -51,6 +47,13 @@ test("should correctly render CommentList component with expected number of comm
     </Provider>
   );
 
+  (getCommentsByParentId as jest.Mock).mockImplementation(() =>
+    Promise.resolve({
+      data: { comments: replies.slice(0, 3), hasMore: true },
+      code: "success",
+    })
+  );
+
   await waitFor(() => {
     for (const comment of comments) {
       const commentItem = screen.getByText(comment.content);
@@ -60,20 +63,59 @@ test("should correctly render CommentList component with expected number of comm
     const replyButtons = screen.getAllByRole("button", { name: "回复" });
     expect(replyButtons.length).toBe(10);
 
-    const expandMoreButtons = screen.getByText("展开2条回复");
+    const expandMoreNumberButtons = screen.getByText("展开4条回复");
+    expect(expandMoreNumberButtons).toBeInTheDocument();
+
+    user.click(expandMoreNumberButtons);
+  });
+
+  await waitForElementToBeRemoved(() => screen.getByText("展开4条回复"));
+  await waitFor(() => {
+    for (const reply of replies.slice(0, 3)) {
+      const replyItem = screen.getByText(reply.content);
+      expect(replyItem).toBeInTheDocument();
+    }
+
+    (getCommentsByParentId as jest.Mock).mockImplementation(() =>
+      Promise.resolve({
+        data: { comments: replies.slice(3), hasMore: false },
+        code: "success",
+      })
+    );
+
+    const expandMoreButtons = screen.getByText("展开更多");
     expect(expandMoreButtons).toBeInTheDocument();
+
+    const replyButtons = screen.getAllByRole("button", { name: "回复" });
+    expect(replyButtons.length).toBe(13);
 
     user.click(expandMoreButtons);
   });
 
-  await waitForElementToBeRemoved(() => screen.getByText("展开2条回复"));
+  await waitForElementToBeRemoved(() => screen.getByText("展开更多"));
+
   await waitFor(() => {
     for (const reply of replies) {
       const replyItem = screen.getByText(reply.content);
       expect(replyItem).toBeInTheDocument();
     }
 
+    const collapseAllButton = screen.getByText("收起全部");
+    expect(collapseAllButton).toBeInTheDocument();
+
     const replyButtons = screen.getAllByRole("button", { name: "回复" });
-    expect(replyButtons.length).toBe(12);
+    expect(replyButtons.length).toBe(14);
+
+    user.click(collapseAllButton);
+  });
+
+  await waitForElementToBeRemoved(() => screen.getByText("收起全部"));
+
+  await waitFor(() => {
+    const expandMoreNumberButtons = screen.getByText("展开4条回复");
+    expect(expandMoreNumberButtons).toBeInTheDocument();
+
+    const replyButtons = screen.getAllByRole("button", { name: "回复" });
+    expect(replyButtons.length).toBe(10);
   });
 });

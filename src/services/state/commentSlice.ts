@@ -102,14 +102,14 @@ const userSlice = createSlice({
       // 否则，创建一个新的评论列表
       const commentId = action.meta.arg.parentId;
 
-      console.log(" action.payload", action.payload);
+      // console.log(" action.payload", action.payload);
 
       const payload = action.payload as {
         comments: CommentResponse[];
         hasMore: boolean;
       };
 
-      console.log("fetchComments", payload);
+      // console.log("fetchComments", payload);
 
       if (state[commentId]) {
         // 使用 Set 来去重
