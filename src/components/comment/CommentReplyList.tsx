@@ -57,7 +57,7 @@ const CommentReplyList = memo(() => {
   const { user } = useFetchUser();
   const commentStateCursor = commentState ? commentState.cursor : "";
 
-  console.log("commentState: ", commentState);
+  // console.log("commentState: ", commentState);
 
   const handleDelete = useCallback(
     (parentId: string, id: string) => {

@@ -25,7 +25,7 @@ jest.mock("@/hooks/usePostsHooks", () => {
   };
 });
 
-test("PostList component should render", async () => {
+test("should correctly render PostList component with expected number of posts", async () => {
   render(
     <Provider store={store}>
       <Providers>

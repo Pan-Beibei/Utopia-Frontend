@@ -101,6 +101,9 @@ const userSlice = createSlice({
       // 如果已经有评论，那么将新的评论添加到已有的评论中
       // 否则，创建一个新的评论列表
       const commentId = action.meta.arg.parentId;
+
+      console.log(" action.payload", action.payload);
+
       const payload = action.payload as {
         comments: CommentResponse[];
         hasMore: boolean;
