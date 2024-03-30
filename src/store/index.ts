@@ -5,11 +5,11 @@ import homePageSlice from "../services/state/homePageSlice";
 import activityPageSlice from "../services/state/activityPageSlice";
 import commentSlice from "../services/state/commentSlice";
 import forumSlice from "../services/state/ForumSlice";
-import globalSlice from "../services/state/globalSlice";
+// import globalSlice from "../services/state/globalSlice";
 
 const store = configureStore({
   reducer: {
-    global: globalSlice,
+    // global: globalSlice,
     user: userSlice,
     bullet: BulletSlice,
     homePage: homePageSlice,

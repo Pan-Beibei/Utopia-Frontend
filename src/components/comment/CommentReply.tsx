@@ -36,7 +36,7 @@ function CommentReply({
 }: ReplyProps) {
   const { handleReply } = useCommentContext();
 
-  console.log("data: ", data, commentParentId);
+  // console.log("data: ", data, commentParentId);
 
   let header;
   if (

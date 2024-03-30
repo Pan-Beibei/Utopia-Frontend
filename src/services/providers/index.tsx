@@ -1,12 +1,11 @@
-import { useState, useMemo, useEffect, Suspense } from "react";
+import { useState, useMemo, Suspense } from "react";
 import { ThemeProvider } from "styled-components";
-import { useDispatch } from "react-redux";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { Toaster } from "react-hot-toast";
 import { baseTheme, warmTheme } from "../../themes/themes";
 import { ThemeContext } from "./ThemeContext";
 import GlobalStyles from "../../styles/GlobalStyles";
-import { setItemsPerPage, setPaginationButtons } from "../state/globalSlice";
+// import { setItemsPerPage, setPaginationButtons } from "../state/globalSlice";
 import { StyledLoading } from "@/components/ui/Loading";
 
 interface ProvidersProps {
@@ -16,7 +15,7 @@ interface ProvidersProps {
 function Providers({ children }: ProvidersProps) {
   const queryClient = new QueryClient();
   const [theme, setTheme] = useState({ ...baseTheme, ...warmTheme });
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   //暂时只有一个主题，所以不需要切换
   const contextValue = useMemo(
@@ -29,22 +28,22 @@ function Providers({ children }: ProvidersProps) {
     [theme]
   );
 
-  useEffect(() => {
-    function handleResize() {
-      const width = window.innerWidth;
-      if (width > 1024) {
-        dispatch(setPaginationButtons(10));
-        dispatch(setItemsPerPage(15));
-      } else {
-        dispatch(setPaginationButtons(5));
-        dispatch(setItemsPerPage(10));
-      }
-    }
+  // useEffect(() => {
+  //   function handleResize() {
+  //     const width = window.innerWidth;
+  //     if (width > 1024) {
+  //       dispatch(setPaginationButtons(10));
+  //       dispatch(setItemsPerPage(15));
+  //     } else {
+  //       dispatch(setPaginationButtons(5));
+  //       dispatch(setItemsPerPage(10));
+  //     }
+  //   }
 
-    window.addEventListener("resize", handleResize);
-    handleResize();
-    return () => window.removeEventListener("resize", handleResize);
-  }, [dispatch]);
+  //   window.addEventListener("resize", handleResize);
+  //   handleResize();
+  //   return () => window.removeEventListener("resize", handleResize);
+  // }, [dispatch]);
 
   return (
     <>
