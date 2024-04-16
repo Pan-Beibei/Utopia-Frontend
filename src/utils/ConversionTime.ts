@@ -16,6 +16,7 @@ function getBeijingTimeParts(utcTimeStr: string) {
 }
 
 export function convertUTCToBeijingTime(utcTimeStr: string) {
+  if (!utcTimeStr) return "Invalid time";
   const { year, month, day, hours, minutes } = getBeijingTimeParts(utcTimeStr);
   return (
     year +

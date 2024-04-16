@@ -6,6 +6,7 @@ import { BaseColumnFlex } from "../../styles/BaseStyles";
 import { DrinkEnum, DrinkType } from "../../types";
 import Drink from "../../components/Drink";
 import DrinkSeries from "../../components/DrinkSeries";
+import { useTranslation } from "react-i18next";
 
 const StyledContainer = styled(BaseColumnFlex)`
   padding: 0 2rem;
@@ -50,30 +51,28 @@ const StyledDrinksReview = styled.div`
   padding: 2.4rem;
 `;
 
-function replaceIPWithLocalhost(url: string) {
-  return url.replace("8.138.107.174", "localhost:3000");
-}
-
 const DrinkList = ({ drinks }: { drinks: DrinkType[] }) => {
-  drinks.forEach((drink) => console.log(drink.pictures[0]));
+  return drinks.map((drink) => {
+    const description = drink.description
+      ? JSON.parse(drink.description)[0]?.src
+      : "六元咖啡馆的代表之作！";
+    const imgUrl = drink.pictures?.[0] || "default_image_url";
 
-  return (
-    <>
-      {drinks.map((drink: DrinkType) => (
-        <Drink
-          key={drink.name}
-          name={drink.name}
-          price={drink.price}
-          description={JSON.parse(drink.description)[0]?.src}
-          imgUrl={replaceIPWithLocalhost(drink.pictures[0])}
-        />
-      ))}
-    </>
-  );
+    return (
+      <Drink
+        key={drink.name || "默认"}
+        name={drink.name || "最佳饮品"}
+        price={drink.price || 0}
+        description={description}
+        imgUrl={imgUrl}
+      />
+    );
+  });
 };
 
 function Drinks() {
   const drinks = useSelector(getDrinks);
+  const { t } = useTranslation();
 
   if (Object.keys(drinks).length === 0) return <div>饮料数据错误！！</div>;
 
@@ -102,14 +101,11 @@ function Drinks() {
       <StyledContainer>
         <SectionTitleProps>Drink Menu</SectionTitleProps>
         <StyledDrinkMenuGroup>
-          <StyledDrinksListImg
-            src={replaceIPWithLocalhost(drinkMenuImg)}
-            alt="drink list"
-          />
+          <StyledDrinksListImg src={drinkMenuImg} alt="drink list" />
           <StyledDrinksReviewList>
-            {drinkMenuText.map(({ src }: { src: string }, index: number) => {
-              return <StyledDrinksReview key={index}>{src}</StyledDrinksReview>;
-            })}
+            <StyledDrinksReview>
+              {drinkMenuText[t("drinks.menuDescription")].src}
+            </StyledDrinksReview>
           </StyledDrinksReviewList>
         </StyledDrinkMenuGroup>
         <DrinkSeries seriesName="黑咖啡系列" iconUrl="/icons/blackcoffee.svg">
@@ -133,7 +129,7 @@ function Drinks() {
         >
           <DrinkList drinks={sweetwater} />
         </DrinkSeries>
-        <DrinkSeries seriesName="精酿啤酒系列" iconUrl="/icons/otherwater.svg">
+        <DrinkSeries seriesName="精酿啤酒系列" iconUrl="/icons/beer.svg">
           <DrinkList drinks={beer} />
         </DrinkSeries>
         <DrinkSeries seriesName="懂的都懂" iconUrl="/icons/otherwater.svg">

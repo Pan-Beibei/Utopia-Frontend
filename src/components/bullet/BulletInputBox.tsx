@@ -58,8 +58,6 @@ function BulletInputBox({ socket }: BulletInputTextProps) {
 
       setInputContent("");
       toast.success("弹幕已发送");
-    } else {
-      console.error("send-bullet: ", content, "socket: ", socket.current);
     }
   }
 

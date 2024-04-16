@@ -11,7 +11,7 @@ import GlobalStyles from "@/styles/GlobalStyles";
 import { baseTheme, warmTheme } from "@/themes/themes";
 import { loginUser, registerUser } from "@/services/api/auth";
 
-test("RegisterForm component should render five textboxes and two radio buttons", () => {
+test("RegisterForm component should render five textboxes and two radio buttons", async () => {
   const mock = jest.fn();
   const theme = { ...warmTheme, ...baseTheme };
 
@@ -22,8 +22,8 @@ test("RegisterForm component should render five textboxes and two radio buttons"
     </ThemeProvider>
   );
 
-  const inputs = screen.getAllByRole("textbox");
-  const radio = screen.getAllByRole("radio");
+  const inputs = await screen.findAllByRole("textbox");
+  const radio = await screen.findAllByRole("radio");
 
   expect(inputs).toHaveLength(5);
   expect(radio).toHaveLength(2);

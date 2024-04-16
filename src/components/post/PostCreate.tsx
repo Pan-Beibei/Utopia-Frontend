@@ -4,10 +4,10 @@ import styled from "styled-components";
 import { toast } from "react-hot-toast";
 import { App as Editor } from "beibei-lexical-editor";
 import TagList from "../TagList";
-import { BaseFlex } from "../../styles/BaseStyles";
-import { createPost } from "../../services/api/post";
+import { BaseFlex } from "@/styles/BaseStyles";
+import { createPost } from "@/services/api/post";
 import { useDispatch } from "react-redux";
-import { setIsCreatePostVisible } from "../../services/state/ForumSlice";
+import { setIsCreatePostVisible } from "@/services/state/ForumSlice";
 
 const StyledEditor = styled.div`
   width: 100%;
@@ -67,13 +67,17 @@ function CreatePost() {
     }
     if (!editorState || editorState._nodeMap.size <= 2) {
       toast.error("请填充内容");
+      console.log(editorState?.toJSON());
+      console.log("-------", editorState?._nodeMap.size);
       return;
     }
 
+    console.log("执行到此---------");
+
     const editorStateJSON = JSON.stringify(editorState.toJSON());
-    console.log(tags);
-    console.log(editorStateJSON);
-    console.log(title);
+    // console.log(tags);
+    // console.log(editorStateJSON);
+    // console.log(title);
 
     createPost({ title, content: editorStateJSON, tags })
       .then((res) => {
@@ -97,11 +101,11 @@ function CreatePost() {
     <StyledEditor>
       <StyledTitleInpit
         type="text"
-        placeholder="标题"
+        placeholder="请输入标题..."
         value={title}
         onChange={(e) => setTitle(e.target.value)}
       />
-      {<Editor onChange={onChange} editable={true} />}
+      <Editor onChange={onChange} editable={true} />
       <TagList tags={tags} handleSelectTag={handleSelectTag} />
       <StyledButtonList>
         <StyledButton onClick={() => dispatch(setIsCreatePostVisible(false))}>

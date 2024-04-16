@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import {
   StyledLoginInput,
   StyledLoginForm,
@@ -6,6 +7,8 @@ import {
 } from "./LoginCommon";
 
 function LoginForm({ register, getValues }: AuthFormProps) {
+  const { t } = useTranslation();
+
   const authFields = authFieldsConfig
     .filter(({ id }) => id === "password" || id === "phone")
     .sort(({ id: idA }) => (idA === "phone" ? -1 : 1));
@@ -15,7 +18,7 @@ function LoginForm({ register, getValues }: AuthFormProps) {
       {authFields.map(({ id, validation, placeholder }, index) => (
         <StyledLoginInput
           {...register(id, validation(getValues))}
-          placeholder={placeholder}
+          placeholder={t(placeholder ? placeholder : "")}
           key={index}
           data-testid={id}
         />

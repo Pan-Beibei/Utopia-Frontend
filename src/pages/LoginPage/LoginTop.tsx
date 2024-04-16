@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useTranslation } from "react-i18next";
 import { BaseFlex, BaseColumnFlex } from "../../styles/BaseStyles";
 import Logo from "../../components/ui/Logo";
 
@@ -24,12 +25,14 @@ const StyledP = styled.p`
 `;
 
 function LandingTop() {
+  const { t } = useTranslation();
+
   return (
     <StyledFlex>
       <Logo />
       <StyledColumnFlex>
-        <StyledTitle>进入六元咖啡馆</StyledTitle>
-        <StyledP>自在的空间</StyledP>
+        <StyledTitle>{t("loginPage.mainTitle")}</StyledTitle>
+        <StyledP>{t("loginPage.subTitle")}</StyledP>
       </StyledColumnFlex>
     </StyledFlex>
   );

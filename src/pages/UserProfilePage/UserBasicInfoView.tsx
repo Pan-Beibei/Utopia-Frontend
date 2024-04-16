@@ -39,7 +39,9 @@ function UserBasicInfo() {
   const dispatch = useDispatch();
 
   if (!user) {
-    return null;
+    return (
+      <StyledLogoutButton onClick={handleLogout}>退出登录</StyledLogoutButton>
+    );
   }
 
   function handleLogout() {

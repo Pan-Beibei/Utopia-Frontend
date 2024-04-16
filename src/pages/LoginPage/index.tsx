@@ -14,6 +14,7 @@ import { loginUser, registerUser, AuthFunc } from "../../services/api/auth";
 import store from "../../store";
 import { setUser } from "../../services/state/userSlice";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
+import { useTranslation } from "react-i18next";
 
 const StyledContainer = styled(BaseFlex)`
   height: 100vh;
@@ -34,6 +35,7 @@ function LoginPage() {
     formState: { errors },
   } = useForm<AuthFieldsProps>(); //, formState, getValues, reset
   const { setItem } = useLocalStorage("token");
+  const { t } = useTranslation();
 
   function handleSwitch() {
     setIsLogin((isLogin) => !isLogin);
@@ -54,12 +56,12 @@ function LoginPage() {
           store.dispatch(setUser(res.data.user));
           navigate("/");
         } else {
-          console.error(res.error);
+          console.log(res.error);
           toast.error(errorMessage);
         }
       })
       .catch((err) => {
-        console.error(err);
+        console.log(err);
         toast.error(err);
       });
   }
@@ -93,7 +95,7 @@ function LoginPage() {
         <LoginPromptLabel isLogin={isLogin} onSwitch={handleSwitch} />
 
         <LoginBotton onClick={handleSubmit(onSubmit, onError)}>
-          {isLogin ? "登录" : "注册"}
+          {isLogin ? t("loginPage.login") : t("loginPage.register")}
         </LoginBotton>
       </StyledDiv>
     </StyledContainer>

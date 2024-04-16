@@ -12,6 +12,8 @@ import {
   setNotificationCount,
 } from "../../services/state/userSlice";
 import { useQuery } from "react-query";
+import { useTranslation } from "react-i18next";
+import i18n from "i18next";
 
 const StyledNarbar = styled.nav`
   display: flex;
@@ -81,11 +83,25 @@ const StyledHeader = styled.div<{ $count: number }>`
   }
 `;
 
+function LangComponent() {
+  const changeLanguage = (lng: string) => {
+    i18n.changeLanguage(lng);
+  };
+
+  return (
+    <div>
+      <button onClick={() => changeLanguage("en")}>English</button>
+      <button onClick={() => changeLanguage("zh")}>中文</button>
+    </div>
+  );
+}
+
 function Narbar() {
   const navigate = useNavigate();
   const { getItem } = useLocalStorage("token");
   const dispatch = useDispatch();
   const notificationCount = useSelector(getNotificationCount);
+  const { t } = useTranslation();
 
   const token: string = getItem();
   const { data, error } = useQuery(
@@ -117,6 +133,7 @@ function Narbar() {
   return (
     <StyledNarbar>
       <Logo />
+      <LangComponent />
       <StyledContainer>
         <StyledNavMobile>
           <NavLinks>
@@ -140,7 +157,7 @@ function Narbar() {
           </StyledHeader>
         ) : (
           <StyledLoginButton onClick={handleNavigateToLoginPage}>
-            登录
+            {t("navbar.login")}
           </StyledLoginButton>
         )}
       </StyledContainer>

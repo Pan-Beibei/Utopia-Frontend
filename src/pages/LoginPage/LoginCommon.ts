@@ -54,8 +54,8 @@ export const authFieldsConfig: AuthFieldConfigProps[] = [
   {
     id: "username",
     type: "text",
-    label: "用户名",
-    placeholder: "请输入用户名...",
+    label: "authFields.usernameLabel",
+    placeholder: "authFields.usernamePlaceholder",
     validation: () => ({
       required: "This field is required",
       minLength: {
@@ -67,8 +67,8 @@ export const authFieldsConfig: AuthFieldConfigProps[] = [
   {
     id: "password",
     type: "text",
-    label: "密码",
-    placeholder: "请输入密码...",
+    label: "authFields.passwordLabel",
+    placeholder: "authFields.passwordPlaceholder",
     validation: () => ({
       required: "This field is required",
       minLength: {
@@ -84,8 +84,8 @@ export const authFieldsConfig: AuthFieldConfigProps[] = [
   {
     id: "passwordConfirm",
     type: "text",
-    label: "确认密码",
-    placeholder: "请再次输入密码确认...",
+    label: "authFields.confirmPasswordLabel",
+    placeholder: "authFields.confirmPasswordPlaceholder",
     validation: (getValues) => ({
       required: "This field is required",
       validate: (value) => getValues().password === value || "密码不匹配",
@@ -103,8 +103,8 @@ export const authFieldsConfig: AuthFieldConfigProps[] = [
   {
     id: "birthday",
     type: "text",
-    label: "生日",
-    placeholder: "例:1990-02-03",
+    label: "authFields.birthdayLabel",
+    placeholder: "authFields.birthdayPlaceholder",
     validation: () => ({
       required: "This field is required",
       pattern: {
@@ -116,8 +116,8 @@ export const authFieldsConfig: AuthFieldConfigProps[] = [
   {
     id: "phone",
     type: "text",
-    label: "手机号",
-    placeholder: "请输入手机号...",
+    label: "authFields.phoneLabel",
+    placeholder: "authFields.phonePlaceholder",
     validation: () => ({
       required: "This field is required",
       pattern: {

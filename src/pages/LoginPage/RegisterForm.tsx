@@ -6,6 +6,8 @@ import {
   authFieldsConfig,
   AuthFieldConfigProps,
 } from "./LoginCommon";
+import { useTranslation } from "react-i18next";
+import i18n from "i18next";
 
 const StyledGroup = styled.div`
   margin-bottom: 1.5rem;
@@ -49,17 +51,6 @@ const StyledBlueRadio = styled.input`
   }
 `;
 
-// const StyledGetVerificationCodeButton = styled.button`
-//   padding: 0.5rem 1.6rem;
-//   background-color: ${(props) => props.theme.colors.primary};
-//   color: ${(props) => props.theme.colors.white};
-//   border: none;
-//   border-radius: ${(props) => props.theme.borderRadius};
-//   position: absolute;
-//   right: -2rem;
-//   bottom: 2.2rem;
-// `;
-
 function InputField({
   fieldConfig,
   authForm,
@@ -69,10 +60,14 @@ function InputField({
 }) {
   const { id, type, validation, placeholder, options } = fieldConfig;
   const { register, getValues } = authForm;
+  const { t } = useTranslation();
 
   const validationRules = validation(getValues);
 
   if (id === "gender" && options && options.length > 0) {
+    console.log(i18n.language);
+    if (i18n.language === "en") return null;
+
     return options.map((option, i) => {
       const RadioComponent = option === "0" ? StyledPinkRadio : StyledBlueRadio;
       return (
@@ -85,6 +80,7 @@ function InputField({
             type={type}
             defaultChecked={i === 0}
           />
+
           <label htmlFor={`${id}-${i}`}>{option === "0" ? "女" : "男"}</label>
         </StyledRadioFlex>
       );
@@ -95,7 +91,7 @@ function InputField({
     <StyledLoginInput
       {...register(id, validationRules)}
       id={id}
-      placeholder={placeholder}
+      placeholder={t(placeholder ? placeholder : "")}
       type={type}
       data-testid={id}
     />
@@ -103,12 +99,15 @@ function InputField({
 }
 
 function RegisterForm(authForm: AuthFormProps) {
+  const { t } = useTranslation();
+  const genderLabel = i18n.language === "en" ? "" : "性别";
+
   return (
     <StyledLoginForm data-testid="RegisterForm">
       {authFieldsConfig.map((fieldConfig) => (
         <StyledGroup key={fieldConfig.id}>
           <StyledLabel htmlFor={fieldConfig.id}>
-            {fieldConfig.label}
+            {fieldConfig.id === "gender" ? genderLabel : t(fieldConfig.label)}
           </StyledLabel>
           <InputField fieldConfig={fieldConfig} authForm={authForm} />
         </StyledGroup>

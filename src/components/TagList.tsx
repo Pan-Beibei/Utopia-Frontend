@@ -37,7 +37,7 @@ interface TagListProps {
 function TagList({ tags, handleSelectTag }: TagListProps) {
   return (
     <StyledContainer>
-      <StyledSelectTag>选择标签</StyledSelectTag>
+      <StyledSelectTag>请选择标签</StyledSelectTag>
       <StyledTagList>
         {postTags.map((tag) => (
           <StyledTagButton

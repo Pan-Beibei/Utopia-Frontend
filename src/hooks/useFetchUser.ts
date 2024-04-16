@@ -24,12 +24,10 @@ export function useFetchUser() {
           console.log("fetch user success", res);
 
           dispatch(setUser(res.data));
-        } else {
-          console.error(res.error);
         }
       })
       .catch((err) => {
-        console.error(err);
+        console.log(err);
       });
   }, [user, dispatch, token]);
 

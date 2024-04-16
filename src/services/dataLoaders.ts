@@ -12,17 +12,17 @@ export async function hoemLoader() {
       console.log(drinks);
       store.dispatch(setDrinks(drinks.data));
     } else {
-      console.error(drinks.error);
+      console.log(drinks.error);
     }
 
     if (bullets.code === "success") {
       console.log(bullets);
       store.dispatch(setBullets(bullets.data));
     } else {
-      console.error(bullets.error);
+      console.log(bullets.error);
     }
   } catch (err) {
-    console.error(err);
+    console.log(err);
   }
   return null;
 }

@@ -103,34 +103,68 @@ function NotificationReply({
   const { user } = useFetchUser();
 
   return (
+    // <StyledNotificationReply>
+    //   {(notification.type === NotificationEnum.REPLY ||
+    //     notification.type === NotificationEnum.COMMENT) && (
+    //     <StyledFlexForHeader>
+    //       {getTitle(
+    //         notification.type,
+    //         notification.sendUser.username,
+    //         notification.entity.post.title,
+    //         notification.entity.replyTo?.author.id === user?.id
+    //       )}
+    //       <StyledDeleteButton onClick={() => handleDelete(notification.id)}>
+    //         删除
+    //       </StyledDeleteButton>
+    //     </StyledFlexForHeader>
+    //   )}
+
+    //   <StyledContent>{notification.entity.content}</StyledContent>
+
+    //   {notification.type === NotificationEnum.REPLY && (
+    //     <StyledReplyTo>
+    //       {notification.entity.replyTo.author.username +
+    //         ": " +
+    //         notification.entity.replyTo.content}
+    //     </StyledReplyTo>
+    //   )}
+
+    //   <StyledDate>
+    //     {convertUTCToBeijingTime(notification.entity.createdAt)}
+    //   </StyledDate>
+    // </StyledNotificationReply>
     <StyledNotificationReply>
-      {(notification.type === NotificationEnum.REPLY ||
-        notification.type === NotificationEnum.COMMENT) && (
+      {(notification?.type === NotificationEnum.REPLY ||
+        notification?.type === NotificationEnum.COMMENT) && (
         <StyledFlexForHeader>
           {getTitle(
-            notification.type,
-            notification.sendUser.username,
-            notification.entity.post.title,
-            notification.entity.replyTo?.author.id === user?.id
+            notification?.type,
+            notification?.sendUser?.username ?? "Unknown User",
+            notification?.entity?.post?.title ?? "No Title",
+            notification?.entity?.replyTo?.author?.id === user?.id
           )}
-          <StyledDeleteButton onClick={() => handleDelete(notification.id)}>
+          <StyledDeleteButton
+            onClick={() => handleDelete(notification?.id ?? "")}
+          >
             删除
           </StyledDeleteButton>
         </StyledFlexForHeader>
       )}
 
-      <StyledContent>{notification.entity.content}</StyledContent>
+      <StyledContent>
+        {notification?.entity?.content ?? "No Content"}
+      </StyledContent>
 
-      {notification.type === NotificationEnum.REPLY && (
+      {notification?.type === NotificationEnum.REPLY && (
         <StyledReplyTo>
-          {notification.entity.replyTo.author.username +
+          {(notification?.entity?.replyTo?.author?.username ?? "匿名用户") +
             ": " +
-            notification.entity.replyTo.content}
+            (notification?.entity?.replyTo?.content ?? "内容已删除")}
         </StyledReplyTo>
       )}
 
       <StyledDate>
-        {convertUTCToBeijingTime(notification.entity.createdAt)}
+        {convertUTCToBeijingTime(notification?.entity?.createdAt ?? "")}
       </StyledDate>
     </StyledNotificationReply>
   );

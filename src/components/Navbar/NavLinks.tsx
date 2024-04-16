@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { useState, createContext, useContext } from "react";
 import { NavLink } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { BaseColumnFlex } from "../../styles/BaseStyles";
 
 const StyledNavLinks = styled.ul`
@@ -123,6 +124,8 @@ function NavBg({ children }: NavBgProps) {
 }
 
 function Links() {
+  const { t } = useTranslation();
+
   return (
     <StyledNavLinks>
       <StyledNavLink className="home-link" to="/">
@@ -131,7 +134,7 @@ function Links() {
       <StyledNavLink className="home-icon" to="/">
         <img src="/icons/home.svg" alt="home" />
       </StyledNavLink>
-      <StyledNavLink to="/forum-page">68克情报处</StyledNavLink>
+      <StyledNavLink to="/forum-page">{t("navbar.forum")}</StyledNavLink>
       {/* <StyledNavLink to="/activity-page">最近活动</StyledNavLink> */}
     </StyledNavLinks>
   );

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useTranslation } from "react-i18next";
 
 const SwitchAccountPrompt = styled.p`
   font-size: ${(props) => props.theme.fontSize.large};
@@ -18,11 +19,15 @@ interface LoginPromptLabelProps {
 }
 
 function LoginPromptLabel({ isLogin, onSwitch }: LoginPromptLabelProps) {
+  const { t } = useTranslation();
+
   return (
     <SwitchAccountPrompt>
-      {isLogin ? "还没有账号" : "已有帐号"},
+      {isLogin ? t("loginPage.noAccount") : t("loginPage.hasAccount")}
       <StyledLoginLink onClick={onSwitch}>
-        {isLogin ? "点击注册" : "返回登录"}
+        {isLogin
+          ? t("loginPage.clickToRegister")
+          : t("loginPage.returnToLogin")}
       </StyledLoginLink>
     </SwitchAccountPrompt>
   );

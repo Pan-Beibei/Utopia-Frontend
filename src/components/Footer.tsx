@@ -75,6 +75,10 @@ const StyledContactItem = styled.li`
   font-weight: ${(props) => props.theme.fontWeight.normal};
 `;
 
+const StyledRecordNumber = styled.div`
+  font-size: ${(props) => props.theme.fontSize.small};
+`;
+
 function Footer() {
   const location = useLocation();
   const currentPath = location.pathname;
@@ -96,6 +100,15 @@ function Footer() {
           <StyledContactItem>微信: sixyuancoffee</StyledContactItem>
         </StyledContactList>
       </StyledContactContainer>
+      <StyledRecordNumber>
+        <a
+          href="https://beian.miit.gov.cn"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          苏ICP备2024087589号
+        </a>
+      </StyledRecordNumber>
     </StyledContainer>
   );
 }
