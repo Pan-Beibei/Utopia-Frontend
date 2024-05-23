@@ -4,6 +4,7 @@ import { BaseFlex } from "../../styles/BaseStyles";
 import NotificationReplyList from "../../components/Notification/NotificationReplyList";
 import NotificationLikeList from "../../components/Notification/NotificationLikeList";
 import NotificationSystemList from "../../components/Notification/NotificationSystemList";
+import { useTranslation } from "react-i18next";
 
 const StyledContainer = styled.div`
   width: 100%;
@@ -37,6 +38,7 @@ const StyledTabContent = styled.div`
 
 function NotificationView() {
   const [activeTab, setActiveTab] = useState("replies");
+  const { t } = useTranslation();
 
   return (
     <StyledContainer>
@@ -45,20 +47,20 @@ function NotificationView() {
           $selected={activeTab === "replies"}
           onClick={() => setActiveTab("replies")}
         >
-          回复我的
+          {t("personalCenter.replyMe")}
         </StyledTabBtn>
         <StyledTabBtn
           $selected={activeTab === "likes"}
           onClick={() => setActiveTab("likes")}
         >
-          点赞
+          {t("personalCenter.likeMe")}
         </StyledTabBtn>
 
         <StyledTabBtn
           $selected={activeTab === "system"}
           onClick={() => setActiveTab("system")}
         >
-          系统通知
+          {t("personalCenter.systemNotification")}
         </StyledTabBtn>
       </StyledTabList>
       <StyledTabContent>

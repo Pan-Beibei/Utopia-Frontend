@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { BaseColumnFlex } from "../../styles/BaseStyles";
+import { useTranslation } from "react-i18next";
 
 const StyledTopCard = styled(BaseColumnFlex)`
   display: grid;
@@ -60,19 +61,18 @@ const StyledFlex = styled(BaseColumnFlex)`
 
 function ForumIntroduction() {
   const imgUrl = "/images/chatbg.jpg";
+  const { t } = useTranslation();
 
   return (
     <StyledTopCard>
       <StyledFlex>
-        <StyledTitleMobile>68克情报处</StyledTitleMobile>
+        <StyledTitleMobile>{t("forum.title")}</StyledTitleMobile>
         <StyledTopCardImg src={imgUrl} alt="Top card image" />
       </StyledFlex>
 
       <StyledFlex>
-        <StyledTitleTablet>68克情报处</StyledTitleTablet>
-        <StyledTopCardText>
-          年轻就是更容易沉沦自由意志，你说你理性，克制，少说话，不爱留言和辩论，而我说你老了。偶尔的放纵，口无遮拦的在这个情报处写下点什么吧！
-        </StyledTopCardText>
+        <StyledTitleTablet>{t("forum.title")}</StyledTitleTablet>
+        <StyledTopCardText>{t("forum.description")}</StyledTopCardText>
       </StyledFlex>
     </StyledTopCard>
   );

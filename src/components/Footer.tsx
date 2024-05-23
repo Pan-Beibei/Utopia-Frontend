@@ -1,5 +1,6 @@
 import { useLocation } from "react-router-dom";
 import styled, { css } from "styled-components";
+import { useTranslation } from "react-i18next";
 
 const StyledContainer = styled.div<{ $currentPath: string }>`
   display: flex;
@@ -82,22 +83,27 @@ const StyledRecordNumber = styled.div`
 function Footer() {
   const location = useLocation();
   const currentPath = location.pathname;
+  const { t } = useTranslation();
 
   return (
     <StyledContainer $currentPath={currentPath}>
       <StyledCard $currentPath={currentPath}>
-        <StyledTitle>六元咖啡馆</StyledTitle>
-        <StyledCardText>
-          我们只是一个普通人，我们总要面对可能此生再也不会赚到非常多钱的事实，但是我们依然需要认清这个世界的真相，并且热爱生活，所以我做了这个咖啡馆，店里的猫猫狗狗男生宿舍里的人，喝咖啡的朋友，院子里的柿子树，我们一起寄居在这个咖啡馆里，相互取暖，温暖着彼此。
-        </StyledCardText>
+        <StyledTitle>{t("footer.title")}</StyledTitle>
+        <StyledCardText>{t("footer.text")}</StyledCardText>
       </StyledCard>
       <StyledContactContainer>
-        <StyledTitle>联系馆长</StyledTitle>
+        <StyledTitle> {t("footer.ContactUs")}</StyledTitle>
         <StyledContactList>
-          <StyledContactItem>小红书: 六元咖啡馆长</StyledContactItem>
-          <StyledContactItem>B站: 953168205</StyledContactItem>
-          <StyledContactItem>抖音: 190627081</StyledContactItem>
-          <StyledContactItem>微信: sixyuancoffee</StyledContactItem>
+          <StyledContactItem>
+            {t("footer.Xiaohongshu")}: 六元咖啡馆长
+          </StyledContactItem>
+          <StyledContactItem>
+            {t("footer.Bilibili")}: 953168205
+          </StyledContactItem>
+          <StyledContactItem>{t("footer.TikTok")}: 190627081</StyledContactItem>
+          <StyledContactItem>
+            {t("footer.Wechat")}: sixyuancoffee
+          </StyledContactItem>
         </StyledContactList>
       </StyledContactContainer>
       <StyledRecordNumber>

@@ -4,6 +4,7 @@ import PostSearch from "./PostSearch";
 import { BaseFlex } from "../../styles/BaseStyles";
 import { useFetchUser } from "../../hooks/useFetchUser";
 import { setIsCreatePostVisible } from "../../services/state/ForumSlice";
+import { useTranslation } from "react-i18next";
 
 const StyledPostButton = styled.button`
   padding: 1.2rem 1.6rem;
@@ -26,6 +27,7 @@ const StyledContainer = styled(BaseFlex)`
 function PostControlPanel() {
   const { user } = useFetchUser();
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   let isShow = false;
   if (user) {
@@ -39,7 +41,7 @@ function PostControlPanel() {
         <StyledPostButton
           onClick={() => dispatch(setIsCreatePostVisible(true))}
         >
-          发帖
+          {t("forum.newThread")}
         </StyledPostButton>
       )}
     </StyledContainer>

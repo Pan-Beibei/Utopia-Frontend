@@ -6,6 +6,7 @@ import { useQueryClient } from "react-query";
 import toast from "react-hot-toast";
 import { BaseColumnFlex } from "../../styles/BaseStyles";
 import NotificationReply from "./NotificationReply";
+import { useTranslation } from "react-i18next";
 
 import {
   updateNotificationsStatus,
@@ -50,6 +51,7 @@ function NotificationReplyList() {
     []
   );
   const notificationCount = useSelector(getNotificationCount);
+  const { t } = useTranslation();
 
   const {
     isError,
@@ -114,7 +116,7 @@ function NotificationReplyList() {
   if (isLoading) return <div>loading...</div>;
 
   if (notifications.length === 0) {
-    return <h3>暂无消息通知，快和大家互动吧！！！</h3>;
+    return <h3>{t("personalCenter.replyMeNoMessage")}</h3>;
   }
 
   return (

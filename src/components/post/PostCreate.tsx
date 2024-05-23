@@ -8,6 +8,7 @@ import { BaseFlex } from "@/styles/BaseStyles";
 import { createPost } from "@/services/api/post";
 import { useDispatch } from "react-redux";
 import { setIsCreatePostVisible } from "@/services/state/ForumSlice";
+import { useTranslation } from "react-i18next";
 
 const StyledEditor = styled.div`
   width: 100%;
@@ -52,6 +53,7 @@ function CreatePost() {
   const [title, setTitle] = useState("");
   const [tags, setTags] = useState<string[]>([]);
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   function onChange(editorState: EditorState) {
     setEditorState(editorState);
@@ -72,12 +74,7 @@ function CreatePost() {
       return;
     }
 
-    console.log("执行到此---------");
-
     const editorStateJSON = JSON.stringify(editorState.toJSON());
-    // console.log(tags);
-    // console.log(editorStateJSON);
-    // console.log(title);
 
     createPost({ title, content: editorStateJSON, tags })
       .then((res) => {
@@ -101,7 +98,7 @@ function CreatePost() {
     <StyledEditor>
       <StyledTitleInpit
         type="text"
-        placeholder="请输入标题..."
+        placeholder={t("createPost.titlePlaceholder")}
         value={title}
         onChange={(e) => setTitle(e.target.value)}
       />
@@ -109,9 +106,11 @@ function CreatePost() {
       <TagList tags={tags} handleSelectTag={handleSelectTag} />
       <StyledButtonList>
         <StyledButton onClick={() => dispatch(setIsCreatePostVisible(false))}>
-          取消
+          {t("createPost.cancel")}
         </StyledButton>
-        <StyledButton onClick={handlePublish}>发布</StyledButton>
+        <StyledButton onClick={handlePublish}>
+          {t("createPost.publish")}
+        </StyledButton>
       </StyledButtonList>
     </StyledEditor>
   );

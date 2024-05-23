@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
 import { clearUser } from "../../services/state/userSlice";
 import { useDispatch } from "react-redux";
+import { useTranslation } from "react-i18next";
+import i18n from "i18next";
 
 const StyledContainer = styled(BaseColumnFlex)`
   align-items: flex-start;
@@ -37,10 +39,13 @@ function UserBasicInfo() {
   const navigate = useNavigate();
   const { removeItem } = useLocalStorage("token");
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   if (!user) {
     return (
-      <StyledLogoutButton onClick={handleLogout}>退出登录</StyledLogoutButton>
+      <StyledLogoutButton onClick={handleLogout}>
+        {t("personalCenter.logout")}
+      </StyledLogoutButton>
     );
   }
 
@@ -52,17 +57,34 @@ function UserBasicInfo() {
 
   return (
     <StyledContainer>
-      <StyledTitle>基本信息</StyledTitle>
-      <InputBox title="用户名" placeholder={user.username} disabled={true} />
-      <InputBox title="生日" placeholder={user.birthday} disabled={true} />
+      <StyledTitle> {t("personalCenter.basicInfo")}</StyledTitle>
       <InputBox
-        title="性别"
-        placeholder={user.gender === "0" ? "女" : "男"}
+        title={t("personalCenter.userName")}
+        placeholder={user.username}
         disabled={true}
       />
-      <InputBox title="电话" placeholder={user.phone} disabled={true} />
+      <InputBox
+        title={t("personalCenter.birthday")}
+        placeholder={user.birthday}
+        disabled={true}
+      />
+      {i18n.language === "zh" ? (
+        <InputBox
+          title="性别"
+          placeholder={user.gender === "0" ? "女" : "男"}
+          disabled={true}
+        />
+      ) : null}
 
-      <StyledLogoutButton onClick={handleLogout}>退出登录</StyledLogoutButton>
+      <InputBox
+        title={t("personalCenter.phone")}
+        placeholder={user.phone}
+        disabled={true}
+      />
+
+      <StyledLogoutButton onClick={handleLogout}>
+        {t("personalCenter.logout")}
+      </StyledLogoutButton>
     </StyledContainer>
   );
 }

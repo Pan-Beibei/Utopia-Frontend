@@ -1,7 +1,10 @@
+import { useTranslation } from "react-i18next";
+
 function NotificationSystemList() {
+  const { t } = useTranslation();
   console.log("SystemList");
 
-  return <div>功能待开放！</div>;
+  return <div>{t("personalCenter.expectFunction")}</div>;
 }
 
 export default NotificationSystemList;

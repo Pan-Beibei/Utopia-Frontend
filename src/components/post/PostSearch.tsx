@@ -3,6 +3,7 @@ import { BaseFlex } from "../../styles/BaseStyles";
 import { getFilter, setFilter } from "../../services/state/ForumSlice";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 
 const StyledContainer = styled(BaseFlex)`
   flex-grow: 1;
@@ -44,6 +45,7 @@ const StyledImg = styled.img`
 function SearchPosts() {
   const dispatch = useDispatch();
   const filter = useSelector(getFilter);
+  const { t } = useTranslation();
 
   const [inputSearch, setInputSearch] = useState(filter);
 
@@ -73,11 +75,13 @@ function SearchPosts() {
     <StyledContainer>
       <StyledImg src="/icons/search.svg" alt="Search posts" />
       <StyledInput
-        placeholder="请输入关键词搜索..."
+        placeholder={t("forum.searchPlaceolder")}
         value={inputSearch}
         onChange={handleSearch}
       />
-      <StyledSearchButton onClick={handleSearchButton}>搜索</StyledSearchButton>
+      <StyledSearchButton onClick={handleSearchButton}>
+        {t("forum.searchBtnText")}
+      </StyledSearchButton>
     </StyledContainer>
   );
 }

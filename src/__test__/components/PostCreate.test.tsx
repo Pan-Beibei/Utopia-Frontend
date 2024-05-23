@@ -24,7 +24,6 @@ test("should submit CreatePost form with input", async () => {
   expect(inputTitleElement).toBeInTheDocument();
 
   await waitFor(() => {
-    // const container = screen.getByTestId("editor");
     const container = document.querySelector(
       ".editor-container"
     ) as HTMLElement;

@@ -1,7 +1,11 @@
+import { useTranslation } from "react-i18next";
+
 function NotificationLikeList() {
+  const { t } = useTranslation();
+
   console.log("LikeList");
 
-  return <div>功能待开放！</div>;
+  return <div>{t("personalCenter.expectFunction")}</div>;
 }
 
 export default NotificationLikeList;

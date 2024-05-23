@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { BaseColumnFlex, BaseFlex } from "../styles/BaseStyles";
 import { postTags } from "../types";
+import { useTranslation } from "react-i18next";
 
 const StyledContainer = styled(BaseColumnFlex)`
   align-items: flex-start;
@@ -35,9 +36,11 @@ interface TagListProps {
 }
 
 function TagList({ tags, handleSelectTag }: TagListProps) {
+  const { t } = useTranslation();
+
   return (
     <StyledContainer>
-      <StyledSelectTag>请选择标签</StyledSelectTag>
+      <StyledSelectTag>{t("createPost.selectTag")}</StyledSelectTag>
       <StyledTagList>
         {postTags.map((tag) => (
           <StyledTagButton

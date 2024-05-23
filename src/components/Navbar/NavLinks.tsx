@@ -129,7 +129,7 @@ function Links() {
   return (
     <StyledNavLinks>
       <StyledNavLink className="home-link" to="/">
-        主页
+        {t("navbar.home")}
       </StyledNavLink>
       <StyledNavLink className="home-icon" to="/">
         <img src="/icons/home.svg" alt="home" />

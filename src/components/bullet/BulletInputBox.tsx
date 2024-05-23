@@ -10,6 +10,7 @@ import EmojiTextInput from "../EmojiTextInput";
 import { useFetchUser } from "../../hooks/useFetchUser";
 import LazyEmojiPicker from "@/lazyComponents/LazyEmojiPicker";
 import { StyledLoading } from "@/components/ui/Loading";
+import { useTranslation } from "react-i18next";
 
 const StyledBulletInputContainer = styled.div`
   position: relative;
@@ -38,6 +39,7 @@ function BulletInputBox({ socket }: BulletInputTextProps) {
   const [inputContent, setInputContent] = useState("");
   const [showPicker, setShowPicker] = useState(false);
   const { user } = useFetchUser();
+  const { t } = useTranslation();
 
   function handleSendClick() {
     if (!user) {
@@ -77,14 +79,14 @@ function BulletInputBox({ socket }: BulletInputTextProps) {
           setInputContent={setInputContent}
           showPicker={showPicker}
           setShowPicker={setShowPicker}
-          placeholder="请输入弹幕..."
+          placeholder={t("hero.placeholder")}
         />
         <PrimaryButton
           onClick={handleSendClick}
           type={ButtonTypes.SEND_BULLET_BUTTON}
         >
           <StyledFlex>
-            发送
+            {t("hero.send")}
             <img src="./icons/fly.svg" alt="fly" />
           </StyledFlex>
         </PrimaryButton>

@@ -7,6 +7,7 @@ import { DrinkEnum, DrinkType } from "../../types";
 import Drink from "../../components/Drink";
 import DrinkSeries from "../../components/DrinkSeries";
 import { useTranslation } from "react-i18next";
+import i18n from "i18next";
 
 const StyledContainer = styled(BaseColumnFlex)`
   padding: 0 2rem;
@@ -52,16 +53,22 @@ const StyledDrinksReview = styled.div`
 `;
 
 const DrinkList = ({ drinks }: { drinks: DrinkType[] }) => {
+  const { t } = useTranslation();
+
   return drinks.map((drink) => {
     const description = drink.description
-      ? JSON.parse(drink.description)[0]?.src
+      ? JSON.parse(drink.description)[t("drinks.indexDescription")]?.src
       : "六元咖啡馆的代表之作！";
     const imgUrl = drink.pictures?.[0] || "default_image_url";
 
+    console.log(i18n.language, `drinks.${drink.name}`);
+
+    const nameStr = t(`drinks.${drink.name}`);
+
     return (
       <Drink
-        key={drink.name || "默认"}
-        name={drink.name || "最佳饮品"}
+        key={nameStr}
+        name={nameStr}
         price={drink.price || 0}
         description={description}
         imgUrl={imgUrl}
@@ -104,38 +111,53 @@ function Drinks() {
           <StyledDrinksListImg src={drinkMenuImg} alt="drink list" />
           <StyledDrinksReviewList>
             <StyledDrinksReview>
-              {drinkMenuText[t("drinks.menuDescription")].src}
+              {drinkMenuText[t("drinks.indexDescription")].src}
             </StyledDrinksReview>
           </StyledDrinksReviewList>
         </StyledDrinkMenuGroup>
-        <DrinkSeries seriesName="黑咖啡系列" iconUrl="/icons/blackcoffee.svg">
+        <DrinkSeries
+          seriesName={t("drinks.blackCoffeeSeries")}
+          iconUrl="/icons/blackcoffee.svg"
+        >
           <DrinkList drinks={blackcoffee} />
         </DrinkSeries>
 
-        <DrinkSeries seriesName="白咖啡系列" iconUrl="/icons/whitecoffee.svg">
+        <DrinkSeries
+          seriesName={t("drinks.whiteCoffeeSeries")}
+          iconUrl="/icons/whitecoffee.svg"
+        >
           <DrinkList drinks={whitecoffee} />
         </DrinkSeries>
 
         <DrinkSeries
-          seriesName="青梅酒特调系列"
+          seriesName={t("drinks.greenPlumWineSeries")}
           iconUrl="/icons/greenplumwine.svg"
         >
           <DrinkList drinks={greenplumwine} />
         </DrinkSeries>
 
         <DrinkSeries
-          seriesName="再见小甜水系列"
+          seriesName={t("drinks.goodbyeLittleSweet")}
           iconUrl="/icons/sweetwater.svg"
         >
           <DrinkList drinks={sweetwater} />
         </DrinkSeries>
-        <DrinkSeries seriesName="精酿啤酒系列" iconUrl="/icons/beer.svg">
+        <DrinkSeries
+          seriesName={t("drinks.craftBeerSeries")}
+          iconUrl="/icons/beer.svg"
+        >
           <DrinkList drinks={beer} />
         </DrinkSeries>
-        <DrinkSeries seriesName="懂的都懂" iconUrl="/icons/otherwater.svg">
+        <DrinkSeries
+          seriesName={t("drinks.everyoneUnderstands")}
+          iconUrl="/icons/otherwater.svg"
+        >
           <DrinkList drinks={drinks[DrinkEnum.OTHER_WATER]} />
         </DrinkSeries>
-        <DrinkSeries seriesName="葱油面" iconUrl="/icons/noodles.svg">
+        <DrinkSeries
+          seriesName={t("drinks.scallionOilNoodles")}
+          iconUrl="/icons/noodles.svg"
+        >
           <DrinkList drinks={drinks[DrinkEnum.NOODLES]} />
         </DrinkSeries>
       </StyledContainer>

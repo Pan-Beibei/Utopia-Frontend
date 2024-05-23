@@ -103,36 +103,6 @@ function NotificationReply({
   const { user } = useFetchUser();
 
   return (
-    // <StyledNotificationReply>
-    //   {(notification.type === NotificationEnum.REPLY ||
-    //     notification.type === NotificationEnum.COMMENT) && (
-    //     <StyledFlexForHeader>
-    //       {getTitle(
-    //         notification.type,
-    //         notification.sendUser.username,
-    //         notification.entity.post.title,
-    //         notification.entity.replyTo?.author.id === user?.id
-    //       )}
-    //       <StyledDeleteButton onClick={() => handleDelete(notification.id)}>
-    //         删除
-    //       </StyledDeleteButton>
-    //     </StyledFlexForHeader>
-    //   )}
-
-    //   <StyledContent>{notification.entity.content}</StyledContent>
-
-    //   {notification.type === NotificationEnum.REPLY && (
-    //     <StyledReplyTo>
-    //       {notification.entity.replyTo.author.username +
-    //         ": " +
-    //         notification.entity.replyTo.content}
-    //     </StyledReplyTo>
-    //   )}
-
-    //   <StyledDate>
-    //     {convertUTCToBeijingTime(notification.entity.createdAt)}
-    //   </StyledDate>
-    // </StyledNotificationReply>
     <StyledNotificationReply>
       {(notification?.type === NotificationEnum.REPLY ||
         notification?.type === NotificationEnum.COMMENT) && (

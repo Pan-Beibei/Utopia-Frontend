@@ -13,7 +13,7 @@ import {
 } from "../../services/state/userSlice";
 import { useQuery } from "react-query";
 import { useTranslation } from "react-i18next";
-import i18n from "i18next";
+// import i18n from "i18next";
 
 const StyledNarbar = styled.nav`
   display: flex;
@@ -83,18 +83,18 @@ const StyledHeader = styled.div<{ $count: number }>`
   }
 `;
 
-function LangComponent() {
-  const changeLanguage = (lng: string) => {
-    i18n.changeLanguage(lng);
-  };
+// function LangComponent() {
+//   const changeLanguage = (lng: string) => {
+//     i18n.changeLanguage(lng);
+//   };
 
-  return (
-    <div>
-      <button onClick={() => changeLanguage("en")}>English</button>
-      <button onClick={() => changeLanguage("zh")}>中文</button>
-    </div>
-  );
-}
+//   return (
+//     <div>
+//       <button onClick={() => changeLanguage("en")}>English</button>
+//       <button onClick={() => changeLanguage("zh")}>中文</button>
+//     </div>
+//   );
+// }
 
 function Narbar() {
   const navigate = useNavigate();
@@ -133,7 +133,7 @@ function Narbar() {
   return (
     <StyledNarbar>
       <Logo />
-      <LangComponent />
+      {/* <LangComponent /> */}
       <StyledContainer>
         <StyledNavMobile>
           <NavLinks>

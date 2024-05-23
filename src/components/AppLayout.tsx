@@ -2,8 +2,10 @@ import { Outlet } from "react-router-dom";
 import styled from "styled-components";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
+import LanguageSwitcher from "./LanguageSwitcher";
 
 const StyledContainer = styled.div`
+  position: relative;
   background-color: ${(props) => props.theme.colors.bgColor};
 `;
 
@@ -23,6 +25,7 @@ function AppLayout() {
       <StyledFooter>
         <Footer />
       </StyledFooter>
+      <LanguageSwitcher />
     </StyledContainer>
   );
 }

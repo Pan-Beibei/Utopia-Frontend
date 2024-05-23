@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { BaseFlex } from "../../styles/BaseStyles";
 import { UserViewType, UserViewEnum } from "./UserProfileCommon";
+import { useTranslation } from "react-i18next";
 
 const StyledProfileViewControls = styled(BaseFlex)`
   gap: 2.5rem;
@@ -26,19 +27,21 @@ function ProfileViewControls({
   viewType,
   handleViewTypeChange,
 }: ProfileViewControlsProps) {
+  const { t } = useTranslation();
+
   return (
     <StyledProfileViewControls>
       <StyledButton
         $selected={viewType === UserViewEnum.USER_INFO}
         onClick={() => handleViewTypeChange(UserViewEnum.USER_INFO)}
       >
-        个人信息
+        {t("personalCenter.personalInfo")}
       </StyledButton>
       <StyledButton
         $selected={viewType === UserViewEnum.MESSAGE}
         onClick={() => handleViewTypeChange(UserViewEnum.MESSAGE)}
       >
-        消息通知
+        {t("personalCenter.messageNotification")}
       </StyledButton>
     </StyledProfileViewControls>
   );
